@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>curriculum notes — vc lab venture institute</title>
+<meta name="description" content="Summaries of every published VC Lab Venture Institute session — what venture capital is, firm structures, fund economics, performance metrics, and limited partners.">
+<meta name="author" content="Emmanuel Chan">
+<meta property="og:title" content="VC Lab Curriculum Notes | E-man Chan">
+<meta property="og:description" content="Session-by-session summaries of the VC Lab Venture Institute curriculum.">
+<link rel="stylesheet" href="style.css">
+<style>
+.toc {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+}
+.toc ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; }
+.toc a { text-decoration: none; font-size: 0.9rem; }
+.toc a:hover { text-decoration: underline; }
+.session {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.25rem;
+}
+.session h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+.session .src {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.9rem;
+    display: block;
+}
+.session p { font-size: 0.93rem; color: var(--muted); margin-bottom: 0.75rem; }
+.session ul { margin: 0 0 0.75rem 1.2rem; }
+.session li { font-size: 0.93rem; color: var(--muted); margin-bottom: 0.35rem; }
+.session strong { color: var(--text); }
+.keytake {
+    border-left: 3px solid var(--gold);
+    padding: 0.5rem 0 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-top: 1rem;
+}
+.unpub {
+    background: var(--card);
+    border: 1px dashed var(--line);
+    border-radius: 5px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.25rem;
+    opacity: 0.85;
+}
+.unpub h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+.unpub p, .unpub li { font-size: 0.92rem; color: var(--muted); }
+.unpub ul { margin: 0.5rem 0 0 1.2rem; }
+table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.88rem; }
+th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--line); }
+th { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--accent); }
+td { color: var(--muted); }
+.table-wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-bar">
+    <div class="nav-links-wrapper">
+      <div class="nav-links">
+        <a href="index.html">home</a>
+        <a href="structure.html">structure</a>
+        <a href="glossary.html">glossary</a>
+        <a href="https://emanchan.com">emanchan.com</a>
+      </div>
+    </div>
+    <div class="nav-theme-container">
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1 class="fluid">curriculum <span class="hl">notes</span></h1>
+  <p class="hero-sub">Every published session of the VC Lab Venture Institute, summarized.
+  Sources are public articles on
+  <a href="https://govclab.com" target="_blank" rel="noopener">govclab.com</a> —
+  reachable via <code>vcl.to/VI&lt;sprint&gt;-&lt;session&gt;</code>.</p>
+</header>
+
+<main class="container">
+
+  <div class="toc">
+    <ul>
+      <li><a href="#s1">Sprint 1 — VC Basics</a></li>
+      <li><a href="#s2">Sprint 2 — Firm Structures</a></li>
+      <li><a href="#s3">Sprint 3 — Performance</a></li>
+      <li><a href="#s4">Sprint 4 — Limited Partners</a></li>
+      <li><a href="#s58">Sprints 5–8 — Practicum</a></li>
+    </ul>
+  </div>
+
+  <!-- SPRINT 1 -->
+  <section id="s1">
+    <h2 class="section-title"><span>Sprint 1 — Introduction to VC Basics</span></h2>
+
+    <div class="session">
+      <h3>1.1 — Overview of the Venture Capital Industry</h3>
+      <span class="src">vcl.to/VI1-1</span>
+      <p>Venture capital is a specialized form of private equity: capital from a fund invested into
+      companies with significant growth potential. VCs fund the innovative startups that traditional
+      lenders avoid, accepting substantial risk in exchange for equity.</p>
+      <p>The industry runs on three stages — <strong>fundraise</strong> (GPs raise from LPs),
+      <strong>invest</strong> (deploy into startups for equity), <strong>exit</strong> (acquisition
+      or IPO). Firms make money two ways: ~2% annual management fees and ~20% carried interest.</p>
+      <p>Roles inside a firm: <strong>Managing Partners</strong> (strategy and LP relationships),
+      <strong>General Partners</strong> (deal decisions, portfolio guidance),
+      <strong>Venture Partners</strong> (sector expertise), and
+      <strong>Associates/Analysts</strong> (diligence and research).</p>
+      <div class="keytake">The pitch to founders isn't the money — it's mentorship, connections,
+      recruiting help, and exit planning. Capital is the commodity.</div>
+    </div>
+
+    <div class="session">
+      <h3>1.2 — Role of Venture Capital in Funding Startups</h3>
+      <span class="src">vcl.to/VI1-2</span>
+      <p>VC compounds beyond the individual company. Funded startups create unicorns, unicorns
+      create jobs and wealth, and that wealth recycles into the ecosystem as new founders and new
+      angels. A thriving startup community attracts talent, which attracts more investment.</p>
+      <p>The societal argument: venture-backed companies address real problems in transportation,
+      healthcare, and food access — improving accessibility, efficiency, and quality of life while
+      disrupting incumbents.</p>
+    </div>
+
+    <div class="session">
+      <h3>1.3 — The Investment Process and Timeline</h3>
+      <span class="src">vcl.to/VI1-3</span>
+      <p>The process is a funnel, not a pipeline: roughly <strong>500 leads → 1–2 investments.</strong></p>
+      <ul>
+        <li><strong>Sourcing</strong> — networking, events, platforms, accelerators, incubators</li>
+        <li><strong>Due diligence</strong> — business model, market, competition, financials, team</li>
+        <li><strong>Term sheet</strong> — non-binding; amount, valuation, ownership, rights, preferences</li>
+        <li><strong>Documentation &amp; close</strong> — investment agreements, shareholder contracts, wire</li>
+        <li><strong>Post-investment support</strong> — board seat, network access, help scaling</li>
+        <li><strong>Follow-on &amp; exit</strong> — later rounds, then IPO / M&amp;A / secondary</li>
+      </ul>
+      <div class="keytake">Conviction isn't the hard part. Volume at the top of the funnel is what
+      makes conviction possible.</div>
+    </div>
+
+    <div class="session">
+      <h3>1.4 — Stages of Venture Capital Funding</h3>
+      <span class="src">vcl.to/VI1-4</span>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Phase</th><th>Stages</th><th>What the money buys</th></tr>
+        <tr><td>Early</td><td>Angel, Pre-Seed, Seed</td><td>Prototype, first team, business plan, market research, early product</td></tr>
+        <tr><td>Growth</td><td>Series A, Series B</td><td>Team expansion, operational scale, new markets, sales &amp; marketing infrastructure</td></tr>
+        <tr><td>Late</td><td>Series C, D+</td><td>Market leadership, international expansion, exit preparation</td></tr>
+        <tr><td>Exit</td><td>M&amp;A, IPO, secondary</td><td>Liquidity</td></tr>
+      </table>
+      </div>
+      <p>Series A typically runs "a few million to tens of millions." Series C can reach hundreds of
+      millions or more.</p>
+    </div>
+  </section>
+
+  <!-- SPRINT 2 -->
+  <section id="s2">
+    <h2 class="section-title"><span>Sprint 2 — Venture Capital Firm Structures</span></h2>
+
+    <div class="session">
+      <h3>2.1 — Venture Capital Structures</h3>
+      <span class="src">vcl.to/VI2-1</span>
+      <p>Four ways to organize venture capital:</p>
+      <ul>
+        <li><strong>Traditional funds</strong> — collect from partners, invest across many startups, plan for exits</li>
+        <li><strong>Venture builders</strong> — create and manage companies internally, growing businesses from within</li>
+        <li><strong>Outsourced funds</strong> — platforms letting part-time or first-time investors run a fund</li>
+        <li><strong>SPVs</strong> — simplified vehicles pooling capital for a single specific deal</li>
+      </ul>
+    </div>
+
+    <div class="session">
+      <h3>2.2 — Venture Firm Entities</h3>
+      <span class="src">vcl.to/VI2-2</span>
+      <p>Three entities, three jobs. What people call "a VC firm" is actually all three:</p>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Entity</th><th>Job</th><th>Paid by</th></tr>
+        <tr><td>Management Company (ManCo)</td><td>Owns brand &amp; IP, employs staff, runs vendors and ops</td><td>Management fee</td></tr>
+        <tr><td>General Partner (GP)</td><td>Makes investment decisions, oversees the fund(s)</td><td>Carried interest</td></tr>
+        <tr><td>The Fund</td><td>Collects LP capital, holds securities, calls capital</td><td>— it's the vehicle</td></tr>
+      </table>
+      </div>
+      <p>All three are typically <strong>pass-through entities</strong> — no tax at the entity level,
+      income flows to individual returns, avoiding double taxation.</p>
+      <div class="keytake">The separation exists so fee income, carry, and investor capital never sit
+      in the same pocket. It's structural discipline, not paperwork.
+      → <a href="structure.html">See the capital flow diagram</a></div>
+    </div>
+
+    <div class="session">
+      <h3>2.3 — Venture Capital Processes</h3>
+      <span class="src">vcl.to/VI2-3</span>
+      <p><strong>Create the fund</strong></p>
+      <ul>
+        <li><strong>1. Write the thesis</strong> — geography, sectors, strategy, stage, target size, name (4–6 weeks)</li>
+        <li><strong>2. Form the team</strong> — partners known 5+ years; test commitment before offers</li>
+        <li><strong>3. Pitch LPs</strong> — define archetypes, secure PACT commitment letters</li>
+        <li><strong>4. Complete fund formation</strong> — at 10% or $1M committed: counsel, domicile, vendors, entities, capital calls</li>
+      </ul>
+      <p><strong>Make an investment</strong></p>
+      <ul>
+        <li><strong>5. Close a deal</strong> — source to thesis, build conviction, investment committee, diligence, negotiate, sign, wire, set up updates</li>
+      </ul>
+      <p><strong>Return the money</strong></p>
+      <ul>
+        <li><strong>6. Distribute proceeds</strong> — collect exit proceeds, determine carry status, calculate per partner accounts, net fees, check side letters, communicate, distribute on schedule</li>
+      </ul>
+    </div>
+
+    <div class="session">
+      <h3>2.4 — Venture Capital Roles</h3>
+      <span class="src">no public short link — covered live</span>
+      <p>Overlaps with 1.1: Managing Partners, General Partners, Venture Partners, Principals,
+      Associates, Analysts, plus the back-office and platform roles that make a firm run.</p>
+    </div>
+  </section>
+
+  <!-- SPRINT 3 -->
+  <section id="s3">
+    <h2 class="section-title"><span>Sprint 3 — Venture Capital Performance</span></h2>
+
+    <div class="session">
+      <h3>3.1 — The Power Law in VC</h3>
+      <span class="src">vcl.to/VI3-1</span>
+      <p>One investment returns more than all the others combined — often by orders of magnitude.
+      Rooted in Pareto's distribution work.</p>
+      <ul>
+        <li>Portfolios are built <strong>expecting</strong> most companies to fail or flatline</li>
+        <li>The job isn't avoiding losers — it's guaranteeing exposure to the one winner</li>
+        <li>Drives the hunt for "Blue Ocean Deals" — untapped markets, strong early adoption</li>
+        <li>Fund size and check size must be set so one outlier can move the whole fund</li>
+        <li>It's why access to competitive deals is fought over so hard</li>
+      </ul>
+      <div class="keytake">VC is not a diversification model wearing a risk costume. It's a
+      concentrated bet on transformational companies, with diversification used only to buy more
+      tickets in the same lottery.</div>
+    </div>
+
+    <div class="session">
+      <h3>3.2 — Venture Fund Economics</h3>
+      <span class="src">vcl.to/VI3-2</span>
+      <ul>
+        <li><strong>Management fee</strong> — ~2%/yr of LP commitments. A $50M fund → $1M/yr. Covers salaries, rent, insurance, diligence, travel.</li>
+        <li><strong>Carried interest</strong> — 20% of profits. $20M profit → $4M GP / $16M LP.</li>
+        <li><strong>Hurdle rate</strong> — carry applies only above a preferred return (~8%), so LPs are made whole first.</li>
+        <li><strong>Origin</strong> — post-WWII, standardized by figures like Tom Perkins, who believed managers should earn significantly from profits they generated.</li>
+      </ul>
+    </div>
+
+    <div class="session">
+      <h3>3.3 — Venture Fund Metrics</h3>
+      <span class="src">vcl.to/VI3-3</span>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Metric</th><th>What it answers</th><th>Watch out for</th></tr>
+        <tr><td>MOIC</td><td>What multiple on money in?</td><td>Ignores time entirely</td></tr>
+        <tr><td>TVPI</td><td>Total value (realized + paper) / paid in</td><td>Blends real and imaginary</td></tr>
+        <tr><td>DPI</td><td>How much cash actually came back?</td><td>The honest one</td></tr>
+        <tr><td>RVPI</td><td>How much is still in the ground?</td><td>Paper marks, self-reported</td></tr>
+        <tr><td>IRR</td><td>Annualized, time-weighted return</td><td>Flattered by early markups; gameable by timing</td></tr>
+      </table>
+      </div>
+      <div class="keytake">TVPI shows the size of the outcome, DPI shows how much of it is real, IRR
+      shows how fast you got there. Never read IRR alone.</div>
+    </div>
+
+    <div class="session">
+      <h3>3.4 — Venture Allocation Strategies</h3>
+      <span class="src">no public short link — covered live</span>
+      <p>Portfolio construction: how many companies, what check size, how much held in reserve for
+      follow-ons, and how ownership targets follow from the power law. The practical question is
+      what fund size makes your realistic best outcome actually return the fund.</p>
+    </div>
+  </section>
+
+  <!-- SPRINT 4 -->
+  <section id="s4">
+    <h2 class="section-title"><span>Sprint 4 — Finding and Closing Limited Partners</span></h2>
+
+    <div class="session">
+      <h3>4.1 — The Importance of Limited Partners</h3>
+      <span class="src">govclab.com/2023/08/16/the-importance-of-limited-partners/</span>
+      <p>Without LPs, venture capital would not exist. They supply the capital and hold managers to
+      fiduciary duty. But good LPs do more than fund — they shape strategy through advisory
+      committees and feedback, and they show up for the community.</p>
+      <p>Quality over size: cultivate a diverse LP base with <strong>no single investor above ~20%</strong>,
+      avoid problematic side letters, and screen for trustworthiness, transparency, and long-term
+      vision. Impatient or opaque LPs can sink a fund.</p>
+    </div>
+
+    <div class="session">
+      <h3>4.2 — Limited Partner Archetypes</h3>
+      <span class="src">govclab.com/2023/08/16/lp-archetypes/</span>
+      <p>Common archetypes: high-net-worth individuals ($1M+ liquid, clustered among professionals,
+      executives, entrepreneurs, and investors), family offices, funds of funds, pension funds,
+      sovereign funds, insurance companies, and corporate/strategic investors.</p>
+      <p>Motivation differs by type. A corporate LP may invest for strategic visibility into emerging
+      technology rather than pure return — which changes what they want from you.</p>
+    </div>
+
+    <div class="session">
+      <h3>4.3 — Sourcing and Closing Limited Partners</h3>
+      <span class="src">vcl.to/VI4-3</span>
+      <p>An LP construction model for a <strong>$10M fund</strong>:</p>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Check size</th><th>Commitments</th><th>Typical archetype</th></tr>
+        <tr><td>$1M</td><td>2</td><td>Family offices, funds of funds, corporate VC</td></tr>
+        <tr><td>$500K</td><td>6</td><td>Exited founders, tech executives</td></tr>
+        <tr><td>$250K</td><td>12</td><td>HNWIs, bankers, larger VC firms</td></tr>
+        <tr><td>$100K</td><td>20</td><td>Friends, alumni networks, angels</td></tr>
+      </table>
+      </div>
+      <p>Initial closes typically capture <strong>10–25%</strong> of target fund size. The eleven-step
+      funnel: source → connector intro → initial meeting → pitch → materials → <strong>PACT signed</strong>
+      → diligence → legal review → agreement signed → capital call.</p>
+      <div class="keytake">"Identifying real LPs requires searching with a combination of less obvious
+      keywords" — the obvious searches surface the same over-solicited names everyone else found.</div>
+    </div>
+
+    <div class="session">
+      <h3>4.4 — Maintaining Relationships with LPs</h3>
+      <span class="src">govclab.com/2023/08/16/maintaining-lp-relationships/</span>
+      <p>The goal is an enduring personal and financial relationship, so LPs re-up in Fund II.
+      Communication should be <strong>transparent</strong> (wins and setbacks),
+      <strong>matter of fact</strong> (no embellishment), <strong>data rich</strong>, and
+      <strong>clear</strong> (no jargon).</p>
+      <p>Touchpoints: email updates, scheduled calls, monthly newsletters, quarterly or annual
+      reports, and in-person events. Cadence follows the sector — quarterly for fast-moving tech and
+      early stage, annual for longer cycles like biotech.</p>
+      <div class="keytake">Avoid surprises, especially about exits. Success signals: prompt responses,
+      timely capital calls, and reinvestment.</div>
+    </div>
+  </section>
+
+  <!-- SPRINTS 5-8 -->
+  <section id="s58">
+    <h2 class="section-title"><span>Sprints 5–8 — Practicum</span><span class="dim">no public articles</span></h2>
+    <p style="margin-bottom:1.5rem;color:var(--muted);font-size:0.93rem;">These sprints run inside
+    Decile Hub rather than through published articles — there are no <code>vcl.to</code> short links for
+    them. Notes here are session outlines and my own prep, to be filled in as I go.</p>
+
+    <div class="unpub">
+      <h3>Sprint 5 — Venture Deals</h3>
+      <p>Decile Hub dealflow · sourcing deals · creating deal memos · market analysis.</p>
+      <ul>
+        <li>Goal: a deal memo template writable in under 90 minutes</li>
+        <li>Structure: one-liner, why now, team, market, thesis fit, the bet, terms &amp; ownership, and an honest anti-memo</li>
+      </ul>
+    </div>
+
+    <div class="unpub">
+      <h3>Sprint 6 — Venture Operations</h3>
+      <p>Venture style · compliance and legal frameworks · valuation policies · Decile Hub back office.</p>
+      <ul>
+        <li>Marks drive RVPI, which drives TVPI — so valuation policy is a credibility question, not an accounting one</li>
+        <li>Open: exemptions for a sub-$10M US fund; who signs off on marks with no CFO</li>
+      </ul>
+    </div>
+
+    <div class="unpub">
+      <h3>Sprint 7 — Venture Accounting</h3>
+      <p>Fund accounting · venture financial model · cap tables · an accounting deep dive.</p>
+      <ul>
+        <li>Where the Sprint 3 metrics actually come from</li>
+        <li>Open: reserve ratio for a pre-seed fund; how a SAFE converts and what it does to ownership</li>
+      </ul>
+    </div>
+
+    <div class="unpub">
+      <h3>Sprint 8 — Venture Careers</h3>
+      <p>Decile Hub capstone · personal brand in VC · Residency Program invitations for top performers.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Summarized from public articles on <a href="https://govclab.com">govclab.com</a>.
+  Emmanuel Chan &middot; <a href="https://emanchan.com">emanchan.com</a> &middot;
+  <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
+</footer>
+
+<script>
+(function () {
+  var key = 'vclab-theme';
+  var btn = document.getElementById('theme-toggle');
+  var stored = localStorage.getItem(key);
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) document.body.classList.add('dark-mode');
+  btn.addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem(key, document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+  });
+})();
+</script>
+
+</body>
+</html>

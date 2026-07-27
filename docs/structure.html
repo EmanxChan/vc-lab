@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vc structure &amp; capital flow — e-man chan</title>
+<meta name="description" content="How capital flows through a venture fund — the ManCo, GP, LP structure explained with a diagram.">
+<meta name="author" content="Emmanuel Chan">
+<meta property="og:title" content="VC Structure & Capital Flow | E-man Chan">
+<meta property="og:description" content="The ManCo, GP, LP structure and how capital flows from commitments through investments and back to investors.">
+<link rel="stylesheet" href="style.css">
+<style>
+.diagram {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0 2.5rem;
+}
+.diagram pre {
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    white-space: pre;
+    color: var(--text);
+}
+.entity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+.entity {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 5px 5px 0;
+    padding: 1.4rem 1.6rem;
+}
+.entity h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+.entity p { font-size: 0.92rem; color: var(--muted); }
+.prose { max-width: 780px; }
+.prose p { margin-bottom: 1rem; }
+</style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-bar">
+    <div class="nav-links-wrapper">
+      <div class="nav-links">
+        <a href="index.html">home</a>
+        <a href="glossary.html">glossary</a>
+        <a href="notes.html">notes</a>
+        <a href="https://emanchan.com">emanchan.com</a>
+      </div>
+    </div>
+    <div class="nav-theme-container">
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1 class="fluid">capital <span class="hl">flow</span></h1>
+  <p class="hero-sub">How a venture fund is actually organized — and how money travels from an LP's
+  commitment, through startups, and back out again.</p>
+</header>
+
+<main class="container">
+
+  <section>
+    <h2 class="section-title"><span>The diagram</span><span class="dim">ManCo · GP · LP</span></h2>
+    <div class="diagram">
+<pre>
+          HOW CAPITAL FLOWS THROUGH A VENTURE FUND
+          ========================================
+
+        +--------------------------------------+
+        |           LIMITED PARTNERS           |
+        |                (LPs)                 |
+        |   family offices, funds of funds,    |
+        |  exited founders, tech execs, HNWIs  |
+        +--------------------------------------+
+              |                          ^
+   (1) commit |                          | (6) distributions
+       capital|                          |     1. LP capital returned
+       + calls|                          |     2. preferred return ~8%
+              v                          |     3. remainder split 80/20
+        +--------------------------------------+       +------------------------+
+        |               THE FUND               |--2%-->|   MANAGEMENT COMPANY   |
+        |       (a Limited Partnership)        |  fee  |        (ManCo)         |
+        |   holds the capital and the shares   |       | brand, IP, staff, ops  |
+        +--------------------------------------+       +------------------------+
+              |                          ^
+   (3) invest |                          | (5) exit proceeds
+              |                          |     IPO / M&amp;A / secondary
+              v                          |
+        +--------------------------------------+       +------------------------+
+        |         PORTFOLIO COMPANIES          |&lt;--(4)-|    GENERAL PARTNER     |
+        |      (the startups in the fund)      | picks |          (GP)          |
+        +--------------------------------------+       |  decides every deal,   |
+                                                       |  earns 20% carry after |
+                                                       |  LPs are made whole    |
+                                                       +------------------------+
+</pre>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title"><span>The four entities</span></h2>
+    <div class="entity-grid">
+
+      <div class="entity">
+        <h3>Limited Partner (LP)</h3>
+        <p>The investor in the fund — family offices, funds of funds, exited founders, tech
+        executives, and high-net-worth individuals. LPs commit capital and have it called over
+        time, but they don't pick companies and don't run anything. Their liability is limited to
+        what they committed, which is what makes them "limited."</p>
+      </div>
+
+      <div class="entity">
+        <h3>Management Company (ManCo)</h3>
+        <p>The operating business. It owns the firm's brand and intellectual property, employs the
+        staff, signs the vendor contracts, and pays the bills. It's funded by the management fee —
+        roughly 2% of committed capital per year. Think of it as the firm you'd actually go to work at.</p>
+      </div>
+
+      <div class="entity">
+        <h3>The Fund</h3>
+        <p>A limited partnership that exists to hold money and shares. LPs commit to it, it calls
+        their capital, it buys equity in startups, and it holds those securities on everyone's
+        behalf. It has no employees. Most firms run several funds at once, each a separate vehicle
+        with its own vintage and LPs.</p>
+      </div>
+
+      <div class="entity">
+        <h3>General Partner (GP)</h3>
+        <p>The decision-making entity. Composed of managing partners, general partners, and venture
+        partners, the GP chooses every investment the fund makes and carries unlimited liability for
+        it. In exchange it earns carried interest — typically 20% of profits, and only after LPs
+        have received their capital back plus a preferred return.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title"><span>What "ManCo, GP, LP" means</span></h2>
+    <div class="prose">
+      <p>The phrase describes the three-entity structure that nearly every venture firm uses. What
+      looks from the outside like one company is actually three legal entities with deliberately
+      separated jobs: the <strong>ManCo</strong> runs the business and is paid fees, the
+      <strong>GP</strong> makes investment decisions and is paid carry, and the <strong>Fund</strong>
+      holds the LPs' capital and the securities it buys.</p>
+
+      <p>The separation is the point. It keeps operating expenses, performance compensation, and
+      investor capital in three different pockets, so a firm can't quietly fund payroll out of
+      investor money or let one fund's problems reach another's assets. It also isolates liability —
+      the GP carries unlimited liability for investment decisions, while LPs risk only what they
+      committed.</p>
+
+      <p>All three are typically structured as pass-through entities, so profits aren't taxed at the
+      entity level and instead flow to individual returns — avoiding double taxation on the same
+      gains. Practically, it means a fund manager wears three hats at once: operator of the ManCo,
+      decision-maker at the GP, and fiduciary to the Fund.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Emmanuel Chan &middot; <a href="https://emanchan.com">emanchan.com</a> &middot;
+  <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
+</footer>
+
+<script>
+(function () {
+  var key = 'vclab-theme';
+  var btn = document.getElementById('theme-toggle');
+  var stored = localStorage.getItem(key);
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) document.body.classList.add('dark-mode');
+  btn.addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem(key, document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+  });
+})();
+</script>
+
+</body>
+</html>
