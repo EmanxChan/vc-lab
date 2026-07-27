@@ -1,53 +1,113 @@
 # VC Lab — Venture Institute Notes
 
-My working notebook for **VC Lab's Venture Institute (Cohort 7)** — a 9-week program on
-venture capital run by Decile Group.
+My working notebook for **VC Lab's Venture Institute (Cohort 7)**, run by Decile Group through
+the Founder Institute portal.
 
 | Page | URL |
 |---|---|
-| Home | https://emanxchan.github.io/vc-lab/ |
-| Glossary | https://emanxchan.github.io/vc-lab/glossary.html |
-| Structure & capital flow | https://emanxchan.github.io/vc-lab/structure.html |
-| Curriculum notes | https://emanxchan.github.io/vc-lab/notes.html |
+| Home | https://vc-lab.vercel.app |
+| Glossary | https://vc-lab.vercel.app/glossary.html |
+| Structure & capital flow | https://vc-lab.vercel.app/structure.html |
+| Curriculum notes | https://vc-lab.vercel.app/notes.html |
+
+Mirror on GitHub Pages: https://emanxchan.github.io/vc-lab/ — same content, both auto-deploy on push.
 
 ---
 
 ## Thesis
 
-**AI and humanity · pre-seed to seed · United States.** See [thesis.md](thesis.md).
+**AI that rebuilds human trust · pre-seed · US · angel now, fund later.**
+See [thesis.md](thesis.md) and [background.md](background.md).
 
 ---
 
 ## How this repo works
 
-| Folder | What's in it |
+| Path | What's in it |
 |---|---|
-| [`sprints/`](sprints/) | One note per sprint — what the curriculum covered, in my own words |
+| [`thesis.md`](thesis.md) | The thesis, the path, and my dealflow edge |
+| [`background.md`](background.md) | Who I am, brand values, working rhythm |
+| [`sprints/`](sprints/) | One note per VC Lab sprint, in my own words |
 | [`assignments/`](assignments/) | The exact text I submitted, dated |
 | [`glossary.md`](glossary.md) | VC vocabulary, defined plainly as I encounter it |
-| [`docs/`](docs/) | The published site (GitHub Pages serves from here) |
+| [`docs/`](docs/) | The published site |
+
+---
+
+## Two numbering systems — don't confuse them
+
+This trips people up. The **FI portal sprints** and the **VC Lab curriculum sprints** are
+different things.
+
+| FI portal sprint | Covers VC Lab sprints |
+|---|---|
+| Sprint 1 — Orientation & Investment Thesis | Sprint 0 (orientation, thesis) |
+| Sprint 2 — Venture Fundamentals | Sprints 1, 2, 3 (basics, structures, performance) |
+
+Files in `sprints/` follow **VC Lab** numbering. Files in `assignments/` follow whatever the
+portal called the set.
 
 ## Source-link decoder
 
-Assignment links are shaped `https://vcl.to/VI<sprint>-<session>` and redirect to public
-articles on govclab.com. So `VI3-2` = Sprint 3, Session 2 = Venture Fund Economics.
-Every source is public — no login needed.
+Assignment links are shaped `https://vcl.to/VI<sprint>-<session>` and 301-redirect to public
+articles on govclab.com. `VI3-2` = VC Lab Sprint 3, Session 2 = Venture Fund Economics.
+No login needed.
 
-## Curriculum map
+**WebFetch returns the redirect rather than following it cross-host** — fetch the `vcl.to` URL
+first, then fetch the govclab.com target it reports.
 
-| Sprint | Title | Status |
+Currently live: **Sprints 1–3, plus 4.3.** Everything else (`VI2-4`, `VI3-4`, `VI4-1/2/4`, and
+all of Sprints 5–8) returns a Rebrandly broken-link page. Sprints 5–8 run inside Decile Hub and
+may never have public articles.
+
+## VC Lab curriculum map
+
+| Sprint | Title | Notes |
 |---|---|---|
-| 0 | Orientation | ☐ |
+| 0 | Orientation | ☑ |
 | 1 | Introduction to VC Basics | ☑ |
 | 2 | Venture Capital Firm Structures | ☑ |
 | 3 | Venture Capital Performance | ☑ |
-| 4 | Finding and Closing Limited Partners | ☐ |
-| 5 | Venture Deals | ☐ |
-| 6 | Venture Operations | ☐ |
-| 7 | Venture Accounting | ☐ |
-| 8 | Venture Careers | ☐ |
+| 4 | Finding and Closing Limited Partners | ☑ read-ahead |
+| 5 | Venture Deals | ☐ prep only |
+| 6 | Venture Operations | ☐ prep only |
+| 7 | Venture Accounting | ☐ prep only |
+| 8 | Venture Careers | ☐ prep only |
+
+---
+
+## Working agreement
+
+Conventions for anyone (including future me, or Claude) picking this up cold.
+
+**Voice**
+- I'm an **angel first**, fund later. Don't write GP-fund-sizing arguments as if I run a fund.
+- Plain language over jargon. Define the term the first time it appears.
+- My thesis is **"AI rebuilding human trust"** — bridges, community bonds, belonging. Not the
+  vaguer "AI and humanity." That framing was corrected once; don't drift back.
+- No tables in wedge/positioning work — prose and simple lists read better there.
+
+**Process**
+- **List before you push.** For anything scraped or imported, show me the inventory with
+  keep/skip recommendations first. This is how we kept vendor marketing copy out of the repo.
+- Vendor/marketing copy pasted from Decile Base or Hub is **slop** — skip it. Keep only what I
+  actually thought or wrote.
+- Don't edit anything in the FI portal (fi.co) unless I explicitly ask. Drafting text for me to
+  paste is fine; submitting on my behalf is not.
+- Assignments get filed in `assignments/` verbatim as submitted, so the repo matches the record.
+
+**Reading the portal**
+- `https://fi.co/enrolled/assignments` lists sprints; each sprint page has 7 sets.
+- Sets are collapsed by default and "Expand all" doesn't reliably work. Submitted answers live
+  in `<trix-editor>` elements — read them with the javascript tool:
+  `Array.from(document.querySelectorAll('trix-editor')).map(e => e.innerText)`
+- Requires my live Chrome session. A scheduled/cloud agent **cannot** reach fi.co.
+
+**What I have to supply**
+Live session content — mentor feedback, Airmeet discussion, working group — is invisible to any
+tool. If it matters, I have to write it down.
 
 ## Commitment
 
-I'm keeping this glossary and these notes current for the full program. Every term I don't
-know goes in. By the end I want a reference I actually built rather than a list I skimmed.
+I'm keeping this glossary and these notes current for the full program. Every term I don't know
+goes in. By the end I want a reference I actually built rather than a list I skimmed.
