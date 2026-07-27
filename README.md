@@ -107,6 +107,33 @@ Conventions for anyone (including future me, or Claude) picking this up cold.
 Live session content — mentor feedback, Airmeet discussion, working group — is invisible to any
 tool. If it matters, I have to write it down.
 
+---
+
+## The weekly loop
+
+Two scheduled cloud agents run against this repo. Neither can reach fi.co, so prompts get to them
+only through `assignments/INBOX.md`.
+
+| When | Agent | What it does |
+|---|---|---|
+| **Tue 7pm PT** | Weekly check | Probes every `vcl.to` link, audits the repo, drafts answers to anything in the inbox, and ends with numbered questions for me. Opens a PR. |
+| **Sun 10am PT** | Submission prep | Reads my answers from the week, writes the final copy-paste-ready versions, flags what's still missing. Opens a PR. |
+
+**My job in the loop, in order:**
+
+1. Paste new assignment prompts into [`assignments/INBOX.md`](assignments/INBOX.md).
+2. Tuesday: answer the questions in the PR — either as **PR comments**, or by appending a section
+   headed `## My answers` to that week's file in `weekly/`. The Sunday agent reads both.
+3. Sunday: copy the final answers out of the submission-prep PR and paste them into the portal.
+   Neither agent submits anything on my behalf.
+4. File the submitted text in `assignments/` and clear the block from `INBOX.md`.
+
+The answers I give on Tuesday are the whole point — they're what makes Sunday's output mine rather
+than generic. A detail I supply should visibly change the text.
+
+**Portal formatting:** FI uses a Trix rich-text editor. Markdown does not render. Paste plain
+paragraphs with simple lists — no tables, no code fences, no `#` headings.
+
 ## Commitment
 
 I'm keeping this glossary and these notes current for the full program. Every term I don't know
