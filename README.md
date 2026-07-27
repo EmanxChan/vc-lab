@@ -31,6 +31,18 @@ See [thesis.md](thesis.md) and [background.md](background.md).
 | [`assignments/`](assignments/) | The exact text I submitted, dated |
 | [`glossary.md`](glossary.md) | VC vocabulary, defined plainly as I encounter it |
 | [`docs/`](docs/) | The published site |
+| [`script/`](script/) | Build tooling |
+
+**The glossary is generated.** `glossary.md` is the single source of truth; `docs/glossary.html`
+is built from it. Never hand-edit the HTML — edit the markdown and run:
+
+```bash
+python3 script/build-glossary.py
+```
+
+Terms use a fixed shape: a plain-language definition, then a line starting with
+`**Picture this:**` giving a concrete example with real numbers. The build script turns that
+second line into the highlighted callout. Keep the shape and new terms format themselves.
 
 ---
 

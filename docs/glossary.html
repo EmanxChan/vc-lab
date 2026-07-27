@@ -4,11 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>vc glossary — e-man chan</title>
-<meta name="description" content="A plain-language glossary of venture capital terms — deal terms, fund structure, economics, and performance metrics. Built during VC Lab's Venture Institute.">
+<meta name="description" content="Venture capital in plain English — 99 terms, each with a concrete example. Deal terms, the payout stack, fund economics, and performance metrics.">
 <meta name="author" content="Emmanuel Chan">
 <meta property="og:title" content="VC Glossary | E-man Chan">
-<meta property="og:description" content="Plain-language venture capital terms, defined as I learn them.">
+<meta property="og:description" content="Venture capital in plain English, with a concrete example for every term.">
 <link rel="stylesheet" href="style.css">
+<style>
+.example {
+    border-left: 3px solid var(--gold);
+    background: rgba(127,127,127,0.06);
+    padding: 0.8rem 1rem;
+    margin-top: 0.75rem;
+    border-radius: 0 4px 4px 0;
+}
+.example p, .example li { font-size: 0.9rem; color: var(--text); }
+.example ol, .example ul { margin: 0.4rem 0 0 1.1rem; }
+.example li { margin-bottom: 0.3rem; }
+.term ol, .term ul { margin: 0.5rem 0 0 1.2rem; }
+.term li { font-size: 0.93rem; color: var(--muted); margin-bottom: 0.3rem; }
+.section-intro { font-size: 0.93rem; color: var(--muted); margin-bottom: 1.25rem; max-width: 720px; }
+.count { font-variant-numeric: tabular-nums; }
+.sources p, .sources li { font-size: 0.9rem; color: var(--muted); }
+.sources ul { margin: 0.5rem 0 0 1.2rem; }
+.sources li { margin-bottom: 0.5rem; }
+</style>
 </head>
 <body>
 
@@ -30,159 +49,427 @@
 
 <header class="hero">
   <h1 class="fluid">vc <span class="hl">glossary</span></h1>
-  <p class="hero-sub">Venture capital vocabulary, defined plainly, added as I encounter it.
-  Kept separate from my <a href="https://github.com/EmanxChan/tech-glossary">engineering glossary</a> —
-  different vocabulary, different job.</p>
+  <p class="hero-sub">Venture capital in plain English — <span class="count">99</span> terms,
+  each with a concrete example. No jargon defined using more jargon.</p>
 </header>
 
 <main class="container">
 
   <div class="search-wrap">
-    <input type="text" id="search" placeholder="Search terms…" autocomplete="off">
+    <input type="text" id="search" placeholder="Search 99 terms…" autocomplete="off">
   </div>
 
   <div id="terms">
-
-    <div class="group-label">Deal Terms</div>
-
+    <div class="group-label">The rounds — how money arrives</div>
     <div class="term">
-      <h3>2x Liquidation Preference</h3>
-      <p>When the company is sold, investors get paid back <strong>two times</strong> their money first —
-      before founders and employees see anything. A $5M investment with a 2x preference takes $10M off
-      the top. Whatever's left is split among everyone else.</p>
-      <p>Above 1x is considered aggressive, and usually signals either a hot deal the investor wants
-      downside protection on, or a weak negotiating position for the founder.</p>
+      <h3>Angel investor</h3>
+      <p>A person investing their own money, usually the first check a company ever takes.</p><div class="example"><p><strong>Picture this:</strong> a founder you met through Grid110 needs $50K to build a prototype. No fund is going to write that check. You do, personally. That's angel investing — and it's what I'm doing now.</p></div>
     </div>
-
     <div class="term">
-      <h3>Ratchet (Full Ratchet Anti-Dilution)</h3>
-      <p>Protects investors if the company later raises at a <strong>lower</strong> price. Their old shares
-      are re-priced down to the new cheaper price, so they end up holding more shares. It preserves
-      their ownership but dilutes founders and employees hard.</p>
-      <p>The softer, more common alternative is <em>weighted-average</em> anti-dilution, which adjusts
-      partially rather than all the way down.</p>
+      <h3>Pre-seed</h3>
+      <p>The earliest institutional round, usually before real revenue exists. Money to build the first version and hire two or three people.</p><div class="example"><p><strong>Picture this:</strong> two founders, a demo that works on a good day, twelve users who love it. They raise $750K to spend a year finding out whether anyone will pay.</p></div>
     </div>
-
     <div class="term">
-      <h3>Term Sheet</h3>
-      <p>The non-binding document outlining a proposed investment — amount, valuation, ownership
-      percentage, rights, and preferences. Not the deal, but the blueprint the legal documents get
-      built from.</p>
+      <h3>Seed</h3>
+      <p>The round that funds the search for product-market fit. There's usually a product and some early customers, but the business model isn't proven.</p><div class="example"><p><strong>Picture this:</strong> same company a year later — $8K a month in revenue, 40 paying customers. They raise $3M to figure out if that becomes $80K a month.</p></div>
     </div>
-
     <div class="term">
-      <h3>Pro Rata Rights</h3>
-      <p>The right to invest again in later rounds to maintain your ownership percentage. The main way
-      early investors keep a meaningful stake in a winner.</p>
+      <h3>Series A</h3>
+      <p>The first big round. You're no longer proving the thing works; you're proving it scales.</p><div class="example"><p><strong>Picture this:</strong> $150K a month in revenue growing 15% monthly. They raise $12M to hire a sales team and find out if growth survives contact with a real go-to-market motion.</p></div>
     </div>
-
-    <div class="group-label">Fund Structure</div>
-
     <div class="term">
-      <h3>General Partner (GP)</h3>
-      <p>The entity that makes investment decisions and oversees one or more funds. Receives carried
-      interest. Composed of Managing Partners, General Partners, and Venture Partners.</p>
+      <h3>Series B, C, and beyond</h3>
+      <p>Progressively larger rounds for expansion — new markets, new products, sometimes preparing to go public. Series C can run into the hundreds of millions.</p><div class="example"><p><strong>Picture this:</strong> the average US unicorn raises <strong>more than six VC rounds</strong> before it gets there. Nobody arrives in one jump.</p></div>
     </div>
-
+    <div class="term">
+      <h3>Bridge round</h3>
+      <p>A small round to get a company from where it is to its next real round or milestone. Usually on a SAFE or note rather than a priced round.</p><div class="example"><p><strong>Picture this:</strong> a company has five months of cash and needs nine to hit the metrics that justify a Series A. Existing investors put in $1M to bridge the gap.</p></div>
+    </div>
+    <div class="term">
+      <h3>Down round</h3>
+      <p>Raising at a lower valuation than the previous round. Painful, and the moment anti-dilution clauses come alive.</p><div class="example"><p><strong>Picture this:</strong> a company raised at $40M in 2021. In 2023 the best offer is $18M. Everyone who invested at $40M just watched their stake shrink in value — and if they had ratchet protection, everyone <em>else's</em> stake shrinks in size to compensate.</p></div>
+    </div>
+    <div class="term">
+      <h3>Accelerator</h3>
+      <p>A program that gives small checks, mentorship, and a demo day in exchange for equity.</p><div class="example"><p><strong>Picture this:</strong> Y Combinator writes $500K and takes about 1 in 100 applicants — roughly 150–200 companies out of 10,000+ applications. Plug and Play, Grid110, and Material Change are accelerators I came through.</p></div>
+    </div>
+    <div class="term">
+      <h3>Lead investor</h3>
+      <p>The investor who sets the terms, does the deepest diligence, and usually takes the board seat. Everyone else follows their price.</p><div class="example"><p><strong>Picture this:</strong> a $3M seed round where one fund puts in $2M and negotiates the term sheet. Six angels put in the rest at the same terms without negotiating anything.</p></div>
+    </div>
+    <div class="term">
+      <h3>Syndicate</h3>
+      <p>A group investing together in one deal, usually organized by one person.</p><div class="example"><p><strong>Picture this:</strong> an angel finds a deal, can only write $25K, but brings twelve friends who add $300K. The company gets one line on its cap table instead of thirteen.</p></div>
+    </div>
+    <div class="group-label">The paperwork — how the money is structured</div>
+    <div class="term">
+      <h3>Term sheet</h3>
+      <p>A short, non-binding document laying out the deal: how much, at what price, and what rights the investor gets. The blueprint the lawyers build from.</p><div class="example"><p><strong>Picture this:</strong> two pages that say $2M at a $10M pre-money valuation, 1x liquidation preference, one board seat, pro rata rights. Nobody's committed yet, but everyone now knows the shape of the deal.</p></div>
+    </div>
+    <div class="term">
+      <h3>SAFE</h3>
+      <p><em>Simple Agreement for Future Equity.</em> You give money now and get shares later, when the company raises a priced round. No valuation is set today, which is why it's fast and cheap.</p><div class="example"><p><strong>Picture this:</strong> you wire $50K on a SAFE. Eighteen months later the company raises a Series A and your SAFE converts into actual shares at that point — not before.</p></div>
+    </div>
+    <div class="term">
+      <h3>Valuation cap</h3>
+      <p>The maximum company value at which your SAFE converts. It protects you from the company getting so valuable that your early risk buys almost nothing.</p><div class="example"><p><strong>Picture this:</strong> you invest $500K on a SAFE with a $10M post-money cap. The Series A prices the company at $40M. Without the cap you'd get 1.25% of the company. With it, you get <strong>5%</strong> — because your conversion is calculated as if the company were worth $10M.</p></div>
+    </div>
+    <div class="term">
+      <h3>Post-money vs pre-money SAFE</h3>
+      <p>On a <strong>post-money</strong> SAFE, your percentage is locked and later SAFEs dilute the founders, not you. On a <strong>pre-money</strong> SAFE, later SAFEs dilute you too.</p><div class="example"><p><strong>Picture this:</strong> post-money is the modern standard and the one founders most often underestimate — a common mistake is modeling dilution with pre-money math, signing a post-money SAFE, and discovering 5–10% more dilution than expected.</p></div>
+    </div>
+    <div class="term">
+      <h3>Discount</h3>
+      <p>A percentage off the next round's price, as thanks for going early.</p><div class="example"><p><strong>Picture this:</strong> a 20% discount means when the Series A prices at $10M, you convert as if it were $8M. If your SAFE has both a cap and a discount, you get whichever is better for you.</p></div>
+    </div>
+    <div class="term">
+      <h3>Convertible note</h3>
+      <p>Like a SAFE, but technically a loan — it has an interest rate and a maturity date. Mostly replaced by SAFEs at pre-seed because it's more complicated.</p>
+    </div>
+    <div class="term">
+      <h3>Priced round</h3>
+      <p>A round where the company's value is actually set and you buy shares at a real per-share price. Slower and more expensive than a SAFE because everything gets negotiated.</p>
+    </div>
+    <div class="group-label">Ownership — who owns what, and how it shrinks</div>
+    <div class="term">
+      <h3>Pre-money valuation</h3>
+      <p>What the company is worth <em>before</em> the new money goes in.</p>
+    </div>
+    <div class="term">
+      <h3>Post-money valuation</h3>
+      <p>Pre-money plus the new money.</p><div class="example"><p><strong>Picture this:</strong> $8M pre-money, $2M invested → $10M post-money. The investor owns $2M ÷ $10M = <strong>20%</strong>. Always check which number someone means; the difference is real money.</p></div>
+    </div>
+    <div class="term">
+      <h3>Cap table</h3>
+      <p>The spreadsheet of who owns what. Founders, employees, investors, and everyone's percentage.</p>
+    </div>
+    <div class="term">
+      <h3>Dilution</h3>
+      <p>Your percentage shrinking because new shares were created. It isn't theft — it's the cost of the company being worth more.</p><div class="example"><p><strong>Picture this:</strong> you own 10% of a company worth $10M ($1M). They raise at $50M, and you're diluted to 8%. Your 8% is worth $4M. You own less of something much bigger.</p></div>
+    </div>
+    <div class="term">
+      <h3>Fully diluted shares</h3>
+      <p>The total share count if every option, warrant, and SAFE converted today. The honest denominator — always ask for percentages on a fully diluted basis.</p>
+    </div>
+    <div class="term">
+      <h3>Option pool</h3>
+      <p>Shares set aside for future employees. Usually 10–20%.</p><div class="example"><p><strong>Picture this:</strong> the "option pool shuffle" — an investor asks for a 15% pool to be created <em>before</em> the money goes in, which means it comes out of the founders' share, not the investor's. Standard practice, and worth knowing it's a negotiation, not a law of nature.</p></div>
+    </div>
+    <div class="term">
+      <h3>Pro rata rights</h3>
+      <p>The right to invest again later to keep your percentage from shrinking.</p><div class="example"><p><strong>Picture this:</strong> you own 5% after a seed round. At Series A you'd drop to 3.5%. Pro rata lets you write another check at the new price to stay at 5%. This is how a small early check keeps mattering in a company that works.</p></div>
+    </div>
+    <div class="term">
+      <h3>Ownership target</h3>
+      <p>The percentage you're deliberately aiming to hold after investing. The discipline that connects your check size to the math.</p><div class="example"><p><strong>Picture this:</strong> if you want 8% and the company is raising at a $12M post-money, your check needs to be about $960K. If you can only write $100K, you're not getting 8% — so either the target or the deal has to change.</p></div>
+    </div>
+    <div class="group-label">The protective terms — what investors ask for</div>
+    <div class="term">
+      <h3>Liquidation preference</h3>
+      <p>Who gets paid first when the company sells, and how much before anyone else sees a dollar.</p><div class="example"><p><strong>Picture this:</strong> an investor puts in $5M with a <strong>1x</strong> preference. Company sells for $20M — they take $5M off the top, then $15M is split among everyone. With a <strong>2x</strong> preference they take $10M first, and only $10M is left for the founders and team.</p></div>
+    </div>
+    <div class="term">
+      <h3>Participating preferred ("double dip")</h3>
+      <p>The investor takes their preference <em>and then also</em> shares in what's left.</p><div class="example"><p><strong>Picture this:</strong> $5M invested, 1x participating, 25% ownership, $20M exit. They take $5M, then 25% of the remaining $15M ($3.75M) — $8.75M total instead of $5M. Founders feel this one.</p></div>
+    </div>
+    <div class="term">
+      <h3>Anti-dilution</h3>
+      <p>Protection if the company later raises at a lower price. Two flavors, very different in severity.</p><div class="example"><p><strong>Picture this:</strong> <strong>full ratchet</strong> re-prices all your old shares down to the new low price — the harshest version. <strong>Weighted average</strong> adjusts partially, based on how big the down round was. Weighted average is normal; full ratchet is a red flag worth pushing back on.</p></div>
+    </div>
+    <div class="term">
+      <h3>Board seat</h3>
+      <p>A formal seat on the board of directors, with a vote on major decisions. Usually goes to the lead investor.</p>
+    </div>
+    <div class="term">
+      <h3>Drag-along rights</h3>
+      <p>If enough shareholders agree to sell, they can force the rest to sell too. Stops one small holder from blocking an acquisition.</p>
+    </div>
+    <div class="term">
+      <h3>Tag-along rights</h3>
+      <p>If big shareholders sell, small ones can join on the same terms. The mirror image of drag-along, protecting the little guy.</p>
+    </div>
+    <div class="term">
+      <h3>Side letter</h3>
+      <p>A separate agreement giving one investor terms the others don't have — extra reporting, fee breaks, co-investment rights.</p><div class="example"><p><strong>Picture this:</strong> side letters are why distributions are complicated. Before paying anyone, the fund has to check what it privately promised each LP.</p></div>
+    </div>
+    <div class="term">
+      <h3>Information rights</h3>
+      <p>The right to get regular financials and updates. Sounds procedural, but it's the difference between knowing a company is in trouble and finding out at the wake.</p>
+    </div>
+    <div class="group-label">The payout stack — who actually gets paid first</div>
+    <p class="section-intro">This is the part almost nobody explains, and it's where founder outcomes are decided.</p>
+    <div class="term">
+      <h3>Common stock</h3>
+      <p>Plain ownership. Every share gets an equal slice. Founders and employees hold this. It gets paid <strong>last</strong>.</p>
+    </div>
+    <div class="term">
+      <h3>Convertible preferred stock</h3>
+      <p>What investors actually buy. It gives the holder a <em>choice</em> at exit: take the liquidation preference, or convert to common and take their percentage — whichever pays more.</p><div class="example"><p><strong>Picture this:</strong> over <strong>99%</strong> of VC preferred stock is convertible, and nearly 100% of modern unicorn financings use it. It's not an exotic instrument; it's the default.</p></div>
+    </div>
+    <div class="term">
+      <h3>Series preferred</h3>
+      <p>Each round issues its own named class — Series A, Series B, Series C. They are <em>not</em> interchangeable. Each can carry different rights, and that's what determines the payout order.</p>
+    </div>
+    <div class="term">
+      <h3>Original Issue Price (OIP)</h3>
+      <p>The per-share price an investor actually paid. Investment amount ÷ shares received. This is the number liquidation preferences are calculated from.</p>
+    </div>
+    <div class="term">
+      <h3>Par value</h3>
+      <p>A nominal legal value in the corporate charter, usually $0.001. Economically meaningless — don't confuse it with OIP.</p>
+    </div>
+    <div class="term">
+      <h3>Seniority</h3>
+      <p>Later rounds usually get paid <strong>before</strong> earlier ones. Being first in is not being first paid.</p><div class="example"><p><strong>Picture this:</strong> when Kabbage sold, Series F took $161M first, then Series E ($166M), then D ($50M), then C ($31M). Only $22M was left for Series A and B — even though common shareholders still held roughly 28% of the company.</p></div>
+    </div>
+    <div class="term">
+      <h3>Pari passu</h3>
+      <p>Latin for "equal footing." Classes share proceeds in proportion to their preferences instead of one going first.</p><div class="example"><p><strong>Picture this:</strong> two 1x series — Series A put in $10M, Series B put in $15M, $25M of preferences total. The company sells for only $5M. Series A gets (10÷25) × $5M = <strong>$2M</strong>; Series B gets (15÷25) × $5M = <strong>$3M</strong>. Founders get nothing.</p></div>
+    </div>
+    <div class="term">
+      <h3>Stacked preferences</h3>
+      <p>Preferences piling up round after round, so the amount owed before common sees a dollar keeps growing.</p><div class="example"><p><strong>Picture this:</strong> same company, but Series B negotiated <strong>2x</strong> instead of 1x on its $15M. Total preferences jump from $25M to <strong>$40M</strong>. Any exit under $40M now returns literally nothing to the founders and team.</p></div>
+    </div>
+    <div class="term">
+      <h3>Mandatory / automatic conversion</h3>
+      <p>A clause forcing preferred shareholders to convert to common when conditions are met — usually a qualifying IPO. It wipes out their liquidation preference.</p><div class="example"><p><strong>Picture this:</strong> Palantir's charter required net IPO proceeds of at least <strong>$150M</strong> <em>and</em> a valuation of at least <strong>$5B</strong> to trigger automatic conversion.</p></div>
+    </div>
+    <div class="term">
+      <h3>The hold-up problem</h3>
+      <p>When one investor class blocks something everyone else wants — like an IPO — because converting would pay them less than their preference.</p><div class="example"><p><strong>Picture this:</strong> Series B paid $15M for 18.75%. A $65M sale pays them their full $15M preference. A $70M IPO — a <em>higher</em> valuation — forces conversion and pays them 18.75% × $70M = <strong>$13.1M</strong>. They lose $1.9M by the company doing better, so they rationally block the IPO. That is why mandatory conversion clauses exist.</p></div>
+    </div>
+    <div class="term">
+      <h3>IPO ratchet</h3>
+      <p>A guarantee that an investor receives a minimum per-share value at IPO, regardless of the actual price.</p><div class="example"><p><strong>Picture this:</strong> Square's Series E investors were guaranteed <strong>$18.56 per share</strong>. Square went public at <strong>$9</strong>. The company had to issue them additional shares to make up the difference.</p></div>
+    </div>
+    <div class="group-label">How a fund is built</div>
     <div class="term">
       <h3>Limited Partner (LP)</h3>
-      <p>The investor <em>in</em> the fund — family offices, funds of funds, exited founders, tech
-      executives, high-net-worth individuals. They commit capital but don't make investment decisions.</p>
+      <p>The investor <em>in</em> a fund. Family offices, funds of funds, pension funds, exited founders, wealthy individuals. They commit money and don't pick companies. "Limited" refers to their liability, not their influence.</p>
     </div>
-
+    <div class="term">
+      <h3>General Partner (GP)</h3>
+      <p>The entity that makes the investment decisions and carries unlimited liability for them. Earns carry.</p>
+    </div>
     <div class="term">
       <h3>Management Company (ManCo)</h3>
-      <p>The operating entity. Owns the brand and IP, employs staff, handles vendors, and receives the
-      management fee. Distinct from both the GP entity and the fund itself.</p>
+      <p>The operating business — brand, staff, vendors, office. Paid by the management fee. The thing you'd actually go to work at.</p>
     </div>
-
     <div class="term">
       <h3>The Fund</h3>
-      <p>A limited partnership that collects capital from LPs and invests it, holding securities on
-      behalf of investors. Typically a pass-through entity for tax purposes, as are the GP and ManCo —
-      which avoids double taxation on investment profits.</p>
+      <p>A limited partnership that holds the money and the shares. No employees. Most firms run several at once.</p><div class="example"><p><strong>Picture this:</strong> all three exist so fee income, profit share, and investor capital sit in three different pockets. A firm can't quietly fund payroll out of investor money.</p></div>
     </div>
-
+    <div class="term">
+      <h3>LPA (Limited Partnership Agreement)</h3>
+      <p>The contract between the GP and the LPs. Fund life, fees, carry, what the fund may and may not invest in.</p>
+    </div>
+    <div class="term">
+      <h3>LPAC (Advisory Committee)</h3>
+      <p>A small group of LPs who advise the GP and vote on conflicts of interest.</p>
+    </div>
+    <div class="term">
+      <h3>Capital call</h3>
+      <p>The fund asking LPs to actually send money they've already committed. Capital is drawn down over years, not paid upfront.</p><div class="example"><p><strong>Picture this:</strong> an LP commits $500K. Year one the fund calls $100K. The other $400K stays in the LP's account until needed — which is exactly why a capital call notice period (usually 15 days) is in the LPA.</p></div>
+    </div>
+    <div class="term">
+      <h3>First close</h3>
+      <p>The point where enough has been committed to start investing. Typically 10–25% of the target.</p><div class="example"><p><strong>Picture this:</strong> VC Lab's rule of thumb is you can form the fund at 10% of target or $1M committed, whichever comes first.</p></div>
+    </div>
     <div class="term">
       <h3>PACT</h3>
-      <p>A non-binding commitment letter used in VC Lab methodology. Signing it "hard circles" an LP as
-      a serious prospective investor and moves them out of exploratory conversation.</p>
+      <p>A non-binding commitment letter used in VC Lab methodology. Signing it "hard circles" an LP as serious and moves them out of polite conversation.</p>
     </div>
-
     <div class="term">
-      <h3>Capital Call</h3>
-      <p>The mechanism by which a fund draws down committed capital from LPs over time, rather than
-      taking it all upfront. Governed by the terms of the LPA (Limited Partnership Agreement).</p>
+      <h3>GP commit</h3>
+      <p>The GP's own money in the fund — usually about 1%. Skin in the game.</p><div class="example"><p><strong>Picture this:</strong> on a $10M fund, the GP is expected to put in around $100K of their own. LPs ask about this early.</p></div>
     </div>
-
-    <div class="group-label">Economics</div>
-
+    <div class="term">
+      <h3>Key person clause</h3>
+      <p>If named individuals leave, the fund stops making new investments until LPs agree otherwise. LPs invested in <em>those people</em>.</p>
+    </div>
+    <div class="term">
+      <h3>Dry powder</h3>
+      <p>Committed money not yet invested.</p>
+    </div>
+    <div class="term">
+      <h3>Fund duration / investment period</h3>
+      <p>A fund typically lives <strong>10 years</strong>, with new investments made only in the first <strong>3–5</strong>. The rest of the life is spent supporting companies and waiting for exits.</p>
+    </div>
+    <div class="term">
+      <h3>SPV (Special Purpose Vehicle)</h3>
+      <p>A one-deal fund. Pools money from several people into a single investment.</p><div class="example"><p><strong>Picture this:</strong> you find a great deal but don't have a fund. You form an SPV, raise $400K from eight people, and the SPV writes one check. One line on the cap table.</p></div>
+    </div>
+    <div class="group-label">How a fund makes money</div>
+    <div class="term">
+      <h3>Management fee</h3>
+      <p>An annual charge to run the firm — roughly <strong>2%</strong> of committed capital. Pays salaries, travel, legal, diligence.</p><div class="example"><p><strong>Picture this:</strong> a $50M fund charges $1M a year. Over ten years that's $10M — a fifth of the fund — which is why LPs care so much about fund size.</p></div>
+    </div>
+    <div class="term">
+      <h3>Carried interest ("carry")</h3>
+      <p>The GP's share of the profits, usually <strong>20%</strong>.</p><div class="example"><p><strong>Picture this:</strong> the fund returns $20M in profit. GPs take $4M, LPs keep $16M. Carry is what makes a fund manager wealthy. Fees just keep the lights on.</p></div>
+    </div>
     <div class="term">
       <h3>2 and 20</h3>
-      <p>The standard compensation model: a <strong>2%</strong> annual management fee on committed capital,
-      plus <strong>20%</strong> carried interest on profits. The fee runs the firm — salaries, diligence,
-      travel. The carry is the upside.</p>
-      <p>The tension: fees are paid regardless of performance, so a large fund can pay its GPs well even
-      if it never returns capital. Which is why LPs scrutinize fund size.</p>
+      <p>The standard package: 2% annual fee, 20% of profits.</p><div class="example"><p><strong>The tension:</strong> fees are paid whether or not the fund performs. A big fund can pay its GPs well while returning nothing. That's why a serious emerging manager points at carry, not fees.</p></div>
     </div>
-
     <div class="term">
-      <h3>Carried Interest ("Carry")</h3>
-      <p>The GP's share of fund profits, typically 20%. On $20M of profit, the GP takes $4M and LPs keep
-      $16M. This is the line item that makes a fund manager wealthy — not the fee.</p>
+      <h3>Hurdle rate / preferred return</h3>
+      <p>The minimum return LPs must get before the GP earns any carry — industry standard around <strong>8%</strong> per year.</p>
     </div>
-
     <div class="term">
-      <h3>Hurdle Rate / Preferred Return</h3>
-      <p>The minimum annual return LPs must receive before the GP earns any carry. Industry standard is
-      around 8%, compounded.</p>
+      <h3>Distribution waterfall</h3>
+      <p>The strict order money flows back out: LP capital first, then preferred return, then the 80/20 split.</p><div class="example"><p><strong>Picture this:</strong> <strong>European</strong> waterfall pays carry only after the <em>entire fund</em> has returned all LP capital — LP-friendly, standard for first-time managers. <strong>American</strong> pays carry deal by deal, so the GP gets paid sooner and risks having to give it back.</p></div>
     </div>
-
     <div class="term">
-      <h3>Distribution Waterfall</h3>
-      <p>The order in which money flows back out of a fund: LP capital returned first, then preferred
-      return, then the carry split.</p>
-      <p>Two flavors — <strong>European</strong> (carry only after the whole fund returns all LP capital;
-      LP-friendly, standard for emerging managers) and <strong>American</strong> (carry paid deal-by-deal;
-      GP gets paid sooner, with clawback risk).</p>
+      <h3>Clawback</h3>
+      <p>The provision forcing a GP to return carry they were paid too early.</p><div class="example"><p><strong>Picture this:</strong> deal one exits big, GP takes $2M of carry. The next eight deals die. Across the whole fund the LPs are underwater — so the GP has to write a check back.</p></div>
     </div>
-
-    <div class="group-label">Performance Metrics</div>
-
     <div class="term">
-      <h3>MOIC — Multiple on Invested Capital</h3>
-      <p>The raw multiple on money invested. Simple, and completely ignores time.</p>
+      <h3>Recycling</h3>
+      <p>Reinvesting early returns instead of distributing them, so more than 100% of the fund gets deployed. Usually capped, and often zero for new managers.</p>
     </div>
-
+    <div class="group-label">Keeping score</div>
     <div class="term">
-      <h3>TVPI — Total Value to Paid-In</h3>
-      <p>Distributions <strong>plus</strong> remaining portfolio value, divided by capital paid in. The
-      headline "how is this fund doing" number. Splits into DPI and RVPI.</p>
+      <h3>MOIC</h3>
+      <p><em>Multiple on Invested Capital.</em> The raw multiple. $1M in, $3M out = 3x. Ignores time completely.</p>
     </div>
-
     <div class="term">
-      <h3>DPI — Distributed to Paid-In</h3>
-      <p>Cash actually returned to LPs, divided by capital paid in. The realized, no-arguing number.</p>
+      <h3>TVPI</h3>
+      <p><em>Total Value to Paid-In.</em> Everything distributed <strong>plus</strong> what's still held, divided by money in. The headline number.</p><div class="example"><p><strong>Picture this:</strong> $1M invested, $500K already returned, $1.5M still in the portfolio → TVPI = <strong>2.0x</strong>.</p></div>
     </div>
-
     <div class="term">
-      <h3>RVPI — Residual Value to Paid-In</h3>
-      <p>Remaining portfolio value divided by paid-in capital. Paper gains — what's still in the ground.</p>
+      <h3>DPI</h3>
+      <p><em>Distributed to Paid-In.</em> Cash actually returned. The number nobody can argue with.</p><div class="example"><p><strong>Picture this:</strong> in that same fund, DPI = 0.5x. TVPI says 2.0x, but only half your money has genuinely come home. When a fund brags about TVPI and goes quiet about DPI, that's the tell.</p></div>
     </div>
-
     <div class="term">
-      <h3>IRR — Internal Rate of Return</h3>
-      <p>The annualized, time-weighted return. Lets LPs compare a VC fund against other asset classes.
-      Flattered by early markups and sensitive to timing, so it's read alongside DPI — never alone.</p>
+      <h3>RVPI</h3>
+      <p><em>Residual Value to Paid-In.</em> What's still in the ground — paper value, self-reported.</p>
     </div>
-
+    <div class="term">
+      <h3>IRR</h3>
+      <p><em>Internal Rate of Return.</em> The annualized return, accounting for timing.</p><div class="example"><p><strong>Picture this:</strong> 3x over 3 years is a much better IRR than 3x over 12 years. IRR is also the most gameable number in venture — early markups inflate it — so read it beside DPI, never alone.</p></div>
+    </div>
+    <div class="term">
+      <h3>Markup</h3>
+      <p>Writing a company's value up because a later round priced it higher. Real signal, imaginary money.</p><div class="example"><p><strong>Picture this:</strong> you invest at $10M. Two years later they raise at $60M. Your stake is marked up 6x. You have not received a dollar.</p></div>
+    </div>
     <div class="term">
       <h3>The Power Law</h3>
-      <p>The observation that one investment typically returns more than all others combined. Not a
-      quirk — it's the organizing principle of the asset class. It dictates portfolio construction, fund
-      size, check size, and what counts as a "good" company.</p>
+      <p>One investment returns more than all the others combined. Not a quirk — the organizing principle of the whole asset class.</p><div class="example"><p><strong>Picture this:</strong> 30 investments. 20 die. 8 return roughly the money. 1 returns 2x. And 1 returns 50x and pays for everything. The job isn't avoiding the 20 — it's guaranteeing you're in the 1.</p></div>
     </div>
-
+    <div class="group-label">Doing the work</div>
+    <div class="term">
+      <h3>Deal flow</h3>
+      <p>The total number of opportunities you see per unit of time. Quality of deal flow is most of the job.</p><div class="example"><p><strong>Picture this:</strong> an active early-stage firm sees roughly <strong>1,000 opportunities a year.</strong></p></div>
+    </div>
+    <div class="term">
+      <h3>Sourcing</h3>
+      <p>Actively finding companies rather than waiting.</p><div class="example"><p><strong>Picture this:</strong> roughly <strong>60%</strong> of venture deals come through networks. Which is precisely why my alumni relationships across Plug and Play, Grid110, and Material Change are the asset, not a line on a bio.</p></div>
+    </div>
+    <div class="term">
+      <h3>Due diligence</h3>
+      <p>Investigating before investing — team, market, product, numbers, references.</p><div class="example"><p><strong>Picture this:</strong> at pre-seed there's often no revenue to diligence. So you're mostly diligencing the founder: do they see reality clearly, and do people who've worked with them want to again?</p></div>
+    </div>
+    <div class="term">
+      <h3>The deal funnel</h3>
+      <p>The filtering ratio from lead to check. The average VC reviews about <strong>101 startups per investment</strong> — 150 for IT-focused firms, 120 for early stage, 78 for healthcare.</p><div class="example"><p><strong>Picture this — what happens to 100 startups:</strong></p><ol><li><strong>~70 are gone within minutes</strong>, usually with no meeting at all</li><li><strong>~30</strong> get an informal coffee or video call</li><li><strong>~10</strong> survive to a partner meeting with a written memo</li><li><strong>fewer than 2 in 5</strong> of those completing diligence get a term sheet</li><li>and it takes <strong>1.7 term sheets to produce 1 investment</strong> — roughly 40% of offers get declined or lost to a competing offer</li></ol></div><p>Conviction isn't the bottleneck. Volume at the top is.</p>
+    </div>
+    <div class="term">
+      <h3>Term sheet conversion</h3>
+      <p>The fact that issuing a term sheet isn't winning the deal. At the term sheet, leverage flips to the founder.</p>
+    </div>
+    <div class="term">
+      <h3>Elimination by aspects</h3>
+      <p>How investors actually read pitches: hunting for a fatal flaw so they can stop reading. Not looking for reasons to say yes — looking for a reason to stop.</p><div class="example"><p><strong>Picture this:</strong> of 100 companies that reach investors, about <strong>70 disappear without ever getting a meeting.</strong> Which is why naming your weakness early works — it removes the flaw they were scanning for and signals self-awareness.</p></div>
+    </div>
+    <div class="term">
+      <h3>Cold outreach</h3>
+      <p>Contacting an investor with no introduction. Works better than founders assume.</p><div class="example"><p><strong>Picture this:</strong> research on 80,000+ cold emails to 28,000 investors found nearly <strong>10% replied with interest</strong> — and the best-written pitches got <strong>13–17%</strong>. Plain language describing what you actually built beat polished marketing language.</p></div>
+    </div>
+    <div class="term">
+      <h3>Evidence over projections</h3>
+      <p>Investors weight what already happened above what you forecast.</p><div class="example"><p><strong>Picture this:</strong> "we have 40 customers paying $200/month" beats "our TAM is $8 billion" every single time. And yet: about <strong>40% of YC-funded companies arrive as ideas with no revenue</strong> — so "too early" is rarely the real objection.</p></div>
+    </div>
+    <div class="term">
+      <h3>Deal memo</h3>
+      <p>Your written case for an investment: what they do, why now, why these founders, the one thing that must be true, and an honest anti-memo arguing against.</p>
+    </div>
+    <div class="term">
+      <h3>Investment committee (IC)</h3>
+      <p>The group that approves investments. For a solo angel, the IC is you — which makes writing the memo the only check on your own enthusiasm.</p>
+    </div>
+    <div class="term">
+      <h3>Follow-on</h3>
+      <p>Investing again in a company you already own.</p>
+    </div>
+    <div class="term">
+      <h3>Reserves</h3>
+      <p>Money held back from the start for follow-ons.</p><div class="example"><p><strong>Picture this:</strong> a fund that deploys 100% into first checks has nothing left when its best company raises again — and gets diluted out of its winner exactly when the winner is proving itself.</p></div>
+    </div>
+    <div class="term">
+      <h3>Unicorn</h3>
+      <p>A company valued at $1B or more. The unit of measurement for whether an early investor got it right.</p>
+    </div>
+    <div class="term">
+      <h3>Operator-angel</h3>
+      <p>An angel who built or ran something before writing checks. The dominant profile at the top.</p><div class="example"><p><strong>Picture this:</strong> the power law among angels is brutal — only <strong>181 individuals have backed 5+ unicorns</strong>, about 50 have reached 10, and just <strong>6 have backed 20 or more.</strong> Peter Thiel leads at</p><p>27. And the currently-active list looks different from the all-time list: <strong>114 of the most active recent angels don't appear in the lifetime top 100</strong> at all. Being active now matters more than having been early once.</p></div>
+    </div>
+    <div class="term">
+      <h3>Concentration</h3>
+      <p>Venture returns and venture <em>careers</em> both follow a power law.</p><div class="example"><p><strong>Picture this:</strong> roughly <strong>5% of venture capitalists have generated about 90% of the industry's profits.</strong> And 70% of the top-100 individual angels are in California, 50 in San Francisco alone — which is a real headwind to name honestly for anyone investing from Seattle.</p></div>
+    </div>
+    <div class="group-label">How companies are judged</div>
+    <div class="term">
+      <h3>Traction</h3>
+      <p>Evidence that people want the thing. Users, revenue, retention, usage.</p>
+    </div>
+    <div class="term">
+      <h3>Burn rate</h3>
+      <p>How much cash a company spends per month.</p>
+    </div>
+    <div class="term">
+      <h3>Runway</h3>
+      <p>How many months until the money runs out.</p><div class="example"><p><strong>Picture this:</strong> $600K in the bank, burning $50K a month = <strong>12 months of runway.</strong> Fundraising takes about six, so this company should already be raising.</p></div>
+    </div>
+    <div class="term">
+      <h3>Product-market fit</h3>
+      <p>The point where the market pulls the product out of the company instead of the company pushing it out.</p>
+    </div>
+    <div class="term">
+      <h3>TAM</h3>
+      <p><em>Total Addressable Market.</em> The whole revenue opportunity if you won everything.</p><div class="example"><p><strong>Picture this:</strong> treat a $10B TAM slide as a claim to check, not a fact. At pre-seed it's the least informative number in the deck.</p></div>
+    </div>
+    <div class="term">
+      <h3>KPI</h3>
+      <p>The handful of metrics a company actually steers by.</p>
+    </div>
+    <div class="group-label">Getting out</div>
+    <div class="term">
+      <h3>Exit</h3>
+      <p>The event that turns shares into money: acquisition, IPO, or secondary sale.</p>
+    </div>
+    <div class="term">
+      <h3>Liquidity event</h3>
+      <p>Any moment shareholders can convert equity to cash.</p>
+    </div>
+    <div class="term">
+      <h3>M&amp;A</h3>
+      <p>Another company buys this one. The most common exit by far.</p>
+    </div>
+    <div class="term">
+      <h3>IPO</h3>
+      <p>The company lists publicly. Rare, slow, and the outcome everyone talks about.</p>
+    </div>
+    <div class="term">
+      <h3>Secondary sale</h3>
+      <p>Selling your existing shares to another investor without the company raising anything.</p><div class="example"><p><strong>Picture this:</strong> you invested at $10M. Five years later the company is worth $400M but nowhere near an IPO. You sell part of your stake to a growth fund and take real money off the table.</p></div>
+    </div>
+    <div class="term">
+      <h3>Lock-up period</h3>
+      <p>After an IPO, insiders can't sell for a set window — typically 90–180 days.</p>
+    </div>
+    <div class="group-label">Where this came from</div>
+    <div class="sources"><ul><li><strong><a href="https://govclab.com" target="_blank" rel="noopener">VC Lab / GoVCLab</a></strong> — the Venture Institute curriculum, fund mechanics, and <a href="https://govclab.com/2023/07/23/venture-capital-terms/" target="_blank" rel="noopener">VC terms reference</a></li><li><strong><a href="https://ilyastrebulaev.substack.com" target="_blank" rel="noopener">Ilya Strebulaev (Stanford GSB)</a></strong> — the payout stack, seniority and pari passu, the hold-up problem, deal funnel data, angel power-law research, and the cold-pitch experiments. Most of the hard numbers here are his.</li><li><strong><a href="https://blog.foundersuite.com/venture-capital-glossary-founders-vcs/" target="_blank" rel="noopener">Foundersuite's 150-term glossary</a></strong> and <strong><a href="https://www.goingvc.com/post/90-essential-venture-capital-terms-a-comprehensive-glossary" target="_blank" rel="noopener">GoingVC</a></strong> — deal terms and traction vocabulary</li><li><strong><a href="https://carta.com/learn/private-funds/management/distribution-waterfall/" target="_blank" rel="noopener">Carta</a></strong> and <strong><a href="https://www.angellist.com/learn/distributions" target="_blank" rel="noopener">AngelList</a></strong> — waterfall and distribution mechanics</li><li><strong><a href="https://www.ycombinator.com/documents" target="_blank" rel="noopener">Y Combinator's post-money SAFE primer</a></strong> — SAFE conversion math</li></ul><p>Definitions are written in my own words. Where a specific figure or case is cited, it comes from the source above.</p></div>
   </div>
 
   <p class="no-results" id="no-results" style="display:none">No terms match that search.</p>
@@ -209,6 +496,7 @@
   var search = document.getElementById('search');
   var terms = Array.prototype.slice.call(document.querySelectorAll('.term'));
   var labels = Array.prototype.slice.call(document.querySelectorAll('.group-label'));
+  var intros = Array.prototype.slice.call(document.querySelectorAll('.section-intro'));
   var noResults = document.getElementById('no-results');
 
   search.addEventListener('input', function () {
@@ -219,7 +507,6 @@
       t.classList.toggle('hidden', !match);
       if (match) visible++;
     });
-    // hide a group label when every term under it is hidden
     labels.forEach(function (label) {
       var any = false, node = label.nextElementSibling;
       while (node && !node.classList.contains('group-label')) {
@@ -228,6 +515,7 @@
       }
       label.style.display = any ? '' : 'none';
     });
+    intros.forEach(function (i) { i.style.display = q ? 'none' : ''; });
     noResults.style.display = visible ? 'none' : 'block';
   });
 })();
