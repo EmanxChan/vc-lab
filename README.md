@@ -3,8 +3,12 @@
 My working notebook for **VC Lab's Venture Institute (Cohort 7)** — a 9-week program on
 venture capital run by Decile Group.
 
-**Live site:** https://emanxchan.github.io/vc-lab/
-**Glossary:** https://emanxchan.github.io/vc-lab/glossary.html
+| Page | URL |
+|---|---|
+| Home | https://emanxchan.github.io/vc-lab/ |
+| Glossary | https://emanxchan.github.io/vc-lab/glossary.html |
+| Structure & capital flow | https://emanxchan.github.io/vc-lab/structure.html |
+| Curriculum notes | https://emanxchan.github.io/vc-lab/notes.html |
 
 ---
 
