@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vc glossary — e-man chan</title>
+<meta name="description" content="A plain-language glossary of venture capital terms — deal terms, fund structure, economics, and performance metrics. Built during VC Lab's Venture Institute.">
+<meta name="author" content="Emmanuel Chan">
+<meta property="og:title" content="VC Glossary | E-man Chan">
+<meta property="og:description" content="Plain-language venture capital terms, defined as I learn them.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-bar">
+    <div class="nav-links-wrapper">
+      <div class="nav-links">
+        <a href="index.html">home</a>
+        <a href="index.html#sprints">sprints</a>
+        <a href="index.html#thesis">thesis</a>
+        <a href="https://emanchan.com">emanchan.com</a>
+      </div>
+    </div>
+    <div class="nav-theme-container">
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1 class="fluid">vc <span class="hl">glossary</span></h1>
+  <p class="hero-sub">Venture capital vocabulary, defined plainly, added as I encounter it.
+  Kept separate from my <a href="https://github.com/EmanxChan/tech-glossary">engineering glossary</a> —
+  different vocabulary, different job.</p>
+</header>
+
+<main class="container">
+
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="Search terms…" autocomplete="off">
+  </div>
+
+  <div id="terms">
+
+    <div class="group-label">Deal Terms</div>
+
+    <div class="term">
+      <h3>2x Liquidation Preference</h3>
+      <p>When the company is sold, investors get paid back <strong>two times</strong> their money first —
+      before founders and employees see anything. A $5M investment with a 2x preference takes $10M off
+      the top. Whatever's left is split among everyone else.</p>
+      <p>Above 1x is considered aggressive, and usually signals either a hot deal the investor wants
+      downside protection on, or a weak negotiating position for the founder.</p>
+    </div>
+
+    <div class="term">
+      <h3>Ratchet (Full Ratchet Anti-Dilution)</h3>
+      <p>Protects investors if the company later raises at a <strong>lower</strong> price. Their old shares
+      are re-priced down to the new cheaper price, so they end up holding more shares. It preserves
+      their ownership but dilutes founders and employees hard.</p>
+      <p>The softer, more common alternative is <em>weighted-average</em> anti-dilution, which adjusts
+      partially rather than all the way down.</p>
+    </div>
+
+    <div class="term">
+      <h3>Term Sheet</h3>
+      <p>The non-binding document outlining a proposed investment — amount, valuation, ownership
+      percentage, rights, and preferences. Not the deal, but the blueprint the legal documents get
+      built from.</p>
+    </div>
+
+    <div class="term">
+      <h3>Pro Rata Rights</h3>
+      <p>The right to invest again in later rounds to maintain your ownership percentage. The main way
+      early investors keep a meaningful stake in a winner.</p>
+    </div>
+
+    <div class="group-label">Fund Structure</div>
+
+    <div class="term">
+      <h3>General Partner (GP)</h3>
+      <p>The entity that makes investment decisions and oversees one or more funds. Receives carried
+      interest. Composed of Managing Partners, General Partners, and Venture Partners.</p>
+    </div>
+
+    <div class="term">
+      <h3>Limited Partner (LP)</h3>
+      <p>The investor <em>in</em> the fund — family offices, funds of funds, exited founders, tech
+      executives, high-net-worth individuals. They commit capital but don't make investment decisions.</p>
+    </div>
+
+    <div class="term">
+      <h3>Management Company (ManCo)</h3>
+      <p>The operating entity. Owns the brand and IP, employs staff, handles vendors, and receives the
+      management fee. Distinct from both the GP entity and the fund itself.</p>
+    </div>
+
+    <div class="term">
+      <h3>The Fund</h3>
+      <p>A limited partnership that collects capital from LPs and invests it, holding securities on
+      behalf of investors. Typically a pass-through entity for tax purposes, as are the GP and ManCo —
+      which avoids double taxation on investment profits.</p>
+    </div>
+
+    <div class="term">
+      <h3>PACT</h3>
+      <p>A non-binding commitment letter used in VC Lab methodology. Signing it "hard circles" an LP as
+      a serious prospective investor and moves them out of exploratory conversation.</p>
+    </div>
+
+    <div class="term">
+      <h3>Capital Call</h3>
+      <p>The mechanism by which a fund draws down committed capital from LPs over time, rather than
+      taking it all upfront. Governed by the terms of the LPA (Limited Partnership Agreement).</p>
+    </div>
+
+    <div class="group-label">Economics</div>
+
+    <div class="term">
+      <h3>2 and 20</h3>
+      <p>The standard compensation model: a <strong>2%</strong> annual management fee on committed capital,
+      plus <strong>20%</strong> carried interest on profits. The fee runs the firm — salaries, diligence,
+      travel. The carry is the upside.</p>
+      <p>The tension: fees are paid regardless of performance, so a large fund can pay its GPs well even
+      if it never returns capital. Which is why LPs scrutinize fund size.</p>
+    </div>
+
+    <div class="term">
+      <h3>Carried Interest ("Carry")</h3>
+      <p>The GP's share of fund profits, typically 20%. On $20M of profit, the GP takes $4M and LPs keep
+      $16M. This is the line item that makes a fund manager wealthy — not the fee.</p>
+    </div>
+
+    <div class="term">
+      <h3>Hurdle Rate / Preferred Return</h3>
+      <p>The minimum annual return LPs must receive before the GP earns any carry. Industry standard is
+      around 8%, compounded.</p>
+    </div>
+
+    <div class="term">
+      <h3>Distribution Waterfall</h3>
+      <p>The order in which money flows back out of a fund: LP capital returned first, then preferred
+      return, then the carry split.</p>
+      <p>Two flavors — <strong>European</strong> (carry only after the whole fund returns all LP capital;
+      LP-friendly, standard for emerging managers) and <strong>American</strong> (carry paid deal-by-deal;
+      GP gets paid sooner, with clawback risk).</p>
+    </div>
+
+    <div class="group-label">Performance Metrics</div>
+
+    <div class="term">
+      <h3>MOIC — Multiple on Invested Capital</h3>
+      <p>The raw multiple on money invested. Simple, and completely ignores time.</p>
+    </div>
+
+    <div class="term">
+      <h3>TVPI — Total Value to Paid-In</h3>
+      <p>Distributions <strong>plus</strong> remaining portfolio value, divided by capital paid in. The
+      headline "how is this fund doing" number. Splits into DPI and RVPI.</p>
+    </div>
+
+    <div class="term">
+      <h3>DPI — Distributed to Paid-In</h3>
+      <p>Cash actually returned to LPs, divided by capital paid in. The realized, no-arguing number.</p>
+    </div>
+
+    <div class="term">
+      <h3>RVPI — Residual Value to Paid-In</h3>
+      <p>Remaining portfolio value divided by paid-in capital. Paper gains — what's still in the ground.</p>
+    </div>
+
+    <div class="term">
+      <h3>IRR — Internal Rate of Return</h3>
+      <p>The annualized, time-weighted return. Lets LPs compare a VC fund against other asset classes.
+      Flattered by early markups and sensitive to timing, so it's read alongside DPI — never alone.</p>
+    </div>
+
+    <div class="term">
+      <h3>The Power Law</h3>
+      <p>The observation that one investment typically returns more than all others combined. Not a
+      quirk — it's the organizing principle of the asset class. It dictates portfolio construction, fund
+      size, check size, and what counts as a "good" company.</p>
+    </div>
+
+  </div>
+
+  <p class="no-results" id="no-results" style="display:none">No terms match that search.</p>
+
+</main>
+
+<footer>
+  <p>Emmanuel Chan &middot; <a href="https://emanchan.com">emanchan.com</a> &middot;
+  <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
+</footer>
+
+<script>
+(function () {
+  var key = 'vclab-theme';
+  var btn = document.getElementById('theme-toggle');
+  var stored = localStorage.getItem(key);
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) document.body.classList.add('dark-mode');
+  btn.addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem(key, document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+  });
+
+  var search = document.getElementById('search');
+  var terms = Array.prototype.slice.call(document.querySelectorAll('.term'));
+  var labels = Array.prototype.slice.call(document.querySelectorAll('.group-label'));
+  var noResults = document.getElementById('no-results');
+
+  search.addEventListener('input', function () {
+    var q = search.value.toLowerCase().trim();
+    var visible = 0;
+    terms.forEach(function (t) {
+      var match = !q || t.textContent.toLowerCase().indexOf(q) !== -1;
+      t.classList.toggle('hidden', !match);
+      if (match) visible++;
+    });
+    // hide a group label when every term under it is hidden
+    labels.forEach(function (label) {
+      var any = false, node = label.nextElementSibling;
+      while (node && !node.classList.contains('group-label')) {
+        if (node.classList.contains('term') && !node.classList.contains('hidden')) any = true;
+        node = node.nextElementSibling;
+      }
+      label.style.display = any ? '' : 'none';
+    });
+    noResults.style.display = visible ? 'none' : 'block';
+  });
+})();
+</script>
+
+</body>
+</html>

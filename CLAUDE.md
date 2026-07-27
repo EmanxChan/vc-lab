@@ -1,0 +1,1 @@
+/Users/emanchan/Knowledge/CLAUDE.md
