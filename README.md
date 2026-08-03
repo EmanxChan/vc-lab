@@ -157,9 +157,24 @@ only through `assignments/INBOX.md`.
 1. Paste new assignment prompts into [`assignments/INBOX.md`](assignments/INBOX.md).
 2. Tuesday: answer the questions in the PR — either as **PR comments**, or by appending a section
    headed `## My answers` to that week's file in `weekly/`. The Sunday agent reads both.
-3. Sunday: copy the final answers out of the submission-prep PR and paste them into the portal.
-   Neither agent submits anything on my behalf.
+3. Sunday: run `vc fill`, paste into the Chrome console on the assignment page, review, submit.
 4. File the submitted text in `assignments/` and clear the block from `INBOX.md`.
+
+### Getting Sunday's answers into the portal
+
+The cloud agents have no browser and **cannot reach fi.co** — it needs an authenticated session.
+So the Sunday agent writes `weekly/YYYY-MM-DD-fill.json` alongside its report, and:
+
+```bash
+vc fill          # pulls latest, copies a browser snippet to the clipboard
+```
+
+Then: open the assignment page in Chrome → `Option+Cmd+J` for the console → paste → Enter.
+Every set is filled at once. **Nothing is ever submitted automatically** — review each answer,
+then click Save Draft or Submit myself.
+
+Or just open a Claude Code session and ask it to fill the drafts; it does the same thing
+through the browser tools.
 
 The answers I give on Tuesday are the whole point — they're what makes Sunday's output mine rather
 than generic. A detail I supply should visibly change the text.

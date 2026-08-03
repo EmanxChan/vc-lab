@@ -9,6 +9,8 @@ Look up a term or capture a thought without leaving the terminal.
     vc quiz                 flashcard drill on random terms
     vc random               one term, for a spare minute
     vc list [section]       list all terms, or one section's
+    vc fill [date]          copy the Sunday agent's answers, ready to paste
+                            into the portal (never submits)
 """
 
 import os
@@ -209,6 +211,13 @@ def main() -> int:
         cmd_random()
     elif cmd == "list":
         cmd_list(" ".join(args[1:]))
+    elif cmd == "fill":
+        # pull first so the latest agent output is present
+        subprocess.run(["git", "-C", str(ROOT), "pull", "--quiet", "--rebase"],
+                       check=False, capture_output=True)
+        return subprocess.run(
+            [sys.executable, str(ROOT / "script" / "fill-portal.py")] + args[1:]
+        ).returncode
     elif cmd == "open":
         subprocess.run(["open", SITE], check=False)
     else:
