@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pipeline — vc companion</title>
+<meta name="description" content="Companies seen, screened, and passed on — with a written reason for every decision.">
+<meta name="author" content="Emmanuel Chan">
+<meta property="og:title" content="pipeline — vc companion">
+<meta property="og:description" content="Companies seen, screened, and passed on — with a written reason for every decision.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-bar">
+    <a href="index.html" class="nav-home" aria-label="Home">vc</a>
+    <div class="nav-links-wrapper">
+      <div class="nav-links"><a href="thesis.html">Thesis</a><a href="glossary.html">Learn</a><a href="pipeline.html" class="active">Practice</a><a href="proof.html">Proof</a></div>
+    </div>
+    <div class="nav-theme-container">
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+<div class="subnav"><div class="subnav-inner"><a href="pipeline.html" class="active">Pipeline</a><a href="memo.html">Deal memo</a><a href="impact.html">Founder impact</a></div></div>
+
+<header class="hero">
+  <div class="eyebrow">Practice</div>
+  <h1 class="fluid">deal <span class="hl">pipeline</span></h1>
+  <p class="hero-sub">Every company I've looked at, with a written reason for every decision. The passes are the point.</p>
+</header>
+
+<main class="container">
+
+<div class="grid grid-4" style="margin-bottom:2.5rem">
+  <div class="card stat"><div class="n">0</div><div class="l">Companies seen</div></div>
+  <div class="card stat"><div class="n">0</div><div class="l">Active</div></div>
+  <div class="card stat"><div class="n">0</div><div class="l">Passed, with reasons</div></div>
+  <div class="card stat"><div class="n">0</div><div class="l">Invested</div></div>
+</div>
+<div class="empty">
+  <p>No companies yet.</p>
+  <p style="margin-top:0.75rem">Add one with <code>vc deal add "Company Name"</code>, then fill in
+  the file it creates in <code>deals/</code>.</p>
+</div>
+
+<div class="callout accent" style="margin-top:2.5rem">
+  <strong>Why the passes matter more than the advances.</strong> Anyone can list companies they
+  liked. A written reason for every pass is what shows a partner how you actually filter — and it
+  is the only way to find out your filter is miscalibrated.
+</div>
+</main>
+
+<footer>
+  <p><a href="index.html">VC companion</a> &middot; Emmanuel Chan &middot;
+  <a href="https://emanchan.com">emanchan.com</a> &middot;
+  <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
+</footer>
+
+<script>
+(function () {
+  var key = 'vclab-theme';
+  var stored = localStorage.getItem(key);
+  var prefersDark = window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.body.classList.add('dark-mode');
+  }
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem(key,
+      document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+  });
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  }
+})();
+</script>
+
+</body>
+</html>

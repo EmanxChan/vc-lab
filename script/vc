@@ -11,6 +11,15 @@ Look up a term or capture a thought without leaving the terminal.
     vc list [section]       list all terms, or one section's
     vc fill [date]          copy the Sunday agent's answers, ready to paste
                             into the portal (never submits)
+
+Practice:
+
+    vc deal "Company"       start a deal file (screening)
+    vc pass "Company" why   log a pass with its reason
+    vc memo "Company"       scaffold a full memo from the template
+    vc deals                show the pipeline
+    vc impact "Founder"     log something I did for a founder
+    vc build                rebuild the site
 """
 
 import json
@@ -219,6 +228,116 @@ def cmd_quiz(rounds: int = 5):
     print(f"  {DIM}{len(scores)}/{len(entries)} terms seen{OFF}\n")
 
 
+DEALS = ROOT / "deals"
+IMPACT = ROOT / "impact.md"
+
+
+def deal_path(name: str) -> Path:
+    return DEALS / f"{slug(name)}.md"
+
+
+def cmd_deal(name: str, status: str = "screening", full: bool = False,
+             reason: str = ""):
+    """Create a deal file. `full` pulls in the whole eight-section memo."""
+    if not name.strip():
+        sys.exit('name it: vc deal "Company Name"')
+    path = deal_path(name)
+    if path.exists() and not full:
+        print(f"{DIM}already tracking{OFF} {path.relative_to(ROOT)}")
+        return
+    DEALS.mkdir(exist_ok=True)
+
+    body = ""
+    if full:
+        tmpl = (DEALS / "_template.md").read_text()
+        body = tmpl.split("---", 2)[-1].strip()
+
+    path.write_text(
+        "---\n"
+        f"name: {name.strip()}\n"
+        f"status: {status}\n"
+        "stage: pre-seed\n"
+        "source: \n"
+        "url: \n"
+        "fit: /5\n"
+        "one_liner: \n"
+        f"reason: {reason}\n"
+        f"first_seen: {datetime.now():%Y-%m-%d}\n"
+        "---\n\n" + body + "\n"
+    )
+    label = "memo" if full else status
+    print(f"{TEAL}{label}{OFF} · {path.relative_to(ROOT)}")
+    if not reason:
+        print(f"  {DIM}fill in one_liner, source, and fit — then: vc build{OFF}")
+
+
+def cmd_pass(args: list[str]):
+    if len(args) < 2:
+        sys.exit('vc pass "Company Name" the reason you passed')
+    name, reason = args[0], " ".join(args[1:])
+    path = deal_path(name)
+    if path.exists():
+        text = path.read_text()
+        text = re.sub(r"^status:.*$", "status: passed", text, count=1, flags=re.M)
+        text = re.sub(r"^reason:.*$", f"reason: {reason}", text, count=1, flags=re.M)
+        path.write_text(text)
+        print(f"{TEAL}passed{OFF} · {name} — {reason}")
+    else:
+        cmd_deal(name, status="passed", reason=reason)
+
+
+def cmd_deals():
+    files = sorted(p for p in DEALS.glob("*.md") if not p.name.startswith("_")) \
+        if DEALS.exists() else []
+    if not files:
+        print('\n  no companies yet. start one:  vc deal "Company Name"\n')
+        return
+    groups: dict[str, list] = {}
+    for p in files:
+        text = p.read_text()
+        meta = dict(
+            (k.strip(), v.strip())
+            for k, _, v in (l.partition(":") for l in text.split("---")[1].strip().split("\n"))
+            if k.strip()
+        )
+        groups.setdefault(meta.get("status", "screening"), []).append(meta)
+    print()
+    for status in ("invested", "diligence", "screening", "tracking", "passed"):
+        rows = groups.get(status, [])
+        if not rows:
+            continue
+        print(f"  {BOLD}{status.upper()}{OFF} {DIM}({len(rows)}){OFF}")
+        for m in rows:
+            note = m.get("reason") or m.get("one_liner") or ""
+            print(f"    {TEAL}·{OFF} {m.get('name', '?'):<28} {DIM}{note[:52]}{OFF}")
+        print()
+    print(f"  {DIM}{len(files)} total · vc build to publish{OFF}\n")
+
+
+def cmd_impact(text: str):
+    if not text.strip():
+        sys.exit('vc impact "Founder or company — what I did"')
+    if not IMPACT.exists():
+        IMPACT.write_text("# Founder impact\n\n")
+    body = IMPACT.read_text()
+    if "_(no entries yet)_" in body:
+        body = body.replace("_(no entries yet)_", "").rstrip() + "\n"
+    body += (
+        f"\n### {text.strip()}\n"
+        f"**When:** {datetime.now():%Y-%m-%d}\n\n"
+        "**What I did:**\n\n"
+        "**What came of it:** _(fill in when you know — this is the part that counts)_\n"
+    )
+    IMPACT.write_text(body)
+    print(f"{TEAL}logged{OFF} · impact.md — add the outcome when you have it")
+
+
+def cmd_build():
+    return subprocess.run(
+        [sys.executable, str(ROOT / "script" / "build.py")]
+    ).returncode
+
+
 def cmd_random():
     section, term, body = random.choice(load())
     print(render(section, term, body))
@@ -256,6 +375,18 @@ def main() -> int:
         cmd_random()
     elif cmd == "list":
         cmd_list(" ".join(args[1:]))
+    elif cmd == "deal":
+        cmd_deal(" ".join(args[1:]))
+    elif cmd == "memo":
+        cmd_deal(" ".join(args[1:]), status="diligence", full=True)
+    elif cmd == "pass":
+        cmd_pass(args[1:])
+    elif cmd == "deals":
+        cmd_deals()
+    elif cmd == "impact":
+        cmd_impact(" ".join(args[1:]))
+    elif cmd == "build":
+        return cmd_build()
     elif cmd == "fill":
         # pull first so the latest agent output is present
         subprocess.run(["git", "-C", str(ROOT), "pull", "--quiet", "--rebase"],

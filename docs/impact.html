@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>founder impact — vc companion</title>
+<meta name="description" content="What I actually did for founders, and what came of it.">
+<meta name="author" content="Emmanuel Chan">
+<meta property="og:title" content="founder impact — vc companion">
+<meta property="og:description" content="What I actually did for founders, and what came of it.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-bar">
+    <a href="index.html" class="nav-home" aria-label="Home">vc</a>
+    <div class="nav-links-wrapper">
+      <div class="nav-links"><a href="thesis.html">Thesis</a><a href="glossary.html">Learn</a><a href="pipeline.html" class="active">Practice</a><a href="proof.html">Proof</a></div>
+    </div>
+    <div class="nav-theme-container">
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+<div class="subnav"><div class="subnav-inner"><a href="pipeline.html">Pipeline</a><a href="memo.html">Deal memo</a><a href="impact.html" class="active">Founder impact</a></div></div>
+
+<header class="hero">
+  <div class="eyebrow">Practice</div>
+  <h1 class="fluid">founder <span class="hl">impact</span></h1>
+  <p class="hero-sub">What I actually did for founders, and what came of it. Not a claim that I'm helpful — a record.</p>
+</header>
+
+<main class="container">
+
+<div class="grid grid-4" style="margin-bottom:2.5rem">
+  <div class="card stat"><div class="n">0</div><div class="l">Founders helped</div></div>
+</div>
+<div class="prose"><p>What I actually did for founders, and what came of it. Not a claim that I'm helpful — a record.</p>
+<p>The method comes from VC Lab's secret sauce guidance: pick 10–15 companies inside the thesis, help in ways that are concrete rather than generic, and document measurable outcomes — revenue influenced, hires placed, introductions that converted.</p>
+<p>Add an entry with <code>vc impact "Founder or company"</code>.</p>
+<p><strong>Why this file exists:</strong> years of real help left no trace anyone could verify. This is the trace.</p>
+<hr>
+<p>_(no entries yet)_</p></div>
+</main>
+
+<footer>
+  <p><a href="index.html">VC companion</a> &middot; Emmanuel Chan &middot;
+  <a href="https://emanchan.com">emanchan.com</a> &middot;
+  <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
+</footer>
+
+<script>
+(function () {
+  var key = 'vclab-theme';
+  var stored = localStorage.getItem(key);
+  var prefersDark = window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.body.classList.add('dark-mode');
+  }
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem(key,
+      document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+  });
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  }
+})();
+</script>
+
+</body>
+</html>
