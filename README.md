@@ -34,6 +34,14 @@ See [thesis.md](thesis.md) and [background.md](background.md).
 | [`nuggets.md`](nuggets.md) | Captured thoughts, append-only. Triaged weekly. |
 | [`script/`](script/) | The `vc` CLI and the glossary build |
 
+## The `/vclab` skill
+
+In any Claude Code session, `/vclab` loads the whole workflow — voice rules, how to read and fill
+the fi.co portal, the never-fabricate and never-submit rules, and the glossary build. Say things
+like "pull the new sprint prompts", "fill the drafts", or "add these terms to the glossary".
+
+Lives at `~/.claude/skills/vclab/SKILL.md`.
+
 ## The `vc` command
 
 ```bash
