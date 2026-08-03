@@ -1,6 +1,6 @@
 // Offline cache for the VC Lab companion.
 // Bump CACHE when the site content changes so clients refetch.
-const CACHE = 'vc-lab-v3';
+const CACHE = 'vc-lab-v4';
 const ASSETS = [
   './',
   'index.html',
@@ -15,6 +15,7 @@ const ASSETS = [
   'proof.html',
   'assignments.html',
   'style.css',
+  'favicon.svg',
 ];
 
 self.addEventListener('install', (event) => {

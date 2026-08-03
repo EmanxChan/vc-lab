@@ -100,6 +100,7 @@ def page(*, title: str, description: str, section: str, current: str,
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">{css}
 </head>
 <body>

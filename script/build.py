@@ -27,6 +27,7 @@ from lib_shell import hero, page                            # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 SITE = "https://vc-lab.vercel.app"
+FAVICON = "🧭"   # tab icon — a companion is a thing you navigate by
 
 SHORT_LABELS = {
     "the-rounds-how-money-arrives": "Rounds",
@@ -1172,10 +1173,21 @@ DRILLS_JS = """
 """
 
 
+def build_favicon() -> None:
+    """Emoji tab icon, as an SVG so it stays sharp at every size."""
+    (DOCS / "favicon.svg").write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+        f'<text x="32" y="32" font-size="56" text-anchor="middle" '
+        f'dominant-baseline="central">{FAVICON}</text></svg>\n',
+        encoding="utf-8",
+    )
+
+
 def main() -> int:
     DOCS.mkdir(exist_ok=True)
     sections = load_glossary()
     deals = load_deals()
+    build_favicon()
 
     n = build_glossary(sections)
     build_thesis()
