@@ -69,8 +69,12 @@ No login needed.
 first, then fetch the govclab.com target it reports.
 
 Currently live: **Sprints 1–3, plus 4.3.** Everything else (`VI2-4`, `VI3-4`, `VI4-1/2/4`, and
-all of Sprints 5–8) returns a Rebrandly broken-link page. Sprints 5–8 run inside Decile Hub and
+most of Sprints 5–8) returns a Rebrandly broken-link page. Sprints 5–8 run inside Decile Hub and
 may never have public articles.
+
+**Exception:** `vcl.to/VI7-2` does **not** point to a govclab article — it redirects to a Google
+Doc *worksheet* (`docs.google.com/.../copy`) containing the Sprint 2 assignment sets. Not every
+working short link is an article; check where it actually lands.
 
 ## VC Lab curriculum map
 
