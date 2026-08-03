@@ -788,6 +788,7 @@ body.flat .group-label, body.flat .section-intro { display: none !important; }
   var search = document.getElementById('search');
   var terms = Array.prototype.slice.call(document.querySelectorAll('.term'));
   var labels = Array.prototype.slice.call(document.querySelectorAll('.group-label'));
+  var sourcesHidden = false;
   var intros = Array.prototype.slice.call(document.querySelectorAll('.section-intro'));
   var noResults = document.getElementById('no-results');
   var cursor = -1;
@@ -828,6 +829,11 @@ body.flat .group-label, body.flat .section-intro { display: none !important; }
   var section = '';
   var sortMode = 'curriculum';
 
+  // The trailing "Where this came from" block: its heading has no data-section.
+  var sourceBlocks = Array.prototype.slice
+    .call(container.querySelectorAll('.sources, .group-label:not([data-section])'));
+  labels = labels.filter(function (l) { return l.hasAttribute('data-section'); });
+
   // Section headings only make sense in curriculum order with no section filter.
   function flat() {
     return sortMode !== 'curriculum' || section !== '';
@@ -852,15 +858,19 @@ body.flat .group-label, body.flat .section-intro { display: none !important; }
     }
     document.body.classList.toggle('flat', flat());
     list.forEach(function (t) { container.appendChild(t); });
-    // keep section headings adjacent to their terms in curriculum order
+    // keep section headings (and their intros) with their terms in curriculum order
     if (!flat()) {
       labels.forEach(function (label) {
         var sec = label.dataset.section;
         var first = list.filter(function (t) { return t.dataset.section === sec; })[0];
-        if (first) container.insertBefore(label, first);
-        var intro = label.nextElementSibling;
+        if (!first) return;
+        container.insertBefore(label, first);
+        var intro = intros.filter(function (i) { return i.dataset.section === sec; })[0];
+        if (intro) container.insertBefore(intro, first);
       });
     }
+    // the sources block always belongs at the very bottom
+    sourceBlocks.forEach(function (el) { container.appendChild(el); });
   }
 
   function filter() {
@@ -884,6 +894,12 @@ body.flat .group-label, body.flat .section-intro { display: none !important; }
       i.style.display = (q || flat()) ? 'none' : '';
     });
     noResults.style.display = visible ? 'none' : 'block';
+
+    // hide the sources block whenever the list is narrowed
+    sourcesHidden = !!(q || section);
+    sourceBlocks.forEach(function (el) {
+      el.style.display = sourcesHidden ? 'none' : '';
+    });
 
     var bits = [];
     if (q) bits.push('matching "' + search.value.trim() + '"');
