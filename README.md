@@ -31,7 +31,24 @@ See [thesis.md](thesis.md) and [background.md](background.md).
 | [`assignments/`](assignments/) | The exact text I submitted, dated |
 | [`glossary.md`](glossary.md) | VC vocabulary, defined plainly as I encounter it |
 | [`docs/`](docs/) | The published site |
-| [`script/`](script/) | Build tooling |
+| [`nuggets.md`](nuggets.md) | Captured thoughts, append-only. Triaged weekly. |
+| [`script/`](script/) | The `vc` CLI and the glossary build |
+
+## The `vc` command
+
+```bash
+vc pari passu          # look up a term — fuzzy, so "liq pref" works
+vc note "..."          # capture a thought in 3 seconds
+vc notes               # recent captures
+vc quiz                # flashcard drill
+vc random              # one term, for a spare minute
+vc list [section]      # everything, or one section
+```
+
+Installed via a symlink: `ln -sf ~/Projects/active/vc-lab/script/vc ~/.local/bin/vc`
+
+On the site, press **`/`** to search from anywhere, arrows to move, Enter to jump. Every term has
+a deep link (`glossary.html#pari-passu`). The site works offline after one visit.
 
 **The glossary is generated.** `glossary.md` is the single source of truth; `docs/glossary.html`
 is built from it. Never hand-edit the HTML — edit the markdown and run:

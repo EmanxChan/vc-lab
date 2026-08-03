@@ -1,0 +1,224 @@
+#!/usr/bin/env python3
+"""vc — VC Lab companion.
+
+Look up a term or capture a thought without leaving the terminal.
+
+    vc pari passu           look up a term (fuzzy — "liq pref" works)
+    vc note "..."           append a nugget with a timestamp
+    vc notes                show recent nuggets
+    vc quiz                 flashcard drill on random terms
+    vc random               one term, for a spare minute
+    vc list [section]       list all terms, or one section's
+"""
+
+import os
+import random
+import re
+import subprocess
+import sys
+from datetime import datetime
+from difflib import SequenceMatcher
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+GLOSSARY = ROOT / "glossary.md"
+NUGGETS = ROOT / "nuggets.md"
+SITE = "https://vc-lab.vercel.app/glossary.html"
+
+# ANSI colors, disabled when piping or when NO_COLOR is set
+_tty = sys.stdout.isatty() and not os.environ.get("NO_COLOR")
+BOLD = "\033[1m" if _tty else ""
+DIM = "\033[2m" if _tty else ""
+TEAL = "\033[36m" if _tty else ""
+GOLD = "\033[33m" if _tty else ""
+OFF = "\033[0m" if _tty else ""
+
+
+def slug(name: str) -> str:
+    s = re.sub(r"[^\w\s-]", "", name.lower())
+    return re.sub(r"[\s_]+", "-", s).strip("-")
+
+
+def load():
+    """Return [(section, term, body)] from glossary.md."""
+    if not GLOSSARY.exists():
+        sys.exit(f"glossary not found at {GLOSSARY}")
+    out, section = [], ""
+    for part in re.split(r"^## ", GLOSSARY.read_text(), flags=re.M)[1:]:
+        title, _, rest = part.partition("\n")
+        section = re.sub(r"^\d+\.\s*", "", title).strip()
+        for chunk in re.split(r"^### ", rest, flags=re.M)[1:]:
+            name, _, body = chunk.partition("\n")
+            out.append((section, name.strip(), body.strip().rstrip("-").strip()))
+    return out
+
+
+def score(query: str, term: str) -> float:
+    """Rank a term against a query. Higher is better."""
+    q, t = query.lower().strip(), term.lower()
+    if q == t:
+        return 100.0
+    if t.startswith(q):
+        return 90.0
+    if q in t:
+        return 80.0
+    # every query word appears somewhere — handles "liq pref"
+    words = q.split()
+    if words and all(any(w in tw for tw in t.split()) for w in words):
+        return 70.0
+    if len(q) >= 3 and all(any(tw.startswith(w) for tw in t.split()) for w in words):
+        return 60.0
+    return SequenceMatcher(None, q, t).ratio() * 50
+
+
+def render(section: str, term: str, body: str) -> str:
+    """Format one entry for the terminal."""
+    lines = [f"\n{BOLD}{TEAL}{term}{OFF}  {DIM}· {section}{OFF}\n"]
+    body = re.sub(r"\n(?=\*\*(?:Picture this|The tension))", "\n\n", body)
+    for block in re.split(r"\n\s*\n", body):
+        block = block.strip()
+        if not block:
+            continue
+        example = block.startswith(("**Picture this", "**The tension"))
+        text = re.sub(r"\*\*([^*]+)\*\*", rf"{BOLD}\1{OFF}", block)
+        text = re.sub(r"(?<!\*)\*([^*\n]+)\*(?!\*)", r"\1", text)
+        text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+        for raw in text.split("\n"):
+            prefix = f"{GOLD}│{OFF} " if example else "  "
+            lines.append(prefix + raw.strip())
+        lines.append("")
+    return "\n".join(lines)
+
+
+def cmd_lookup(query: str):
+    entries = load()
+    ranked = sorted(
+        ((score(query, t), s, t, b) for s, t, b in entries),
+        key=lambda x: -x[0],
+    )
+    best = ranked[0]
+    if best[0] < 35:
+        print(f"\nNo match for {BOLD}{query}{OFF}.\n")
+        print("Closest:")
+        for sc, _, t, _ in ranked[:5]:
+            print(f"  {DIM}·{OFF} {t}")
+        print()
+        return 1
+
+    print(render(best[1], best[2], best[3]))
+    print(f"  {DIM}{SITE}#{slug(best[2])}{OFF}")
+
+    near = [r for r in ranked[1:4] if r[0] >= 60]
+    if near:
+        print(f"  {DIM}see also: {', '.join(r[2] for r in near)}{OFF}")
+    print()
+    return 0
+
+
+def cmd_note(text: str):
+    text = text.strip()
+    if not text:
+        sys.exit('nothing to note. try: vc note "the thing someone said"')
+    if not NUGGETS.exists():
+        NUGGETS.write_text(
+            "# Nuggets\n\n"
+            "Things worth keeping — quotes, half-thoughts, questions I couldn't answer.\n"
+            "Append-only and deliberately unstructured. Filing happens later.\n\n"
+            "Capture with `vc note \"...\"`.\n\n---\n"
+        )
+    stamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+    with NUGGETS.open("a") as fh:
+        fh.write(f"\n**{stamp}** — {text}\n")
+    count = len(re.findall(r"^\*\*\d{4}-", NUGGETS.read_text(), flags=re.M))
+    print(f"{TEAL}captured{OFF} {DIM}({count} total){OFF}")
+
+
+def cmd_notes(n: int = 15):
+    if not NUGGETS.exists():
+        print("no nuggets yet. capture one with: vc note \"...\"")
+        return
+    items = re.findall(r"^\*\*(\d{4}-\d{2}-\d{2} \d{2}:\d{2})\*\* — (.+)$",
+                       NUGGETS.read_text(), flags=re.M)
+    if not items:
+        print("no nuggets yet.")
+        return
+    print()
+    for stamp, text in items[-n:]:
+        print(f"  {DIM}{stamp}{OFF}  {text}")
+    print(f"\n  {DIM}{len(items)} total · {NUGGETS}{OFF}\n")
+
+
+def cmd_quiz(rounds: int = 5):
+    entries = load()
+    random.shuffle(entries)
+    right = 0
+    print(f"\n{BOLD}Flashcards{OFF} {DIM}— Enter to reveal, q to quit{OFF}")
+    for i, (section, term, body) in enumerate(entries[:rounds], 1):
+        print(f"\n{DIM}{i}/{rounds} · {section}{OFF}")
+        print(f"\n  {BOLD}{TEAL}{term}{OFF}\n")
+        try:
+            if input("  ").strip().lower() == "q":
+                break
+        except (EOFError, KeyboardInterrupt):
+            print()
+            break
+        print(render(section, term, body))
+        try:
+            if input(f"  {DIM}knew it? [y/N] {OFF}").strip().lower() == "y":
+                right += 1
+        except (EOFError, KeyboardInterrupt):
+            print()
+            break
+    print(f"\n  {right} known\n")
+
+
+def cmd_random():
+    section, term, body = random.choice(load())
+    print(render(section, term, body))
+
+
+def cmd_list(filt: str = ""):
+    entries = load()
+    current = None
+    shown = 0
+    for section, term, _ in entries:
+        if filt and filt.lower() not in section.lower():
+            continue
+        if section != current:
+            current = section
+            print(f"\n{BOLD}{section}{OFF}")
+        print(f"  {DIM}·{OFF} {term}")
+        shown += 1
+    print(f"\n{DIM}{shown} terms{OFF}\n")
+
+
+def main() -> int:
+    args = sys.argv[1:]
+    if not args or args[0] in ("-h", "--help", "help"):
+        print(__doc__)
+        return 0
+
+    cmd = args[0]
+    if cmd == "note":
+        cmd_note(" ".join(args[1:]))
+    elif cmd == "notes":
+        cmd_notes()
+    elif cmd == "quiz":
+        cmd_quiz(int(args[1]) if len(args) > 1 and args[1].isdigit() else 5)
+    elif cmd == "random":
+        cmd_random()
+    elif cmd == "list":
+        cmd_list(" ".join(args[1:]))
+    elif cmd == "open":
+        subprocess.run(["open", SITE], check=False)
+    else:
+        return cmd_lookup(" ".join(args))
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        print()
+        sys.exit(130)
