@@ -3,12 +3,25 @@
 My working notebook for **VC Lab's Venture Institute (Cohort 7)**, run by Decile Group through
 the Founder Institute portal.
 
-| Page | URL |
-|---|---|
-| Home | https://vc-lab.vercel.app |
-| Glossary | https://vc-lab.vercel.app/glossary.html |
-| Structure & capital flow | https://vc-lab.vercel.app/structure.html |
-| Curriculum notes | https://vc-lab.vercel.app/notes.html |
+| Section | Page | What it's for |
+|---|---|---|
+| — | [Home](https://vc-lab.vercel.app) | Where everything is, and how far along it is |
+| **Thesis** | [Thesis](https://vc-lab.vercel.app/thesis.html) | What I invest in, the path, the edge |
+| **Learn** | [Glossary](https://vc-lab.vercel.app/glossary.html) | 126 terms, each with a worked example |
+| | [Curriculum](https://vc-lab.vercel.app/notes.html) | Every VC Lab session, in my words |
+| | [How a fund works](https://vc-lab.vercel.app/structure.html) | ManCo/GP/LP and the capital flow |
+| | [Drills](https://vc-lab.vercel.app/drills.html) | Waterfall calculator, scenarios, flashcards |
+| **Practice** | [Pipeline](https://vc-lab.vercel.app/pipeline.html) | Companies seen, with a reason for every decision |
+| | [Deal memo](https://vc-lab.vercel.app/memo.html) | The eight-section template |
+| | [Founder impact](https://vc-lab.vercel.app/impact.html) | What I did, and what came of it |
+| **Proof** | [Proof package](https://vc-lab.vercel.app/proof.html) | The evidence, scored against a partner's rubric |
+| | [VC Lab record](https://vc-lab.vercel.app/assignments.html) | Every assignment, verbatim |
+
+### Why four sections
+
+**Thesis** is the spine — everything else is judged against it. **Learn** is knowledge coming in.
+**Practice** is the work itself. **Proof** is what comes out for someone else to read. Mutually
+exclusive, collectively exhaustive: every page has exactly one home.
 
 Mirror on GitHub Pages: https://emanxchan.github.io/vc-lab/ — same content, both auto-deploy on push.
 
@@ -45,12 +58,26 @@ Lives at `~/.claude/skills/vclab/SKILL.md`.
 ## The `vc` command
 
 ```bash
+# Learn
 vc pari passu          # look up a term — fuzzy, so "liq pref" works
-vc note "..."          # capture a thought in 3 seconds
-vc notes               # recent captures
-vc quiz                # flashcard drill
+vc quiz                # adaptive flashcards, weighted to what I miss
 vc random              # one term, for a spare minute
 vc list [section]      # everything, or one section
+
+# Capture
+vc note "..."          # catch a thought in 3 seconds
+vc notes               # recent captures
+
+# Practice
+vc deal "Company"      # start tracking a company
+vc pass "Co" reason    # log a pass with its reason
+vc memo "Company"      # scaffold the full eight-section memo
+vc deals               # show the pipeline
+vc impact "Founder"    # log what I did for a founder
+
+# Ship
+vc build               # rebuild the site
+vc fill                # copy Sunday's answers for the portal
 ```
 
 Installed via a symlink: `ln -sf ~/Projects/active/vc-lab/script/vc ~/.local/bin/vc`
@@ -58,12 +85,21 @@ Installed via a symlink: `ln -sf ~/Projects/active/vc-lab/script/vc ~/.local/bin
 On the site, press **`/`** to search from anywhere, arrows to move, Enter to jump. Every term has
 a deep link (`glossary.html#pari-passu`). The site works offline after one visit.
 
-**The glossary is generated.** `glossary.md` is the single source of truth; `docs/glossary.html`
-is built from it. Never hand-edit the HTML — edit the markdown and run:
+**The entire site is generated.** Markdown is the source of truth; everything in `docs/` is
+built from it. Never hand-edit HTML — edit the markdown and run:
 
 ```bash
-python3 script/build-glossary.py
+vc build     # or: python3 script/build.py
 ```
+
+| Source | Becomes |
+|---|---|
+| `glossary.md` | glossary.html |
+| `thesis.md`, `background.md` | thesis.html |
+| `sprints/*.md` | notes.html |
+| `assignments/*.md` | assignments.html |
+| `deals/*.md` | pipeline.html, proof.html |
+| `impact.md` | impact.html |
 
 Terms use a fixed shape: a plain-language definition, then a line starting with
 `**Picture this:**` giving a concrete example with real numbers. The build script turns that
