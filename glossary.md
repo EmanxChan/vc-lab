@@ -409,21 +409,136 @@ The standard package: 2% annual fee, 20% of profits.
 **The tension:** fees are paid whether or not the fund performs. A big fund can pay its GPs well
 while returning nothing. That's why a serious emerging manager points at carry, not fees.
 
+### Distribution waterfall
+The strict order money flows back out of a fund. Every dollar of exit proceeds runs down these
+tiers, and carry only appears once the tiers above it are full.
+
+| Tier | Who gets it | Until |
+|---|---|---|
+| 1. Return of capital | 100% LP | LPs have their contributed capital back |
+| 2. Preferred return | 100% LP | LPs have earned the hurdle, usually 8%/yr |
+| 3. GP catch-up | 100% GP | GP holds 20% of the profits paid so far |
+| 4. The split | 80% LP / 20% GP | Forever |
+
+Most venture funds run a two-tier version of this — capital back, then straight 80/20. Tiers 2 and
+3 are private-equity furniture that appears in VC mainly when a large institutional LP asks for it.
+**Picture this:** a $100M fund returns $120M. Tier 1 sends the first $100M straight to LPs. The
+$20M above it is profit — LPs $16M, GP $4M. Everything below in this section is an argument about
+*when* that $4M gets paid and *what it was calculated on*.
+
 ### Hurdle rate / preferred return
 The minimum return LPs must get before the GP earns any carry — industry standard around **8%**
-per year.
+per year, compounding, on capital actually drawn.
+**Picture this:** most venture LPAs skip it entirely. An 8% annual hurdle is either irrelevant (a
+3x fund blows through it) or unreachable (a 0.9x fund was never getting there), so the clause does
+most of its real work in private equity. When it does show up in a VC fund, the fight that follows
+is always about the catch-up.
 
-### Distribution waterfall
-The strict order money flows back out: LP capital first, then preferred return, then the 80/20
-split.
-**Picture this:** **European** waterfall pays carry only after the *entire fund* has returned all
-LP capital — LP-friendly, standard for first-time managers. **American** pays carry deal by deal,
-so the GP gets paid sooner and risks having to give it back.
+### Hard hurdle vs. soft hurdle
+A **soft** hurdle pairs the preferred return with a full GP catch-up, so once the fund clears the
+bar the GP still earns 20% of *all* profits. A **hard** hurdle has no catch-up — the GP earns carry
+only on profits *above* the hurdle, and never gets that first slice back.
+**Picture this:** a $100M fund returns $200M with $20M of accrued pref. Soft hurdle: the GP ends up
+with $20M. Hard hurdle: LPs keep $120M off the top and the GP splits only the remaining $80M →
+**$16M.** Same fund, same "20%" headline, $4M apart. When a term sheet says "8% preferred return,"
+the next question is always "with catch-up?"
+
+### GP catch-up
+The tier nobody explains. Once LPs have their capital and their preferred return, the GP takes
+**100% of the next dollars** until they hold 20% of all profits distributed so far. Only then does
+the 80/20 split start.
+**Picture this:** that $100M fund returning $200M. LPs take $100M of capital, then $20M of pref —
+profits so far are $20M and every dollar went to the LPs. The GP now catches up: they take the next
+**$5M** at 100%, which makes profits $25M with $5M to the GP, exactly 20%. The remaining $75M
+splits 80/20. GP total: **$20M — precisely 20% of the fund's $100M profit.** The hurdle delayed the
+GP's money. With a full catch-up, it never cost them any.
+
+### European waterfall (whole-of-fund)
+Carry is calculated on the fund as a single pool. Everything LPs put in — every investment, plus a
+decade of management fees, plus fund expenses — comes back before the GP sees a cent. Now the
+default, and effectively mandatory for a first-time manager.
+**Picture this:** a $100M fund writes ten $10M checks. Company A exits in year 4 for $60M — all of
+it goes to LPs, who are still $40M short of whole. Carry paid: **$0.** Three companies die outright,
+five limp back $2M each, and in year 9 the last one exits for $50M. That's the moment the fund
+crosses $100M returned. The $20M above it splits 80/20 → **GP carry $4M, first dollar received in
+year 9.**
+
+### American waterfall (deal-by-deal)
+Carry is calculated one investment at a time. A company exits, the fund returns that deal's cost to
+the LPs, and the gain splits 80/20 on the spot. The GP gets paid years earlier — and can end up
+holding carry the fund never actually earned.
+**Picture this:** same $100M fund, same ten companies, same outcomes. Year 4, Company A returns
+$60M: hand LPs back the $10M cost, split the $50M gain → **GP takes $10M in year 4.** Year 9,
+Company J returns $50M: return $10M, split $40M → **GP takes another $8M.** The GP has been paid
+**$18M of carry by a fund that generated $20M of profit.** They earned $4M. They owe $14M back.
+
+Even when that $14M is returned in full, the GP held $10M from year 4 to year 9. Five years of use
+on that money is worth roughly $4M at 7% — a transfer the clawback math never captures.
+
+### Loss carryforward
+The clause that decides how brutal an American waterfall really is. Before the GP takes carry on a
+winner, the LPA may require that losses already realized on *other* deals be returned to LPs first.
+Three flavors, GP-friendly to LP-friendly: pure deal-by-deal (only that deal's cost comes back),
+deal-by-deal with loss carryforward (realized write-offs come back too), and whole-of-fund — which
+is just European by another name.
+**Picture this:** rerun year 9 of that fund with a loss carryforward. $70M of losses have been
+realized by then — three write-offs plus five companies that returned $2M on $10M. Company J's
+$50M can't cover them, so the GP's year-9 carry drops from $8M to **$0** and total carry taken
+falls from $18M to $10M. Whether your losses land before or after your wins quietly decides how
+much carry you touch.
 
 ### Clawback
-The provision forcing a GP to return carry they were paid too early.
+The provision forcing a GP to return carry they were paid too early. It's what makes the American
+waterfall defensible in theory — the fund trues up to whole-fund math at the end.
 **Picture this:** deal one exits big, GP takes $2M of carry. The next eight deals die. Across the
-whole fund the LPs are underwater — so the GP has to write a check back.
+whole fund the LPs are underwater — so the GP has to write a check back. In practice the check
+depends on three things nobody reads: whether it's tested before wind-down, whether carry was held
+in escrow, and whether it's owed gross or net of tax.
+
+### Interim clawback test
+A mid-life true-up. Instead of waiting for wind-down, the LPA reruns the whole-fund math on a
+schedule — often every two or three years, or at the end of the investment period — and makes the
+GP return any excess then.
+**Picture this:** the deal-by-deal GP took $10M in year 4. A year-6 test reruns the numbers: the
+fund has returned $70M against $100M in, so earned carry is $0 and $10M goes back six years before
+the fund closes. Without an interim test, LPs spend a decade as unsecured creditors of a person.
+
+### Escrow (carry holdback)
+The slice of every carry distribution the fund withholds against a future clawback — typically
+**20–30%**, released at wind-down.
+**Picture this:** the GP's $10M of year-4 carry arrives as $7M in the bank and $3M sitting in
+escrow. Which is why "the fund paid carry" and "the GP got the money" are two different sentences.
+
+### Net-of-tax clawback
+The clause that turns a timing difference into a permanent dollar difference. Most clawbacks are
+capped at what the GP kept **after paying tax** on the carry — so when the money goes back, the
+tax already paid to the IRS does not come with it. LPs absorb that.
+**Picture this:** the deal-by-deal GP took $18M and owes $14M back. At roughly 35% combined federal
+and California tax they kept $11.7M, and a net-of-tax clawback caps the repayment there. **LPs are
+permanently short $2.3M** — 11.5% of the fund's entire profit — under a structure that was supposed
+to be economically identical to European.
+
+### Carry vesting
+Carry belongs to the firm; an individual partner's share vests over time — commonly **four to six
+years**, often with a one-year cliff, and usually per-fund rather than per-person.
+**Picture this:** you join as a principal with 5% of the carry pool and leave in year 3 of a
+four-year vest. You keep 75% of your 5%, on a fund that won't distribute carry until year 9. You
+will be waiting six years after you left to learn what it was worth.
+
+### Distribution in kind
+Paying LPs in shares instead of cash, usually once a portfolio company is public and the lockup has
+expired. Carry is computed on the share price the day the shares go out.
+**Picture this:** the fund holds 2M shares of a newly public company at $30. Rather than sell into
+the market, it distributes the stock. The waterfall treats it as $60M returned — and every LP
+carries their own price risk from that morning forward.
+
+### The three-year hold (Section 1061)
+Carry is taxed as capital gain, but since 2017 the underlying asset has to be held **more than
+three years** or the GP's carry on it is recharacterized as short-term and taxed at ordinary rates.
+**Picture this:** a company you funded 26 months ago gets acquired. The LPs are thrilled; your
+carry on that exit is taxed near 37% instead of near 20%. Venture holding periods usually clear
+three years without trying, which is exactly why the rule bites private equity and hedge funds
+harder than it bites us.
 
 ### Recycling
 Reinvesting early returns instead of distributing them, so more than 100% of the fund gets
