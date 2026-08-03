@@ -252,6 +252,29 @@ growing.
 preferences jump from $25M to **$40M**. Any exit under $40M now returns literally nothing to the
 founders and team.
 
+### Conversion point
+The exit value at which an investor stops preferring their liquidation preference and would
+rather convert to common. Below it, take the preference. Above it, convert.
+**Picture this:** Series A put in $10M for 25%. On its own, it converts at a $40M exit. Then
+Series B invests $15M — and now at $40M, Series B takes its $15M first, leaving $25M, of which
+Series A's 25% is only $6.25M. Worse than its $10M preference. **Series A's conversion point just
+moved from $40M to $55M** because someone else joined the stack.
+
+### Conversion price per share
+Liquidation preference divided by fully diluted shares. The shortcut for working out who converts
+first without trial and error — **lowest converts first.**
+**Picture this:** Series A at $4.00, Series B at $6.50, Series C at $9.75. A converts, then B,
+then C. With six or twelve series in a mature company, this ordering rule is the only sane way
+through.
+
+### Disagreement range
+The band of exit values where different investors want opposite things, and every extra round
+widens it.
+**Picture this:** between $55M and $80M, Series A wants to convert and Series B doesn't — a $25M
+band of conflict. Add Series C and the band stretches to $65M wide ($85M–$150M). Higher
+multiples and participation rights widen it further. This is the machinery behind board fights
+about whether to sell.
+
 ### Mandatory / automatic conversion
 A clause forcing preferred shareholders to convert to common when conditions are met — usually a
 qualifying IPO. It wipes out their liquidation preference.
@@ -508,6 +531,31 @@ Venture returns and venture *careers* both follow a power law.
 profits.** And 70% of the top-100 individual angels are in California, 50 in San Francisco alone
 — which is a real headwind to name honestly for anyone investing from Seattle.
 
+### Valuation overstatement
+Headline private valuations are inflated because preferred stock carries protections common
+stock doesn't. A "$1B company" is not worth $1B to everyone on the cap table.
+**Picture this:** serious rankings discount stated unicorn valuations by roughly **50%** to get
+to a common-share-equivalent value. When you read "valued at $2B," the honest number is closer
+to $1B.
+
+### Human capital decay
+A track record ages. Recent wins say more about an investor than old ones.
+**Picture this:** the Strebulaev–Jackson ranking applies a **three-year half-life** — a 2022
+investment counts fully, 2019 counts 25%, 2016 counts 12.5%. Which is exactly why "114 of the
+most active recent angels aren't in the lifetime top 100" matters more than it sounds.
+
+### Value add
+The measurable version of "we're helpful": taking a board seat, or leading the round rather than
+following.
+**Picture this:** the ranking awards explicit bonus points for board seats and lead positions,
+because those are the two places involvement is actually observable.
+
+### Net profits (vs. gross)
+Returns after subtracting what you paid to get them. It penalizes deploying enormous capital to
+find a few winners.
+**Picture this:** two investors both return $500M. One deployed $100M, the other $2B. Gross
+returns look similar; net profit says they're not remotely the same investor.
+
 ---
 
 ## 10. How companies are judged
@@ -534,6 +582,39 @@ least informative number in the deck.
 
 ### KPI
 The handful of metrics a company actually steers by.
+
+### Founder-market fit
+Whether *these specific people* are the right ones for this problem. At pre-seed, where there's
+little else to underwrite, this is most of the decision.
+
+### Prior shared experience
+Whether co-founders knew each other before starting. The single strongest team signal in the
+unicorn data.
+**Picture this:** of 1,377 multi-founder unicorns, **68.6% had co-founders who previously worked
+or studied together** — 57.8% same employer, 33.3% same university. Working together beats
+studying together. "We met at a hackathon last month" is a real risk factor.
+
+### Odds ratio
+How overrepresented a background is among winners, compared to how common it is among all
+VC-backed founders. Above 1.0 means it predicts something; below means it doesn't.
+**Picture this:** Facebook/Meta alumni sit at **4.0x**, Google at **2.9x**, the Israel Defense
+Forces at **2.6x**. Harvard is **0.89 — below parity.** Prestige and predictive power are
+different things, and this number tells them apart.
+
+### Talent factory
+A company whose alumni disproportionately go on to found winners — and the fact that these
+decay.
+**Picture this:** the PayPal Mafia's odds ratio collapsed from **12.0 before 2016 to 1.7 after.**
+Meanwhile Google rose from 4.4% to 9.1% of unicorn founders, Facebook from 0.9% to 5.3%, and
+OpenAI went from zero to 1.8% — **21 unicorn founders since 2016.** Where talent comes from is a
+moving target; today's edge is watching the current factories, not the famous old one.
+
+### University signal
+Which schools actually overproduce unicorn founders, by volume and by rate.
+**Picture this:** Stanford leads on raw count (113 unicorns), then MIT (89) and Harvard (76). But
+by odds ratio the leader is **University of Utah at 3.72x**, then **University of Washington at
+2.57x**. Michigan and Penn are top-13 by count yet *below* 1.0 by odds. Only Stanford and MIT
+lead on both — and the Seattle note is that UW is second in the country on rate.
 
 ---
 
@@ -565,9 +646,11 @@ After an IPO, insiders can't sell for a set window — typically 90–180 days.
 
 - **[VC Lab / GoVCLab](https://govclab.com)** — the Venture Institute curriculum, fund mechanics,
   and [VC terms reference](https://govclab.com/2023/07/23/venture-capital-terms/)
-- **[Ilya Strebulaev (Stanford GSB)](https://ilyastrebulaev.substack.com)** — the payout stack,
-  seniority and pari passu, the hold-up problem, deal funnel data, angel power-law research, and
-  the cold-pitch experiments. Most of the hard numbers here are his.
+- **[Ilya Strebulaev (Stanford GSB)](https://ilyastrebulaev.substack.com)** — most of the hard
+  numbers here are his. Full archive read: the payout stack and pari passu, conversion decisions
+  across rounds, the hold-up problem and mandatory conversion, the deal funnel, cold-pitch
+  experiments, the YC filter, angel power-law rankings, unicorn founder backgrounds, university
+  odds ratios, the VC 101 series, and the 2026 Strebulaev–Jackson ranking methodology.
 - **[Foundersuite's 150-term glossary](https://blog.foundersuite.com/venture-capital-glossary-founders-vcs/)**
   and **[GoingVC](https://www.goingvc.com/post/90-essential-venture-capital-terms-a-comprehensive-glossary)** — deal terms and traction vocabulary
 - **[Carta](https://carta.com/learn/private-funds/management/distribution-waterfall/)** and
