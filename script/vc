@@ -13,6 +13,7 @@ Look up a term or capture a thought without leaving the terminal.
                             into the portal (never submits)
 """
 
+import json
 import os
 import random
 import re
@@ -150,28 +151,72 @@ def cmd_notes(n: int = 15):
     print(f"\n  {DIM}{len(items)} total · {NUGGETS}{OFF}\n")
 
 
+SCORES = ROOT / ".quiz-scores.json"
+
+
+def load_scores() -> dict:
+    if SCORES.exists():
+        try:
+            return json.loads(SCORES.read_text())
+        except Exception:
+            return {}
+    return {}
+
+
 def cmd_quiz(rounds: int = 5):
+    """Flashcards weighted toward what you've been getting wrong."""
     entries = load()
-    random.shuffle(entries)
+    scores = load_scores()
+
+    # Unseen terms first, then the ones missed most, then the rest.
+    def weight(entry):
+        rec = scores.get(entry[1])
+        if not rec:
+            return (0, random.random())
+        miss_rate = rec["missed"] / max(1, rec["seen"])
+        return (1, -miss_rate, random.random())
+
+    entries.sort(key=weight)
+    pool = entries[: rounds * 3]
+    random.shuffle(pool)
+    pool = pool[:rounds]
+
     right = 0
-    print(f"\n{BOLD}Flashcards{OFF} {DIM}— Enter to reveal, q to quit{OFF}")
-    for i, (section, term, body) in enumerate(entries[:rounds], 1):
-        print(f"\n{DIM}{i}/{rounds} · {section}{OFF}")
+    unseen = sum(1 for e in pool if e[1] not in scores)
+    print(f"\n{BOLD}Flashcards{OFF} {DIM}— Enter to reveal, q to quit"
+          f"{f' · {unseen} new' if unseen else ''}{OFF}")
+
+    for i, (section, term, body) in enumerate(pool, 1):
+        print(f"\n{DIM}{i}/{len(pool)} · {section}{OFF}")
         print(f"\n  {BOLD}{TEAL}{term}{OFF}\n")
         try:
             if input("  ").strip().lower() == "q":
                 break
+            print(render(section, term, body))
+            knew = input(f"  {DIM}knew it? [y/N] {OFF}").strip().lower() == "y"
         except (EOFError, KeyboardInterrupt):
             print()
             break
-        print(render(section, term, body))
-        try:
-            if input(f"  {DIM}knew it? [y/N] {OFF}").strip().lower() == "y":
-                right += 1
-        except (EOFError, KeyboardInterrupt):
-            print()
-            break
-    print(f"\n  {right} known\n")
+        rec = scores.setdefault(term, {"seen": 0, "missed": 0})
+        rec["seen"] += 1
+        if knew:
+            right += 1
+        else:
+            rec["missed"] += 1
+
+    try:
+        SCORES.write_text(json.dumps(scores, indent=0, sort_keys=True))
+    except Exception:
+        pass
+
+    weak = sorted(
+        (t for t, r in scores.items() if r["missed"]),
+        key=lambda t: -scores[t]["missed"] / max(1, scores[t]["seen"]),
+    )[:3]
+    print(f"\n  {right} known")
+    if weak:
+        print(f"  {DIM}shakiest: {', '.join(weak)}{OFF}")
+    print(f"  {DIM}{len(scores)}/{len(entries)} terms seen{OFF}\n")
 
 
 def cmd_random():

@@ -194,6 +194,33 @@ holder from blocking an acquisition.
 If big shareholders sell, small ones can join on the same terms. The mirror image of
 drag-along, protecting the little guy.
 
+### Pay-to-play
+If you don't participate in the next round, you lose your preferred protections and get converted
+down to common. It punishes investors who go quiet when things get hard.
+**Picture this:** appears in roughly 10% of deals. It's founder-friendly and a real signal — an
+investor who accepts it is telling you they intend to keep supporting the company, not just ride
+the first check.
+
+### Cram down
+A round priced so low, with terms so aggressive, that it effectively wipes out existing holders.
+Usually happens when a company needs cash and has no leverage.
+**Picture this:** a company that raised at $60M can't raise again. A new investor offers $8M
+post-money with a 3x preference and full ratchet. Existing investors and employees are left with
+almost nothing. Technically a financing, functionally a reset.
+
+### No-shop
+A promise not to use your term sheet to shop for a better one. Standard, but the duration matters.
+**Picture this:** 30–60 days is normal and fair. A 120-day no-shop with no obligation on the
+investor's side is a founder agreeing to stop fundraising while someone decides at leisure.
+
+### Right of First Refusal (ROFR)
+If a shareholder wants to sell, the company or its investors get first option to buy at that price.
+It controls who ends up on the cap table.
+
+### Redemption rights
+The right to force the company to buy back shares after some period. Rare and aggressive at
+pre-seed — it converts equity into something closer to debt.
+
 ### Side letter
 A separate agreement giving one investor terms the others don't have — extra reporting, fee
 breaks, co-investment rights.
@@ -449,6 +476,47 @@ The total number of opportunities you see per unit of time. Quality of deal flow
 job.
 **Picture this:** an active early-stage firm sees roughly **1,000 opportunities a year.**
 
+### The dealflow process
+Six steps, and they're a pipeline you manage rather than a thing that happens to you:
+**sourcing → filtering → diligence → decision → closing → follow-up.**
+**Picture this:** most people entering venture think the job is step 3. It's mostly steps 1 and 2,
+and the funds that beat you are usually beating you at sourcing, not at analysis.
+
+### First-level filter
+The fast, mechanical pass: sector, stage, geography, valuation range. Anything outside the thesis
+exits immediately, in seconds, without guilt.
+**Picture this:** mine is — is it AI, does it touch trust or community, is it pre-seed, is it US?
+Four questions. If any is no, it's out, however much I like the founder.
+
+### Second-level filter
+The slower judgment pass on what survives: founder quality, traction, defensibility,
+differentiation. What your thesis tells you to *weight*, not just what it lets in.
+**Picture this:** first-level is a gate anyone could operate from a written rule. Second-level is
+where your actual taste lives, and it's the thing a fund is really hiring when it hires you.
+
+### Anti-portfolio
+The deals you passed on that went on to win. Kept deliberately by good investors.
+**Picture this:** Bessemer publishes theirs. The point isn't self-flagellation — it's that your
+passes are data about your filter, and reviewing them is the only way to find out your filter is
+miscalibrated.
+
+### Inbound vs. outbound
+Inbound arrives because someone sent it to you. Outbound is what you went and found.
+**Picture this:** tracking the split is the honest measure of whether your network is real. An
+investor whose dealflow is 95% outbound doesn't have an edge yet — they have effort.
+
+### Pipeline
+The set of companies you're actively tracking, with a stage attached to each. The difference
+between an investor and an enthusiast is that one of them can tell you what's in their pipeline
+this week.
+
+### Conviction
+The point at which you'd defend a company in a room of people who disagree. Distinct from
+interest, excitement, or liking the founder.
+**Picture this:** the test I'd use — can I write the single sentence that must be true for this to
+work, and do I believe it? If I can only say "the team is great and the space is hot," that's
+interest, not conviction.
+
 ### Sourcing
 Actively finding companies rather than waiting.
 **Picture this:** roughly **60%** of venture deals come through networks. Which is precisely why
@@ -582,6 +650,25 @@ least informative number in the deck.
 
 ### KPI
 The handful of metrics a company actually steers by.
+
+### Retention / churn
+Whether people who started using it are still using it. The least gameable number a young company
+has.
+**Picture this:** growth can be bought. Retention can't. A company adding 40% more users monthly
+while losing 30% of last month's is not growing, it's leaking — and at pre-seed, retention is
+usually the only real evidence product-market fit is coming.
+
+### Net revenue retention (NRR)
+What last year's customers are worth this year, including expansion, minus churn. Above 100% means
+the existing base grows without adding anyone.
+**Picture this:** 120% NRR means a company that signed zero new customers would still grow 20%.
+That's the number that makes enterprise investors lean in.
+
+### Default alive / default dead
+Whether a company reaches profitability on current cash and current growth, without raising again.
+**Picture this:** Paul Graham's framing, and the most useful question to ask a founder at pre-seed
+— not "how much runway do you have" but "does your current trajectory get you to safety, or does
+it require me and someone after me?"
 
 ### Founder-market fit
 Whether *these specific people* are the right ones for this problem. At pre-seed, where there's
