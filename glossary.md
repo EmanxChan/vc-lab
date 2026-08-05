@@ -402,6 +402,13 @@ A one-deal fund. Pools money from several people into a single investment.
 **Picture this:** you find a great deal but don't have a fund. You form an SPV, raise $400K from
 eight people, and the SPV writes one check. One line on the cap table.
 
+### Venture builder (studio)
+A firm that starts companies itself instead of investing in other people's. It supplies the idea,
+the founding team, and the first money, and keeps a large stake because it was there on day zero.
+**Picture this:** a traditional fund might own 8% of a company after a pre-seed check. A venture
+builder that hired the founders and named the company holds 30–50% — but it is now running the
+business, not backing it. Different job, different risk, different hours.
+
 ---
 
 ## 7. How a fund makes money
@@ -866,6 +873,14 @@ How much cash a company spends per month.
 How many months until the money runs out.
 **Picture this:** $600K in the bank, burning $50K a month = **12 months of runway.** Fundraising
 takes about six, so this company should already be raising.
+
+### Lifestyle business
+A company that makes real money for its owners but has no path to becoming enormous. Nothing is
+wrong with it — it is just not what venture capital is built to fund.
+**Picture this:** an agency doing $2M a year, throwing off $400K in profit to two founders,
+growing 10% a year. A wonderful outcome for them and a terrible one for a fund, because a 10%
+grower cannot return the fund no matter how well it is run. This is the most common reason a good
+company gets a pass, and saying it plainly is kinder than inventing a flaw.
 
 ### Product-market fit
 The point where the market pulls the product out of the company instead of the company pushing
