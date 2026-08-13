@@ -716,8 +716,12 @@ def build_proof(deals, term_count) -> None:
          "Named founders, what I did, what came of it. Shows the support edge is real."),
         ("VC Lab record", assignments, 5, "assignments.html",
          "Public, dated assignments. Shows how the thinking developed."),
-        ("Glossary", term_count, 100, "glossary.html",
-         "Vocabulary built from the work, each term with a worked example."),
+        # The 100-term target was set when the glossary was aspirational. It is
+        # now a finished reference, so the bar tracks coverage of itself rather
+        # than a stale number it passed 2.5x ago.
+        ("Glossary", term_count, term_count, "glossary.html",
+         "Vocabulary built from the work — every term with a worked example, and a deep dive "
+         "on why it matters and where it goes wrong."),
     ]
 
     cards = []
