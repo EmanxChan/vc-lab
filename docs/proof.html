@@ -11,6 +11,9 @@
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
+<style>
+.study-stat { font-size: 0.82rem; color: var(--muted); margin-top: 1.1rem; }.study-stat strong { color: var(--gold); }
+</style>
 </head>
 <body>
 
@@ -96,7 +99,7 @@
   </a>
   <a class="card" href="glossary.html">
     <div class="card-label">Glossary</div>
-    <div class="card-value">151<span class="dim" style="font-size:0.55em"> / 100</span></div>
+    <div class="card-value">249<span class="dim" style="font-size:0.55em"> / 100</span></div>
     <div class="progress-track" style="margin:0.6rem 0 0.9rem">
       <div class="progress-fill" style="width:100%"></div>
     </div>
@@ -104,6 +107,7 @@
     <div style="margin-top:0.9rem"><span class="tag on">
       Ready</span></div>
   </a></div>
+  <p class="study-stat" id="study-stat" hidden></p>
 </section>
 
 <section>
@@ -131,7 +135,8 @@
   <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
 </footer>
 
-<script>
+<script>var BASE = '';
+
 (function () {
   var key = 'vclab-theme';
   var stored = localStorage.getItem(key);
@@ -147,9 +152,119 @@
       document.body.classList.contains('dark-mode') ? 'dark' : 'light');
   });
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(function () {});
+    navigator.serviceWorker.register(BASE + 'sw.js').catch(function () {});
   }
 })();
+</script>
+<script>
+
+// Shared progress state, used by the glossary index, the term pages, and the
+// proof page. One log keyed by term slug:
+//
+//     { "liquidation-preference": { l: <day marked learned>, s: <day last opened> } }
+//
+// Days are whole days since the epoch in local time, so "7 days ago" is a
+// calendar comparison rather than a 168-hour one.
+var VCL = (function () {
+  var KEY = 'vclab-log', SKEY = 'vclab-streak', OLD = 'vclab-learned';
+  var REVIEW_AFTER = 7;
+
+  function read(k, fallback) {
+    try { var v = JSON.parse(localStorage.getItem(k)); return v === null ? fallback : v; }
+    catch (e) { return fallback; }
+  }
+  function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function today() {
+    var d = new Date();
+    return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5;
+  }
+
+  var log = read(KEY, null);
+  if (!log) {                       // migrate the flat array this replaced
+    log = {};
+    read(OLD, []).forEach(function (s) { log[s] = { l: today(), s: today() }; });
+    write(KEY, log);
+  }
+  function save() { write(KEY, log); }
+
+  function entry(slug) { return log[slug] || (log[slug] = {}); }
+  function has(slug) { return !!(log[slug] && log[slug].l != null); }
+  function toggle(slug) {
+    var e = entry(slug), on = e.l == null;
+    if (on) { e.l = today(); e.s = today(); bumpStreak(); } else { delete e.l; }
+    save();
+    return on;
+  }
+  // Opening a deep dive counts as revision and resets the review clock.
+  function touch(slug) { entry(slug).s = today(); save(); }
+  function count() {
+    return Object.keys(log).filter(function (s) { return log[s].l != null; }).length;
+  }
+  // Learned, and not looked at for a week — the ones worth resurfacing.
+  function due() {
+    var t = today();
+    return Object.keys(log).filter(function (s) {
+      var e = log[s];
+      if (e.l == null) return false;
+      return t - Math.max(e.l, e.s == null ? e.l : e.s) >= REVIEW_AFTER;
+    });
+  }
+
+  // A streak is consecutive days on which at least one term was marked.
+  function bumpStreak() {
+    var s = read(SKEY, { last: null, days: 0 }), t = today();
+    if (s.last === t) return;
+    s.days = (s.last === t - 1) ? s.days + 1 : 1;
+    s.last = t;
+    write(SKEY, s);
+  }
+  function streak() {
+    var s = read(SKEY, { last: null, days: 0 }), t = today();
+    return (s.last === t || s.last === t - 1) ? s.days : 0;
+  }
+
+  // localStorage is per-browser, so progress needs a way to travel.
+  function exportData() {
+    return JSON.stringify({ v: 1, log: log, streak: read(SKEY, { last: null, days: 0 }) });
+  }
+  function importData(text) {
+    var data = JSON.parse(text);
+    if (!data || typeof data.log !== 'object' || data.log === null) {
+      throw new Error('not a progress export');
+    }
+    Object.keys(data.log).forEach(function (slug) {
+      var incoming = data.log[slug], mine = log[slug];
+      if (!mine) { log[slug] = incoming; return; }
+      // Merge rather than overwrite: keep the earliest learned, latest seen.
+      if (incoming.l != null) mine.l = mine.l == null ? incoming.l : Math.min(mine.l, incoming.l);
+      if (incoming.s != null) mine.s = mine.s == null ? incoming.s : Math.max(mine.s, incoming.s);
+    });
+    save();
+    if (data.streak && data.streak.days > streak()) write(SKEY, data.streak);
+    return count();
+  }
+
+  return { has: has, toggle: toggle, touch: touch, count: count, due: due,
+           streak: streak, dayIndex: today,
+           exportData: exportData, importData: importData };
+})();
+
+// The study habit is real evidence, but it only lives in this browser — so it
+// is rendered client-side and stays hidden until there is something to show.
+(function () {
+  var el = document.getElementById('study-stat');
+  if (!el) return;
+  var n = VCL.count();
+  if (!n) return;
+  var bits = ['<strong>' + n + '</strong> glossary terms marked learned'];
+  var s = VCL.streak();
+  if (s >= 2) bits.push('<strong>' + s + '</strong>-day study streak');
+  var due = VCL.due().length;
+  if (due) bits.push(due + ' due for review');
+  el.innerHTML = bits.join(' &middot; ');
+  el.hidden = false;
+})();
+
 </script>
 
 </body>

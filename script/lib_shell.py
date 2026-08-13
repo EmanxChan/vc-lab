@@ -46,18 +46,23 @@ THEME_JS = """
       document.body.classList.contains('dark-mode') ? 'dark' : 'light');
   });
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(function () {});
+    navigator.serviceWorker.register(BASE + 'sw.js').catch(function () {});
   }
 })();
 """
 
 
-def nav_html(active_section: str, current_page: str) -> str:
-    """Primary nav plus a sub-nav for the active section."""
+def nav_html(active_section: str, current_page: str, base: str = "") -> str:
+    """Primary nav plus a sub-nav for the active section.
+
+    `base` is the relative path back to docs/ — "" for pages at the root,
+    "../" for the per-term pages under docs/g/. Every link stays relative so
+    the GitHub Pages mirror at /vc-lab/ works too.
+    """
     top = []
     for key, label, href, _ in NAV:
         cls = ' class="active"' if key == active_section else ""
-        top.append(f'<a href="{href}"{cls}>{label}</a>')
+        top.append(f'<a href="{base}{href}"{cls}>{label}</a>')
 
     sub = ""
     for key, _, _, children in NAV:
@@ -65,13 +70,13 @@ def nav_html(active_section: str, current_page: str) -> str:
             items = []
             for href, label in children:
                 cls = ' class="active"' if href == current_page else ""
-                items.append(f'<a href="{href}"{cls}>{label}</a>')
+                items.append(f'<a href="{base}{href}"{cls}>{label}</a>')
             sub = f'<div class="subnav"><div class="subnav-inner">{"".join(items)}</div></div>'
             break
 
     return f"""<nav class="main-nav">
   <div class="nav-bar">
-    <a href="index.html" class="nav-home" aria-label="Home">vc</a>
+    <a href="{base}index.html" class="nav-home" aria-label="Home">vc</a>
     <div class="nav-links-wrapper">
       <div class="nav-links">{''.join(top)}</div>
     </div>
@@ -85,10 +90,15 @@ def nav_html(active_section: str, current_page: str) -> str:
 
 def page(*, title: str, description: str, section: str, current: str,
          hero: str = "", body: str = "", extra_css: str = "",
-         extra_js: str = "") -> str:
-    """Wrap page content in the shared shell."""
+         extra_js: str = "", base: str = "") -> str:
+    """Wrap page content in the shared shell.
+
+    `base` is the relative path back to docs/ for pages nested in a
+    subdirectory — see nav_html.
+    """
     css = f"\n<style>\n{extra_css}\n</style>" if extra_css else ""
     js = f"\n<script>\n{extra_js}\n</script>" if extra_js else ""
+    theme_js = f"var BASE = {base!r};\n{THEME_JS}"
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,12 +110,12 @@ def page(*, title: str, description: str, section: str, current: str,
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="website">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="style.css">{css}
+<link rel="icon" type="image/svg+xml" href="{base}favicon.svg">
+<link rel="stylesheet" href="{base}style.css">{css}
 </head>
 <body>
 
-{nav_html(section, current)}
+{nav_html(section, current, base)}
 
 {hero}
 
@@ -114,12 +124,12 @@ def page(*, title: str, description: str, section: str, current: str,
 </main>
 
 <footer>
-  <p><a href="index.html">VC companion</a> &middot; Emmanuel Chan &middot;
+  <p><a href="{base}index.html">VC companion</a> &middot; Emmanuel Chan &middot;
   <a href="https://emanchan.com">emanchan.com</a> &middot;
   <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
 </footer>
 
-<script>{THEME_JS}</script>{js}
+<script>{theme_js}</script>{js}
 
 </body>
 </html>

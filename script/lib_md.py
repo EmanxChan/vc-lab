@@ -7,8 +7,24 @@ blockquotes, fenced code, links, bold, italic, inline code, and horizontal rules
 
 import html
 import re
+from typing import Dict, Optional, Tuple
 
-__all__ = ["inline", "render", "slug", "strip_md"]
+__all__ = ["inline", "render", "slug", "strip_md", "set_page_map"]
+
+# Markdown source file -> where it actually lands on the site.
+#
+# Several sources collapse into one page: every sprints/*.md becomes a section
+# of notes.html, every assignments/*.md a section of assignments.html. A naive
+# "swap .md for .html" rewrite sends those links to pages that do not exist, so
+# build.py registers the real mapping here before rendering anything.
+#
+#     stem -> (page, anchor or None)
+_PAGES: Dict[str, Tuple[str, Optional[str]]] = {}
+
+
+def set_page_map(pages: Dict[str, Tuple[str, Optional[str]]]) -> None:
+    _PAGES.clear()
+    _PAGES.update(pages)
 
 
 def slug(name: str) -> str:
@@ -35,9 +51,15 @@ def inline(text: str) -> str:
 def _link(m: re.Match) -> str:
     label, href = m.group(1), m.group(2)
     ext = href.startswith("http")
-    # repo-relative .md links point at the published page instead
-    if href.endswith(".md") and not ext:
-        href = href.rsplit("/", 1)[-1].replace(".md", ".html")
+    if not ext:
+        # Repo-relative .md links point at the published page instead. Split the
+        # fragment off first — "thesis.md#my-edge" is still a .md link.
+        path, _, frag = href.partition("#")
+        if path.endswith(".md"):
+            stem = path.rsplit("/", 1)[-1][:-3]
+            page, anchor = _PAGES.get(stem, (f"{stem}.html", None))
+            target = frag or anchor
+            href = f"{page}#{target}" if target else page
     rel = ' target="_blank" rel="noopener"' if ext else ""
     return f'<a href="{href}"{rel}>{label}</a>'
 

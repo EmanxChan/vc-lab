@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jobs to Be Done (JTBD) — vc companion</title>
+<meta name="description" content="The framing that people don't buy products, they hire them to make progress on something. The job is the progress, not the product.">
+<meta name="author" content="Emmanuel Chan">
+<meta property="og:title" content="Jobs to Be Done (JTBD) — vc companion">
+<meta property="og:description" content="The framing that people don't buy products, they hire them to make progress on something. The job is the progress, not the product.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../style.css">
+<style>
+
+.example { border-left: 3px solid var(--gold); background: var(--tint);
+           padding: 0.8rem 1rem; margin-top: 0.75rem; border-radius: 0 4px 4px 0; }
+.example p, .example li { font-size: 0.9rem; color: var(--text); }
+.example ol, .example ul { margin: 0.4rem 0 0 1.1rem; }
+.term ol, .term ul { margin: 0.5rem 0 0 1.2rem; }
+.term li { font-size: 0.93rem; color: var(--muted); margin-bottom: 0.3rem; }
+.term { background: var(--card); border: 1px solid var(--line);
+        border-left: 3px solid var(--accent); border-radius: 0 5px 5px 0;
+        padding: 1.4rem 1.6rem; margin-bottom: 1rem;
+        scroll-margin-top: calc(var(--sticky-h, 5rem) + 1rem); }
+.term h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+.term p { font-size: 0.93rem; color: var(--muted); }
+.term p + p { margin-top: 0.6rem; }
+.term.hidden { display: none; }
+.group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em;
+               color: var(--accent); font-weight: 700; margin: 2.5rem 0 1rem;
+               scroll-margin-top: calc(var(--sticky-h, 11rem) + 1rem); }
+.section-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 1.25rem; max-width: 720px; }
+.sources p, .sources li { font-size: 0.9rem; color: var(--muted); }
+.sources ul { margin: 0.5rem 0 0 1.2rem; }
+.sources li { margin-bottom: 0.5rem; }
+.no-results { color: var(--muted); font-style: italic; padding: 2rem 0; }
+.anchor { text-decoration: none; color: var(--muted); opacity: 0; margin-left: 0.5rem;
+          font-weight: 400; transition: opacity 0.15s ease; }
+.term:hover .anchor { opacity: 0.5; }
+.anchor:hover { opacity: 1 !important; color: var(--accent); }
+.term:target, .term.active { border-left-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+.search-wrap { position: sticky; top: 0; z-index: 900; background: var(--bg); padding: 1rem 0; }
+.search-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+#search { width: 100%; max-width: 420px; padding: 0.8rem 1.1rem; font-family: inherit;
+          font-size: 1rem; background: var(--card); color: var(--text);
+          border: 1px solid var(--line); border-radius: 50px; outline: none; }
+#search:focus { border-color: var(--accent); }
+.kbd { font-family: var(--mono); font-size: 0.7rem; border: 1px solid var(--line);
+       border-bottom-width: 2px; border-radius: 4px; padding: 0.15em 0.4em; color: var(--muted); }
+.hint { font-size: 0.78rem; color: var(--muted); }
+.result-count { font-size: 0.8rem; color: var(--muted); margin: 0.5rem 0;
+                font-variant-numeric: tabular-nums; }
+.term-section { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em;
+                color: var(--accent); margin-bottom: 0.3rem; display: none; }
+body.flat .term-section { display: block; }
+body.flat .group-label, body.flat .section-intro { display: none !important; }
+@media (max-width: 768px) { .hint { display: none; } }
+
+/* --- deep dive: the drawer on the index, and the profile body itself --- */
+.more { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.9rem;
+        padding: 0.3rem 0.7rem; font-family: inherit; font-size: 0.76rem; font-weight: 600;
+        letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted);
+        background: none; border: 1px solid var(--line); border-radius: 50px;
+        cursor: pointer; transition: color .15s ease, border-color .15s ease; }
+.more:hover { color: var(--accent); border-color: var(--accent); }
+.more .caret { font-size: 0.7rem; transition: transform .18s ease; }
+.more[aria-expanded="true"] .caret { transform: rotate(180deg); }
+.drawer { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+.drawer[hidden] { display: none; }
+.profile-h { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em;
+             color: var(--accent); font-weight: 700; margin: 1.4rem 0 0.5rem; }
+.profile-h:first-child { margin-top: 0; }
+.drawer p, .entry-body p { font-size: 0.93rem; color: var(--muted); }
+.drawer p + p, .entry-body p + p { margin-top: 0.6rem; }
+.drawer ul, .drawer ol, .entry-body ul, .entry-body ol { margin: 0.5rem 0 0 1.2rem; }
+.drawer li, .entry-body li { font-size: 0.92rem; color: var(--muted); margin-bottom: 0.35rem; }
+.profile-sources, .profile-related { margin-top: 2rem; padding-top: 1.2rem;
+                                     border-top: 1px solid var(--line); }
+.profile-sources ul { list-style: none; margin-left: 0; }
+.profile-sources a { color: var(--accent); text-decoration: none; }
+.profile-sources a:hover { text-decoration: underline; }
+.ext { font-size: 0.75em; margin-left: 0.25em; opacity: 0.7; }
+.rel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.6rem; margin-top: 0.6rem; }
+.rel-card { display: block; padding: 0.7rem 0.85rem; background: var(--tint);
+            border: 1px solid var(--line); border-radius: 5px; text-decoration: none;
+            transition: border-color .15s ease, transform .15s ease; }
+.rel-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.rel-term { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text); }
+.rel-def { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem;
+           line-height: 1.45; }
+.full-entry { display: inline-block; margin-top: 1.4rem; font-size: 0.8rem; font-weight: 600;
+              letter-spacing: 0.03em; color: var(--accent); text-decoration: none; }
+.full-entry:hover { text-decoration: underline; }
+
+/* --- controls: one row, dropdowns beside the search box ---------------- */
+#filter, #sort { font-family: inherit; font-size: 0.85rem; padding: 0.55rem 2rem 0.55rem 0.9rem;
+                 background: var(--card); color: var(--text); border: 1px solid var(--line);
+                 border-radius: 50px; outline: none; cursor: pointer; appearance: none;
+                 background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+                                   linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+                 background-position: right 1.05rem center, right 0.8rem center;
+                 background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+#filter:focus, #sort:focus { border-color: var(--accent); }
+#filter, #sort, #lucky { min-height: 44px; }
+#lucky { display: inline-flex; align-items: center; justify-content: center; min-width: 44px;
+         font-size: 1.05rem; line-height: 1; padding: 0 0.7rem; background: var(--card);
+         border: 1px solid var(--line); border-radius: 50px; cursor: pointer;
+         transition: transform .15s ease, border-color .15s ease; }
+#lucky:hover { border-color: var(--gold); transform: rotate(-12deg) scale(1.1); }
+#lucky:active { transform: rotate(8deg) scale(0.95); }
+
+/* --- learned toggle ---------------------------------------------------- */
+.term-actions { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.9rem;
+                flex-wrap: wrap; }
+.term-actions .more { margin-top: 0; }
+.learn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.7rem;
+         font-family: inherit; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em;
+         text-transform: uppercase; color: var(--muted); background: none;
+         border: 1px solid var(--line); border-radius: 50px; cursor: pointer;
+         transition: color .15s ease, border-color .15s ease, background .15s ease; }
+.learn:hover { color: var(--gold); border-color: var(--gold); }
+.learn .tick { font-size: 0.85em; opacity: 0.45; transition: opacity .15s ease; }
+.learn[aria-pressed="true"] { color: #121212; background: var(--gold); border-color: var(--gold); }
+.learn[aria-pressed="true"] .tick { opacity: 1; }
+.term.done { border-left-color: var(--gold); }
+
+/* --- term of the day --------------------------------------------------- */
+.totd { display: flex; gap: 1.5rem; align-items: flex-start; justify-content: space-between;
+        background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--gold);
+        border-radius: 0 6px 6px 0; padding: 1.4rem 1.6rem; margin-bottom: 1rem; }
+.totd[hidden] { display: none; }
+.totd-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.16em;
+              color: var(--gold); font-weight: 700; margin-bottom: 0.4rem; }
+.totd h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; }
+.totd h2 a { color: var(--text); text-decoration: none; }
+.totd h2 a:hover { color: var(--accent); }
+.totd p { font-size: 0.9rem; color: var(--muted); max-width: 60ch; }
+.totd-side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem;
+             flex-shrink: 0; }
+.totd-read { font-size: 0.78rem; font-weight: 600; color: var(--accent); text-decoration: none;
+             white-space: nowrap; }
+.totd-read:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .totd { flex-direction: column; gap: 1rem; }
+  .totd-side { align-items: flex-start; }
+}
+
+/* --- progress tracker -------------------------------------------------- */
+.tracker { margin-bottom: 1.25rem; }
+.tracker-head { display: flex; align-items: baseline; justify-content: space-between;
+                gap: 1rem; margin-bottom: 0.4rem; }
+.tracker-count { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tracker-count strong { color: var(--text); font-size: 0.95rem; }
+.tracker-streak { font-size: 0.78rem; color: var(--gold); font-weight: 600; }
+.tracker-streak[hidden] { display: none; }
+.tracker-bar { height: 5px; background: var(--tint); border: 1px solid var(--line);
+               border-radius: 50px; overflow: hidden; }
+.tracker-fill { height: 100%; width: 0; background: var(--gold);
+                transition: width .35s cubic-bezier(.2,.8,.3,1); }
+.tracker-foot { display: flex; align-items: center; justify-content: space-between;
+                gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+.milestones { display: flex; gap: 0.4rem; align-items: center; }
+.ms { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.06em; color: var(--muted);
+      border: 1px solid var(--line); border-radius: 50px; padding: 0.1rem 0.5rem;
+      opacity: 0.55; transition: opacity .2s ease; }
+.ms.hit { color: var(--gold); border-color: var(--gold); opacity: 1; }
+.tracker-tools { font-size: 0.72rem; color: var(--muted); }
+.tracker-tools button { font-family: inherit; font-size: 0.72rem; color: var(--muted);
+                        background: none; border: 0; padding: 0; cursor: pointer;
+                        text-decoration: underline; text-underline-offset: 2px; }
+.tracker-tools button:hover { color: var(--accent); }
+.tracker-tools .dot { margin: 0 0.4rem; opacity: 0.5; }
+.nudge { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+         font-size: 0.8rem; color: var(--muted); margin-top: 0.7rem; }
+.nudge[hidden] { display: none; }
+.nudge button { font-family: inherit; font-size: 0.72rem; font-weight: 700;
+                text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent);
+                background: none; border: 1px solid var(--line); border-radius: 50px;
+                padding: 0.25rem 0.7rem; cursor: pointer; }
+.nudge button:hover { border-color: var(--accent); }
+
+/* --- dice: a quiet badge when reviews are waiting ---------------------- */
+#lucky { position: relative; }
+#lucky[data-due]::after { content: attr(data-due); position: absolute; top: -3px; right: -3px;
+                          min-width: 15px; height: 15px; padding: 0 3px; border-radius: 50px;
+                          background: var(--gold); color: #121212; font-size: 0.6rem;
+                          font-weight: 700; line-height: 15px; text-align: center; }
+
+/* --- toast ------------------------------------------------------------- */
+.toast { position: fixed; left: 50%; bottom: 2rem; transform: translate(-50%, 1rem);
+         z-index: 1000; background: var(--gold); color: #121212; font-size: 0.85rem;
+         font-weight: 700; padding: 0.7rem 1.2rem; border-radius: 50px;
+         box-shadow: 0 6px 24px rgba(0,0,0,0.25); opacity: 0; pointer-events: none;
+         transition: opacity .25s ease, transform .25s ease; }
+.toast[hidden] { display: none; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) {
+  .toast, .tracker-fill, #lucky { transition: none; }
+}
+
+.crumbs { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.crumb-sep { margin: 0 0.5rem; opacity: 0.5; }
+.entry { max-width: 720px; }
+.entry-title { font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.15;
+               margin-bottom: 1.1rem; }
+.entry-lead { padding-bottom: 1.5rem; margin-bottom: 0.5rem;
+              border-bottom: 1px solid var(--line); }
+.entry-lead > p:first-child { font-size: 1.08rem; color: var(--text); line-height: 1.6; }
+.entry-lead .example { margin-top: 1rem; }
+.prevnext { display: flex; gap: 1rem; margin: 3.5rem 0 1rem; max-width: 720px; }
+.pn { flex: 1; padding: 0.9rem 1.1rem; background: var(--card); border: 1px solid var(--line);
+      border-radius: 5px; text-decoration: none; transition: border-color .15s ease; }
+.pn:hover { border-color: var(--accent); }
+.pn.next { text-align: right; }
+.pn-dir { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em;
+          color: var(--muted); margin-bottom: 0.25rem; }
+.pn-term { display: block; font-size: 0.9rem; font-weight: 700; color: var(--text); }
+@media (max-width: 600px) { .prevnext { flex-direction: column; } }
+.entry-actions { margin: 1.25rem 0 0.5rem; }
+.learn.big { font-size: 0.8rem; padding: 0.45rem 1rem; }
+.review-note { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+               font-weight: 700; color: var(--gold); }
+
+</style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-bar">
+    <a href="../index.html" class="nav-home" aria-label="Home">vc</a>
+    <div class="nav-links-wrapper">
+      <div class="nav-links"><a href="../thesis.html">Thesis</a><a href="../glossary.html" class="active">Learn</a><a href="../pipeline.html">Practice</a><a href="../proof.html">Proof</a></div>
+    </div>
+    <div class="nav-theme-container">
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+<div class="subnav"><div class="subnav-inner"><a href="../glossary.html" class="active">Glossary</a><a href="../notes.html">Curriculum</a><a href="../structure.html">How a fund works</a><a href="../drills.html">Drills</a></div></div>
+
+
+
+<main class="container">
+
+  <nav class="crumbs">
+    <a href="../glossary.html">← Glossary</a>
+    <span class="crumb-sep">/</span>
+    <a href="../glossary.html#who-the-customer-is">Who the customer is</a>
+  </nav>
+
+  <article class="entry">
+    <h1 class="entry-title">Jobs to Be Done (JTBD)</h1>
+    <div class="entry-lead"><p>The framing that people don't buy products, they hire them to make progress on something. The job is the progress, not the product.</p><div class="example"><p><strong>Picture this:</strong> the classic study: a fast-food chain wanted to sell more milkshakes. Nearly half were bought before 9am by solo commuters. The job wasn't dessert — it was a one-handed thing that lasts the whole drive and stops you being hungry until lunch. The real competition was bananas and bagels, not other milkshakes.</p></div></div>
+    <div class="term-actions entry-actions">
+      <button class="learn big" id="entry-learn" data-slug="jobs-to-be-done-jtbd" aria-pressed="false">
+        <span class="tick">✓</span><span class="learn-label">Learned</span></button>
+    </div>
+    <div class="entry-body"><h4 class="profile-h">Why it matters</h4><p>It reframes the competitive set, which is the part founders get wrong most often. If you only look at companies that build what you build, you will miss that most of your losses are to a spreadsheet, an intern, or doing nothing at all.</p>
+<p>It also changes what you build. A feature request is a proposed solution; the job is the reason behind it. Founders who chase requests build a cluttered product. Founders who chase the job build a coherent one.</p><h4 class="profile-h">What it looks like in practice</h4><p>The useful question isn't "what do you want?" It's "walk me through the last time you dealt with this." What triggered it, what they tried, what they gave up on, what made the current workaround tolerable enough to keep using.</p>
+<p>In practice you're listening for the moment of struggle and what they hired to solve it. When someone says they use a Google Sheet and three Slack reminders, that stack is the incumbent — and it's free, familiar, and already integrated into how they work.</p><h4 class="profile-h">Where it goes wrong</h4><ul><li>Turning it into a template exercise instead of listening to how people actually describe struggle.</li><li>Writing the job at the level of the feature ("send invoices faster") rather than the progress ("get paid without chasing people").</li><li>Ignoring the emotional and social parts of the job. Nobody wants to look disorganised in front of their boss.</li><li>Using it to justify a product you already built, rather than to find out what to build.</li></ul><h4 class="profile-h">Where the term comes from</h4><p>The framing is Clayton Christensen's, developed at Harvard Business School and set out most fully in <em>Competing Against Luck</em> (2016), though he had been teaching it for years before — the milkshake study dates to work with Bob Moesta in the mid-2000s. Christensen's line was that customers don't buy products, they hire them to do a job.</p><div class="profile-sources"><h4 class="profile-h">Read the original</h4><ul><li><a href="https://hbr.org/2016/09/know-your-customers-jobs-to-be-done" rel="noopener" target="_blank">Clayton Christensen, "Know Your Customers' Jobs to Be Done", HBR<span class="ext">↗</span></a></li></ul></div><div class="profile-related"><h4 class="profile-h">Related terms</h4><div class="rel-grid"><a class="rel-card" href="../g/painkiller-vs-vitamin.html"><span class="rel-term">Painkiller vs. vitamin</span><span class="rel-def">Whether the product solves a problem that already hurts, or offers an improvement that is nice to have.</span></a><a class="rel-card" href="../g/substitute-vs-direct-competitor.html"><span class="rel-term">Substitute vs. direct competitor</span><span class="rel-def">A direct competitor sells something like yours. A substitute is whatever the customer uses instead — including a spreadsheet, an intern, or nothing.</span></a><a class="rel-card" href="../g/problem-validation-vs-solution-validation.html"><span class="rel-term">Problem validation vs. solution validation</span><span class="rel-def">Two different questions: does this problem actually hurt enough that someone will pay to fix it, and does this particular fix work?</span></a><a class="rel-card" href="../g/positioning.html"><span class="rel-term">Positioning</span><span class="rel-def">The place your product occupies in the buyer's head — what kind of thing it is, who it's for, and what it's better than.</span></a><a class="rel-card" href="../g/willingness-to-pay.html"><span class="rel-term">Willingness to pay</span><span class="rel-def">The most a specific customer would actually hand over, discovered through behaviour rather than asked in a survey.</span></a></div></div></div>
+  </article>
+
+  <div class="prevnext"><a class="pn prev" href="segment-vs-persona.html"><span class="pn-dir">← Previous</span><span class="pn-term">Segment vs. persona</span></a><a class="pn next" href="painkiller-vs-vitamin.html"><span class="pn-dir">Next →</span><span class="pn-term">Painkiller vs. vitamin</span></a></div>
+
+</main>
+
+<footer>
+  <p><a href="../index.html">VC companion</a> &middot; Emmanuel Chan &middot;
+  <a href="https://emanchan.com">emanchan.com</a> &middot;
+  <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
+</footer>
+
+<script>var BASE = '../';
+
+(function () {
+  var key = 'vclab-theme';
+  var stored = localStorage.getItem(key);
+  var prefersDark = window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.body.classList.add('dark-mode');
+  }
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem(key,
+      document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+  });
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(BASE + 'sw.js').catch(function () {});
+  }
+})();
+</script>
+<script>
+
+// Shared progress state, used by the glossary index, the term pages, and the
+// proof page. One log keyed by term slug:
+//
+//     { "liquidation-preference": { l: <day marked learned>, s: <day last opened> } }
+//
+// Days are whole days since the epoch in local time, so "7 days ago" is a
+// calendar comparison rather than a 168-hour one.
+var VCL = (function () {
+  var KEY = 'vclab-log', SKEY = 'vclab-streak', OLD = 'vclab-learned';
+  var REVIEW_AFTER = 7;
+
+  function read(k, fallback) {
+    try { var v = JSON.parse(localStorage.getItem(k)); return v === null ? fallback : v; }
+    catch (e) { return fallback; }
+  }
+  function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function today() {
+    var d = new Date();
+    return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5;
+  }
+
+  var log = read(KEY, null);
+  if (!log) {                       // migrate the flat array this replaced
+    log = {};
+    read(OLD, []).forEach(function (s) { log[s] = { l: today(), s: today() }; });
+    write(KEY, log);
+  }
+  function save() { write(KEY, log); }
+
+  function entry(slug) { return log[slug] || (log[slug] = {}); }
+  function has(slug) { return !!(log[slug] && log[slug].l != null); }
+  function toggle(slug) {
+    var e = entry(slug), on = e.l == null;
+    if (on) { e.l = today(); e.s = today(); bumpStreak(); } else { delete e.l; }
+    save();
+    return on;
+  }
+  // Opening a deep dive counts as revision and resets the review clock.
+  function touch(slug) { entry(slug).s = today(); save(); }
+  function count() {
+    return Object.keys(log).filter(function (s) { return log[s].l != null; }).length;
+  }
+  // Learned, and not looked at for a week — the ones worth resurfacing.
+  function due() {
+    var t = today();
+    return Object.keys(log).filter(function (s) {
+      var e = log[s];
+      if (e.l == null) return false;
+      return t - Math.max(e.l, e.s == null ? e.l : e.s) >= REVIEW_AFTER;
+    });
+  }
+
+  // A streak is consecutive days on which at least one term was marked.
+  function bumpStreak() {
+    var s = read(SKEY, { last: null, days: 0 }), t = today();
+    if (s.last === t) return;
+    s.days = (s.last === t - 1) ? s.days + 1 : 1;
+    s.last = t;
+    write(SKEY, s);
+  }
+  function streak() {
+    var s = read(SKEY, { last: null, days: 0 }), t = today();
+    return (s.last === t || s.last === t - 1) ? s.days : 0;
+  }
+
+  // localStorage is per-browser, so progress needs a way to travel.
+  function exportData() {
+    return JSON.stringify({ v: 1, log: log, streak: read(SKEY, { last: null, days: 0 }) });
+  }
+  function importData(text) {
+    var data = JSON.parse(text);
+    if (!data || typeof data.log !== 'object' || data.log === null) {
+      throw new Error('not a progress export');
+    }
+    Object.keys(data.log).forEach(function (slug) {
+      var incoming = data.log[slug], mine = log[slug];
+      if (!mine) { log[slug] = incoming; return; }
+      // Merge rather than overwrite: keep the earliest learned, latest seen.
+      if (incoming.l != null) mine.l = mine.l == null ? incoming.l : Math.min(mine.l, incoming.l);
+      if (incoming.s != null) mine.s = mine.s == null ? incoming.s : Math.max(mine.s, incoming.s);
+    });
+    save();
+    if (data.streak && data.streak.days > streak()) write(SKEY, data.streak);
+    return count();
+  }
+
+  return { has: has, toggle: toggle, touch: touch, count: count, due: due,
+           streak: streak, dayIndex: today,
+           exportData: exportData, importData: importData };
+})();
+
+(function () {
+  var btn = document.getElementById('entry-learn');
+  if (!btn) return;
+  var slug = btn.dataset.slug;
+  var wasDue = VCL.due().indexOf(slug) !== -1;
+  function paint(on) {
+    btn.setAttribute('aria-pressed', String(on));
+    btn.querySelector('.learn-label').textContent = on ? 'Learned' : 'Mark learned';
+  }
+  paint(VCL.has(slug));
+  btn.addEventListener('click', function () { paint(VCL.toggle(slug)); });
+
+  // Opening the page is the revision, so the review clock resets here.
+  if (wasDue) {
+    var note = document.createElement('span');
+    note.className = 'review-note';
+    note.textContent = 'Due for review';
+    btn.parentNode.appendChild(note);
+  }
+  VCL.touch(slug);
+})();
+
+</script>
+
+</body>
+</html>

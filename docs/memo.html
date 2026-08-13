@@ -84,7 +84,8 @@
   <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
 </footer>
 
-<script>
+<script>var BASE = '';
+
 (function () {
   var key = 'vclab-theme';
   var stored = localStorage.getItem(key);
@@ -100,7 +101,7 @@
       document.body.classList.contains('dark-mode') ? 'dark' : 'light');
   });
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(function () {});
+    navigator.serviceWorker.register(BASE + 'sw.js').catch(function () {});
   }
 })();
 </script>

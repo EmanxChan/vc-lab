@@ -4,6 +4,11 @@ Venture capital in plain English, with a concrete example for every term. Writte
 learn — no jargon defined using more jargon, and a real number or a short story attached to
 everything so it sticks.
 
+Every term reads at two depths. The definition and its **Picture this** example are the quick
+answer. Click into a term for the deep dive: why it matters, what it looks like in practice, where
+it goes wrong, and where the term came from. Those live in [`profiles/`](profiles/), one file per
+term.
+
 Separate from my engineering [tech-glossary](https://github.com/EmanxChan/tech-glossary) —
 different vocabulary, different job.
 
@@ -116,6 +121,41 @@ replaced by SAFEs at pre-seed because it's more complicated.
 A round where the company's value is actually set and you buy shares at a real per-share price.
 Slower and more expensive than a SAFE because everything gets negotiated.
 
+### Incorporation and the 83(b) election
+Setting the company up as a corporation, issuing founder stock, and filing the 83(b) election
+within 30 days so tax is assessed at today's near-zero value.
+**Picture this:** two founders issue themselves 8,000,000 shares at $0.0001 — worth $800 total. They file 83(b)
+within 30 days and pay tax on $800. Miss the deadline and they are taxed on the value at each
+vesting date instead, which for a company that works can be a career-defining bill.
+
+### Delaware C-Corp vs. LLC
+The two common US structures. Venture-backed companies are almost always Delaware C-Corps; LLCs
+are for businesses that will not raise institutional equity.
+**Picture this:** an LLC with a great product tries to raise a seed round. The fund's LPs cannot hold pass-through
+income without tax consequences, so the deal requires converting first — weeks of legal work and
+a tax event, at exactly the moment speed mattered.
+
+### NVCA model documents
+The industry-standard set of venture financing templates, published free by the National Venture
+Capital Association.
+**Picture this:** a seed round on NVCA docs with a short list of negotiated terms closes in three weeks. The same
+round on a lawyer's bespoke paper generates two extra rounds of redlines and $40,000 in fees
+arguing about clauses everyone would have accepted as standard.
+
+### IP assignment agreement
+The document transferring ownership of work product from a founder, employee, or contractor to
+the company.
+**Picture this:** a contractor built the original prototype in 2023 and was paid, but never signed an assignment.
+At Series A diligence it emerges that he still owns the core code. He now has enormous leverage
+and knows it.
+
+### Qualified Small Business Stock (QSBS)
+A US tax provision that can exclude a large share of capital gains on qualifying C-Corp stock
+held long enough — Section 1202.
+**Picture this:** a founder holds qualifying stock for the required period and sells. A meaningful portion of the
+gain comes out federally tax-free. The same outcome through an LLC, or sold too early, is taxed
+in full.
+
 ---
 
 ## 3. Ownership — who owns what, and how it shrinks
@@ -159,6 +199,39 @@ your check size to the math.
 **Picture this:** if you want 8% and the company is raising at a $12M post-money, your check
 needs to be about $960K. If you can only write $100K, you're not getting 8% — so either the
 target or the deal has to change.
+
+### Vesting and the cliff
+Equity earned over time rather than granted outright. The cliff is the initial period where
+nothing vests at all, then a chunk vests at once.
+**Picture this:** the standard is four years with a one-year cliff. Leave at month eleven and you own nothing.
+Stay to month twelve and 25% vests that day, with the rest arriving monthly for three more
+years.
+
+### Vesting acceleration
+Vesting speeding up on a trigger. Single trigger fires on a change of control; double trigger
+requires both an acquisition and the person being let go.
+**Picture this:** a founder with double-trigger acceleration is acquired and kept on — vesting continues as
+normal. Acquired and terminated within the window — the balance vests immediately. Single
+trigger would have vested everything the day the deal closed.
+
+### Co-founder equity split
+How founding equity is divided between the people starting the company.
+**Picture this:** an equal split decided in week two, before anyone knows who will still be here in year three.
+Two years later one founder is running the company and the other left for a job, still holding a
+third of it because nobody set up vesting.
+
+### Advisor equity grants
+Small equity grants to advisors in exchange for ongoing help — typically a fraction of a
+percent, vesting over one to two years.
+**Picture this:** 0.25% over two years for monthly calls and warm introductions. The advisor makes two
+introductions in month one, then stops responding. Without vesting, they'd have kept the whole
+grant.
+
+### 409A valuation
+An independent appraisal of a company's common stock, used to set option strike prices at fair
+market value.
+**Picture this:** the preferred sold at $2.40 in the seed round. The 409A comes back at $0.61 for common, because
+common lacks the preference and the protective rights. Employee options get struck at $0.61.
 
 ---
 
@@ -230,6 +303,57 @@ fund has to check what it privately promised each LP.
 ### Information rights
 The right to get regular financials and updates. Sounds procedural, but it's the difference
 between knowing a company is in trouble and finding out at the wake.
+
+### Protective provisions
+A list of things the company cannot do without preferred shareholder approval, regardless of who
+controls the board.
+**Picture this:** investors hold 18% and no board majority. They still get a veto on selling the company, raising
+a senior round, changing the charter, or issuing new preferred. Minority economics, real control
+over specific decisions.
+
+### Conversion rights
+The right of preferred shareholders to convert into common stock — voluntarily at any time, or
+automatically on a qualifying event.
+**Picture this:** at a $400M exit, holding a $10M preference on 25% ownership means taking $10M or converting and
+taking $100M. Everyone converts. The preference was insurance that expired unused.
+
+### Voting agreement
+The agreement binding shareholders to vote their shares a particular way — most importantly on
+who sits on the board.
+**Picture this:** the agreement says the board is five: two elected by common, two by preferred, one independent
+agreed by both. Everyone contractually votes that way, so board composition is settled years in
+advance rather than fought over annually.
+
+### Investor Rights Agreement (IRA)
+The agreement bundling the ongoing rights investors get after closing — information,
+registration, pro rata, and inspection.
+**Picture this:** the term sheet is two pages about price. The IRA is thirty pages about what happens every
+quarter for the next decade — what gets reported, who can demand an IPO registration, and who
+has the right to keep buying.
+
+### Most Favored Nation (MFN) clause
+A promise that if someone later gets better terms, this investor gets them too.
+**Picture this:** an angel invests on a SAFE with MFN and no cap. Six months later the company sells SAFEs at a
+$8M cap. The MFN investor automatically gets the $8M cap without negotiating for it.
+
+### Warrant coverage
+The right to buy additional shares at a set price later, usually expressed as a percentage of
+the amount invested.
+**Picture this:** a $2M investment with 20% warrant coverage carries the right to buy another $400,000 of stock at
+the round price. If the company does well, that's cheap stock bought years later at an old
+valuation.
+
+### Deemed liquidation event
+The definition of what counts as a liquidation for the purpose of paying out preferences —
+usually including an acquisition, not just a winding up.
+**Picture this:** the company is acquired for $80M. Nobody is liquidating anything, but the charter deems the sale
+a liquidation, so the preference stack pays out first exactly as it would in a wind-down.
+
+### Board observer seat
+The right to attend board meetings and receive materials, without a vote.
+**Picture this:** a seed fund that owns 6% gets an observer seat. They see everything, ask questions, and can't
+vote. For an investor without the ownership to justify a full seat, it's most of the value at
+none of the governance cost.
 
 ---
 
@@ -859,6 +983,65 @@ find a few winners.
 **Picture this:** two investors both return $500M. One deployed $100M, the other $2B. Gross
 returns look similar; net profit says they're not remotely the same investor.
 
+### Warm introduction
+Being introduced to an investor by someone they already trust, rather than arriving cold.
+**Picture this:** a founder emails a partner directly and gets no reply. A portfolio founder forwards the same
+deck with two sentences of endorsement and the meeting happens that week. Same company, same
+deck.
+
+### Partner meeting
+The meeting where a fund's partners decide together whether to invest, usually the last step
+before a term sheet.
+**Picture this:** the founder has met one partner three times and thinks the deal is close. The partner meeting is
+where six people who have spent forty minutes on it each ask the questions that decide it.
+
+### Pitch deck
+The ten-to-fifteen slide document that gets a meeting and structures the conversation once you
+have one.
+**Picture this:** the deck's job is not to explain the company completely. It's to make someone want a
+conversation. A deck that answers everything usually gets read instead of discussed, which is
+worse.
+
+### Investor update
+The regular written update to existing investors — usually monthly or quarterly — covering
+metrics, progress, problems, and asks.
+**Picture this:** a founder sends a short update on the fifth of every month for two years. When they raise the
+next round, the investors already know the story, and two of them make introductions without
+being asked.
+
+### Fundraising process
+Running a raise as a time-boxed process with parallel conversations, rather than a sequence of
+individual approaches.
+**Picture this:** twenty-five first meetings compressed into three weeks. Everyone is at the same stage, so a term
+sheet from one creates real urgency for the others. Spread the same meetings over five months
+and every conversation happens in isolation.
+
+### Round sizing
+Deciding how much to raise — set by the milestones that make the next round possible, not by
+what's available.
+**Picture this:** the right question is never "how much can we get?" It's "what has to be true for a Series A, how
+long does that take, and what does that cost?" Then add margin, because it always takes longer.
+
+### Investor objections
+The recurring reasons investors say no — market size, defensibility, team gaps, timing, traction
+— and how a founder handles them.
+**Picture this:** the fourth investor in a row asks how you stop a large incumbent from shipping this. That's not
+four opinions, it's one unanswered question in the pitch.
+
+### Market timing ("why now")
+The argument for why this company is possible and necessary now, when it wasn't three years ago
+and won't be novel in three more.
+**Picture this:** the same idea failed in 2015 because the model wasn't good enough and the data wasn't digitised.
+Both changed in the last eighteen months. That's a why-now — a specific thing that shifted, with
+a date attached.
+
+### Founder story
+The account of why this particular person is building this particular thing — the connection
+between their history and the problem.
+**Picture this:** "I spent six years as a nurse practitioner watching claims get denied for reasons nobody could
+explain, and I built the spreadsheet that fixed it for my clinic" does more work than any market
+slide.
+
 ---
 
 ## 10. How companies are judged
@@ -946,6 +1129,88 @@ by odds ratio the leader is **University of Utah at 3.72x**, then **University o
 2.57x**. Michigan and Penn are top-13 by count yet *below* 1.0 by odds. Only Stanford and MIT
 lead on both — and the Seattle note is that UW is second in the country on rate.
 
+### Unit economics
+Whether a single customer makes or loses money, once you count what it cost to get them and what
+it costs to serve them.
+**Picture this:** $1,800 to acquire, $60 a month in revenue, $14 a month to serve. You're profitable on that
+customer in month 40 — assuming they stay that long, which they don't.
+
+### Gross margin
+Revenue minus the direct cost of delivering it, as a percentage — what's left to fund everything
+else.
+**Picture this:** $100 of revenue costs $38 in inference, hosting, and support. Gross margin is 62%. That 62% is
+what has to cover engineering, sales, and everything else before there's a profit.
+
+### ARR, MRR, and ACV
+Annual recurring revenue, monthly recurring revenue, and average contract value — three views of
+the same subscription base.
+**Picture this:** MRR of $84,000 means ARR of about $1M. If that's spread over 40 customers, ACV is $25,000 — a
+mid-market business. Over 4 customers, ACV is $250,000 and it's an enterprise one with
+concentration risk.
+
+### Customer acquisition cost (CAC)
+Everything spent to win a customer, divided by the number of customers won.
+**Picture this:** $60,000 on marketing and sales in a quarter — including the salaries — produced 30 customers.
+CAC is $2,000. Counting only ad spend would have said $700, and every decision built on that
+number would be wrong.
+
+### CAC payback period
+How long it takes for a customer's gross profit to repay what it cost to acquire them.
+**Picture this:** CAC of $2,400, gross profit of $200 a month. Payback is 12 months. Every customer is a twelve-
+month loan the company makes to itself, funded by the last round.
+
+### Lifetime value (LTV)
+The total gross profit expected from a customer across the whole relationship. A projection, not
+a measurement.
+**Picture this:** $200 a month gross profit and an average life of 30 months gives an LTV of $6,000. Against a CAC
+of $2,000 that's a 3:1 ratio — entirely dependent on a 30-month assumption that a two-year-old
+company cannot have observed.
+
+### Gross burn vs. net burn
+Gross burn is total cash going out. Net burn is that minus cash coming in — what actually
+shortens the runway.
+**Picture this:** $420,000 out and $180,000 in each month. Gross burn is $420K, net burn is $240K. Runway is
+calculated on the $240K, but a revenue stumble moves you toward the $420K fast.
+
+### Runway extension levers
+The specific moves available to buy more time — cutting cost, accelerating collections, raising
+a bridge, or growing revenue.
+**Picture this:** seven months of runway. Cutting discretionary spend buys one month. Moving customers to annual
+prepay buys two. A bridge from existing investors buys six. Each has a different cost and a
+different signal.
+
+### Cohort retention
+Tracking each group of customers who started in the same period separately, so you can see
+whether retention is improving.
+**Picture this:** the January cohort is at 34% after six months. The June cohort is at 61% at the same age. The
+product got better, and only cohort analysis shows it — the blended number hides it completely.
+
+### North Star metric
+The single number that best captures the value customers get, used to align what everyone works
+on.
+**Picture this:** not signups, and not revenue. Something like "weekly active teams completing at least one
+workflow" — a number that only goes up when the product is genuinely being used for its purpose.
+
+### TAM, SAM, and SOM
+Total addressable market, serviceable addressable market, and serviceable obtainable market —
+the market, the slice you could actually sell to, and the slice you could realistically win.
+**Picture this:** TAM: everyone with this problem. SAM: those in your geography, segment, and price band. SOM:
+what you could win in five years given a real sales motion. The third number is the only one
+that constrains anything.
+
+### Bottom-up market sizing
+Building the market number from actual units — how many customers exist, and what each would pay
+— instead of taking a share of an industry total.
+**Picture this:** 28,000 US clinics of the right size, times $14,000 a year, is a $392M market. Every input is
+checkable and arguable, which is exactly what makes it credible.
+
+### First ten hires
+The first employees after the founders — the hires that set the culture and determine what the
+company can execute.
+**Picture this:** hire ten generalists who can each do three jobs badly, and you get a company that ships slowly.
+Hire ten specialists too early and you get a company that can't change direction. Both mistakes
+are expensive at this size.
+
 ---
 
 ## 11. Getting out
@@ -970,6 +1235,414 @@ near an IPO. You sell part of your stake to a growth fund and take real money of
 ### Lock-up period
 After an IPO, insiders can't sell for a set window — typically 90–180 days.
 
+### Acqui-hire
+An acquisition made mostly for the team, where the product is usually shut down.
+**Picture this:** a company that raised $6M and didn't find a market sells for $9M. The engineers get retention
+packages worth more than the shareholders receive. Investors get their money back, and not much
+more.
+
+### Letter of intent (LOI)
+A mostly non-binding document setting out the shape of an acquisition before the definitive
+agreements are drafted.
+**Picture this:** the LOI says $60M, subject to diligence, with 45 days of exclusivity. The price is non-binding
+and the exclusivity is binding — which is the part that actually changes the company's position.
+
+### Asset sale vs. stock sale
+Whether the buyer purchases the company's assets or its shares. It changes who keeps the
+liabilities and how everyone is taxed.
+**Picture this:** in a stock sale the buyer takes the whole company, history and liabilities included. In an asset
+sale they take the parts they want, leave the rest behind, and the selling entity has to be
+wound up afterwards.
+
+### Earnout
+Part of the purchase price paid later, contingent on the business hitting agreed targets after
+the acquisition.
+**Picture this:** $40M at close, plus $20M if revenue doubles within two years. The founders no longer control the
+budget, the sales team, or the roadmap — but the $20M depends on all three.
+
+### Tender offer (employee liquidity)
+A company-organised process letting employees and early shareholders sell some shares to
+investors, without an exit.
+**Picture this:** at Series D the company runs a tender: employees with vested shares can sell up to 20% of their
+holding to the incoming investor. People who've been there six years get to buy a house without
+waiting for an IPO.
+
+---
+
+## 12. Who the customer is
+
+Everything above is about money and structure. This is the part that decides whether any of it
+was worth doing — who the company is actually for, and how you tell whether the founder knows.
+
+### Ideal Customer Profile (ICP)
+A description of the customer a product serves best — specific enough that you can look at any
+company and say yes or no.
+**Picture this:** not "mid-market SaaS companies." More like: "US healthcare practices with 8–40 clinicians, no
+in-house IT, already paying for a scheduling tool they complain about." The first one is a
+category. The second one is a list you can actually build.
+
+### Segment vs. persona
+A segment is the kind of company you sell to. A persona is the individual human inside it you
+have to convince.
+**Picture this:** the segment is "dental practices with 5–15 chairs." The personas are the practice owner who
+signs, the office manager who uses it daily, and the hygienist who will quietly refuse to log
+in. Three different pitches, one segment.
+
+### Jobs to Be Done (JTBD)
+The framing that people don't buy products, they hire them to make progress on something. The
+job is the progress, not the product.
+**Picture this:** the classic study: a fast-food chain wanted to sell more milkshakes. Nearly half were bought
+before 9am by solo commuters. The job wasn't dessert — it was a one-handed thing that lasts the
+whole drive and stops you being hungry until lunch. The real competition was bananas and bagels,
+not other milkshakes.
+
+### Painkiller vs. vitamin
+Whether the product solves a problem that already hurts, or offers an improvement that is nice
+to have.
+**Picture this:** payroll compliance software is a painkiller — get it wrong and you're fined. A tool that makes
+team retros 20% more engaging is a vitamin. In a good year both sell. In a budget freeze only
+one survives, and it isn't the vitamin.
+
+### Design partner
+An early customer who commits to building alongside you — real usage and real feedback, in
+exchange for influence over the product and usually favourable terms.
+**Picture this:** a pre-seed company signs three hospitals as design partners. They pay a reduced rate, get weekly
+calls with the founders, and shape the roadmap. In return the company gets something no amount
+of user research buys: a real workflow to build against, and three logos that become references.
+
+### Early adopter
+The customer who buys before the product is finished, because their problem is bad enough that
+an unpolished solution still beats what they have.
+**Picture this:** the first buyers of a compliance tool are usually the teams that just failed an audit. They will
+tolerate bugs, missing features, and a founder doing implementation personally — because the
+alternative is failing the next one.
+
+### Customer discovery interview
+A structured conversation about what someone actually does today — run to learn, not to sell or
+to get validation.
+**Picture this:** a founder asks thirty people "would you use a tool that does X?" and gets twenty-six yeses. Zero
+of them buy. The question that would have worked: "what did you do the last time this came up,
+and how long did it take?"
+
+### Leading questions
+Questions that carry the answer inside them, so the response confirms what you already hoped
+rather than telling you anything.
+**Picture this:** "Wouldn't it be useful if this took five minutes instead of an hour?" Of course. Everyone says
+yes. You have learned nothing except that faster is better than slower.
+
+### Problem validation vs. solution validation
+Two different questions: does this problem actually hurt enough that someone will pay to fix it,
+and does this particular fix work?
+**Picture this:** a team spends four months building a beautiful scheduling tool. It works perfectly. Nobody buys,
+because the scheduling was annoying but never expensive enough to justify a purchase order.
+Solution validated, problem never was.
+
+### Switching costs
+Everything it costs a customer to move off what they use now — migration, retraining,
+integrations, contracts, and the risk of it going wrong.
+**Picture this:** a hospital's scheduling system is bad, everybody complains, and it will not be replaced. Twelve
+years of data live in it, four other systems read from it, and the person who would own the
+migration is already at capacity. Your product being better is not the obstacle.
+
+### Pilot vs. paid contract
+A pilot is a time-boxed trial with an exit. A paid contract is a commitment. They look similar
+on a slide and mean completely different things.
+**Picture this:** "we're in pilot with three enterprises" can mean three signed six-figure deals with a proof
+period, or three free trials with a friendly manager who hasn't told procurement. Ask which, and
+the meeting changes.
+
+---
+
+## 13. How the company makes money
+
+A revenue model is how the cash arrives. A business model is the whole machine. Founders
+conflate them constantly, and the conflation hides whether the thing can actually work at scale.
+
+### Business model vs. revenue model
+The revenue model is how cash arrives. The business model is the whole machine — who you serve,
+what you deliver, what it costs, and why the economics hold.
+**Picture this:** "subscription" is a revenue model. The business model is: mid-size clinics pay $800 a month, we
+acquire them for $2,400 through partner referrals, they stay four years, and gross margin is 78%
+because support is self-serve.
+
+### Subscription business model
+Customers pay a recurring fee for continued access, usually monthly or annually.
+**Picture this:** $500/month per clinic, billed annually with a 15% discount. Predictable revenue, but you have to
+earn it again every renewal — and the annual discount means you find out about problems twelve
+months late.
+
+### Two-sided marketplace
+A business that creates value by connecting two distinct groups who need each other, and takes a
+cut of what happens between them.
+**Picture this:** riders and drivers, guests and hosts, patients and clinicians. The product isn't the app — it's
+the fact that when one side shows up, the other side is already there.
+
+### Transaction fee (take rate)
+The platform takes a percentage of each transaction it enables, rather than charging for access.
+**Picture this:** a booking platform charges 12% of every job. A $400 job earns $48. Revenue only exists when the
+customer succeeds — which is either beautifully aligned or brutally exposed, depending on the
+week.
+
+### Freemium
+A free tier that's genuinely useful, with paid tiers for the users who need more.
+**Picture this:** the free plan handles three projects. It's real, people use it for years, and it costs you
+money. The bet is that enough of them hit four projects — and that the free users bring the
+paying ones in.
+
+### Platform vs. pipeline
+A pipeline business creates value and sells it. A platform lets others create value and takes a
+cut of the exchange.
+**Picture this:** a studio that makes films is a pipeline. A service where anyone can publish and viewers choose
+is a platform. Same industry, completely different cost structures, growth curves, and
+defensibility.
+
+### B2B2C
+Selling to a business that puts your product in front of its own consumers, so the business pays
+and the consumer uses.
+**Picture this:** a benefits tool sells to employers; employees use it. One signature reaches four thousand users
+— and if that employer leaves, four thousand users leave with them.
+
+### Direct-to-consumer (D2C)
+Selling straight to the end customer, skipping retailers and distributors.
+**Picture this:** a mattress brand sells online, owns the customer relationship, keeps the retail margin — and
+pays for every single customer through ads, which is the part that got expensive.
+
+### Licensing
+Charging others to use your technology, brand, or IP inside their own product, rather than
+selling a product yourself.
+**Picture this:** a speech-recognition company licenses its engine to four device makers. It never touches an end
+user, has almost no support burden, and lives entirely on the commercial health of four
+partners.
+
+### Advertising-supported
+The product is free to users, and revenue comes from selling their attention to advertisers.
+**Picture this:** a news app with two million monthly readers earning $8 per thousand impressions. The reader is
+not the customer — the advertiser is, and the reader is the inventory.
+
+### On-demand (gig)
+Connecting customers who want something now with independent workers who deliver it,
+coordinating supply in real time.
+**Picture this:** a delivery app at 7pm on a Friday. Demand triples, and the whole business is whether enough
+couriers chose to be online in that specific neighbourhood in that specific hour.
+
+### Pay-for-performance (results-as-a-service)
+Charging for the outcome rather than the tool — a share of savings, a fee per result, a cut of
+recovered revenue.
+**Picture this:** a claims-recovery product takes 25% of what it recovers. The hospital pays nothing up front and
+can't really say no, because the alternative is recovering nothing.
+
+### Pricing models
+The structure of the charge — per seat, per usage, flat tier, per outcome — as distinct from how
+much it costs.
+**Picture this:** the same $50,000 a year can be 100 seats at $500, 5 million API calls at a cent, or a flat
+platform fee. Identical revenue, completely different incentives about whether the customer lets
+more people use it.
+
+### Value-based pricing
+Setting price from what the outcome is worth to the customer, rather than from what it costs you
+to deliver or what competitors charge.
+**Picture this:** the software costs $4 a month to run. It saves a mid-size firm 60 hours of paralegal time a
+month. Cost-plus says charge $20. Value-based says the conversation starts far higher, and the
+customer will still be delighted.
+
+### Willingness to pay
+The most a specific customer would actually hand over, discovered through behaviour rather than
+asked in a survey.
+**Picture this:** "would you pay $200 a month for this?" gets a yes from eight out of ten. An invoice for $200
+gets paid by one. The survey measured politeness.
+
+---
+
+## 14. How it reaches customers
+
+Go-to-market is where good products go to die quietly. These are the terms for how a company
+finds its first customers and whether that motion can be repeated by someone who is not the
+founder.
+
+### Wedge
+The narrow first thing you do so well that a customer will tolerate switching, from which you
+expand into everything else.
+**Picture this:** a company that eventually wants to run all of a clinic's back office starts with one thing:
+chasing unpaid insurance claims. Small, painful, measurable, and nobody else wants to own it.
+That's the way in.
+
+### Beachhead market
+The first narrow market you take completely, chosen because winning it gives you the credibility
+and cash to take the next one.
+**Picture this:** not "legal tech." More like "immigration law firms with 5–20 attorneys in California." Small
+enough to dominate, connected enough that the reference travels, adjacent to the next segment
+you want.
+
+### Founder-led sales
+The founders doing the selling themselves, before there's a repeatable motion to hand to anyone
+else.
+**Picture this:** the CEO runs every demo for the first forty customers. It doesn't scale, and that isn't the
+point — the point is that she hears every objection first-hand and changes the product on
+Monday.
+
+### Product-led vs. sales-led growth
+Whether the product acquires and converts users on its own, or people do it through a sales
+process.
+**Picture this:** one company's users sign up, get value in ten minutes, and hit a paywall on day nine. The other
+runs a six-week evaluation with three stakeholders and a security review. Both can work. Running
+the wrong one for your price point doesn't.
+
+### Land and expand
+Start with a small deal in one team, prove it works, then grow into the rest of the
+organisation.
+**Picture this:** $12,000 with one department in March. By the following March it's $140,000 across six
+departments, and nobody ran a new sales process — the first team did the selling internally.
+
+### Channel strategy
+Which routes you use to reach customers — direct, partners, resellers, marketplaces — and what
+each one costs you.
+**Picture this:** a company sells direct at 100% of revenue and through a cloud marketplace at 80%. The
+marketplace deals close twice as fast because the budget is already approved. Whether that 20%
+is worth it is the entire question.
+
+### User, buyer, and champion
+Three distinct roles in a B2B sale: the person who uses it, the person who pays for it, and the
+person inside who fights for it.
+**Picture this:** the nurse uses it, the CFO signs it, and the clinic operations lead is the one forwarding your
+email at 11pm because the current system just broke again. Lose the third and the deal dies
+quietly.
+
+### Sales pipeline stages
+The named steps a deal moves through from first contact to closed, each with a definition of
+what has to be true to advance.
+**Picture this:** not "interested / very interested / really interested." More like: discovery call held, problem
+confirmed by the buyer, pricing shared, security review passed, contract out. Each one either
+happened or it didn't.
+
+### SQL vs. MQL
+A marketing qualified lead has shown interest. A sales qualified lead has been verified as
+someone who could actually buy.
+**Picture this:** four hundred people downloaded the whitepaper (MQLs). Eleven of them have the problem, a budget,
+and authority (SQLs). Reporting the four hundred as pipeline is how forecasts go wrong.
+
+### Customer reference
+An existing customer willing to tell a prospect, in their own words, that this works.
+**Picture this:** a hospital CIO takes a fifteen-minute call with another hospital CIO. That call closes more
+deals than any amount of marketing, and it's the asset that took eighteen months to earn.
+
+---
+
+## 15. What makes it defensible
+
+Every deck claims a moat. Most describe a head start. These terms separate the two, and give you
+the vocabulary to ask the follow-up question.
+
+### Competitive moat
+The structural reason a competitor with money and talent still can't take your customers.
+**Picture this:** not "our tech is better." More like: every customer's four years of data lives here, three other
+systems read from it, and the person who'd own a migration already said no twice.
+
+### Differentiation
+The specific thing you do that competitors don't, stated concretely enough that a customer could
+repeat it.
+**Picture this:** "we're faster and more intuitive" is not differentiation — every competitor says it. "We're the
+only one that reads handwritten intake forms" is, because it's checkable and it's either true or
+it isn't.
+
+### Unfair advantage
+Something this specific team or company has that a competitor can't simply decide to acquire —
+access, data, a relationship, hard-won expertise.
+**Picture this:** two founders spent nine years inside hospital revenue cycle teams. They know which twelve people
+to call, what the workflow actually looks like at 2am, and why the last three vendors failed. A
+well-funded competitor can hire engineers. It can't hire that.
+
+### Category creation
+Defining a new kind of product rather than competing inside an existing one, so buyers evaluate
+you on terms you set.
+**Picture this:** instead of being the twelfth CRM, you name the thing you do something nobody sells yet. Now
+there's no feature comparison — but there's also no budget line, and someone has to create one.
+
+### Substitute vs. direct competitor
+A direct competitor sells something like yours. A substitute is whatever the customer uses
+instead — including a spreadsheet, an intern, or nothing.
+**Picture this:** the competitive slide lists four funded startups. The deals are actually lost to Excel and
+"we'll revisit next year." Those two win more often than all four combined.
+
+### Win-loss analysis
+Systematically asking why deals were won or lost, from the buyer rather than from the
+salesperson.
+**Picture this:** the team believes they lose on price. Six buyer interviews later, the real answer is that the
+security questionnaire took eleven days and a competitor answered in two.
+
+### Positioning
+The place your product occupies in the buyer's head — what kind of thing it is, who it's for,
+and what it's better than.
+**Picture this:** the same analytics tool positioned as "business intelligence for enterprises" competes with
+entrenched incumbents and loses. Positioned as "the reporting layer for Shopify stores doing
+$1M+" it's the obvious choice, at the same price.
+
+### Messaging vs. positioning
+Positioning is the strategic decision about what you are and who you're for. Messaging is the
+words you use to say it.
+**Picture this:** the positioning is "the reporting layer for mid-size Shopify stores." The messaging is the
+headline, the cold email, and the first line of the demo. Change the words weekly if you like —
+changing the position weekly means nobody knows what you sell.
+
+### Tagline vs. value proposition
+A tagline is short and memorable. A value proposition explains what you do and why it's worth
+it. Confusing them costs you the buyer's first ten seconds.
+**Picture this:** "Work, simplified." tells a visitor nothing. "Cut month-end close from nine days to two" tells
+them whether to keep reading. One is a mood; the other is a claim.
+
+---
+
+## 16. Building the thing
+
+The product side of judgment — what got built, how the team decides what to build next, and
+which numbers tell you whether it is working.
+
+### Minimum viable product (MVP)
+The smallest thing you can build that produces a real answer to the riskiest question you have.
+**Picture this:** the MVP for a marketplace was a spreadsheet and two founders manually matching people over
+WhatsApp. It answered the only question that mattered — will both sides show up — without a line
+of product code.
+
+### Prototype vs. MVP
+A prototype demonstrates an idea to people. An MVP is used by real customers to do real work.
+**Picture this:** the Figma flow that gets nods in a meeting is a prototype. The rough version that a clinic used
+to process actual claims last Tuesday is an MVP. Only one of them generated evidence.
+
+### Activation
+The moment a new user first gets real value — and the share of signups who reach it.
+**Picture this:** for a document tool, activation might be "invited a teammate and edited a real file within seven
+days." Users who cross that line retain at 60%. Those who don't, retain at 4%.
+
+### Feature prioritization
+Deciding what to build next, and — more importantly — what not to build.
+**Picture this:** the roadmap has forty items. Engineering capacity is four per quarter. The decision isn't which
+four are good ideas; thirty of them are good ideas. It's which four move the one number that
+matters.
+
+### Product roadmap vs. backlog
+A roadmap is the sequence of outcomes you're pursuing. A backlog is the list of specific work
+items waiting to be done.
+**Picture this:** the roadmap says "cut time-to-first-value below ten minutes this quarter." The backlog holds the
+forty tickets that might contribute. Showing a customer the backlog is how you accidentally make
+forty promises.
+
+### Technical debt
+The future cost of a shortcut taken now — code that works today and makes tomorrow slower.
+**Picture this:** hardcoding one customer's business rules ships the deal in a week. Two years and eleven
+customers later, every new rule takes four days and touches nine files.
+
+### Net Promoter Score (NPS)
+One question — how likely are you to recommend this — scored 0–10, with promoters minus
+detractors giving a number from -100 to +100.
+**Picture this:** 40% score 9–10, 20% score 0–6. NPS is +20. It's a fine trend line and a terrible decision-making
+tool on its own.
+
+### OKRs
+A goal-setting structure: an ambitious Objective, with a few measurable Key Results that say
+what would have to be true to hit it.
+**Picture this:** Objective: make onboarding effortless. Key results: activation from 22% to 45%, time-to-first-
+value under ten minutes, support tickets per new account down by half. Not a task list — a set
+of outcomes.
+
 ---
 
 ## Where this came from
@@ -986,6 +1659,16 @@ After an IPO, insiders can't sell for a set window — typically 90–180 days.
 - **[Carta](https://carta.com/learn/private-funds/management/distribution-waterfall/)** and
   **[AngelList](https://www.angellist.com/learn/distributions)** — waterfall and distribution mechanics
 - **[Y Combinator's post-money SAFE primer](https://www.ycombinator.com/documents)** — SAFE conversion math
+- **[Lev Learn](https://getlev.co/learn)** — the founder-side vocabulary. Their concept library is
+  what prompted sections 12–16 here, and it shaped which terms I decided were worth knowing from
+  the other side of the table. The deep dives on this site are my own writing, not theirs — read
+  their pages for their version.
+- **[NVCA model documents](https://nvca.org/model-legal-documents/)** and
+  **[ILPA principles](https://ilpa.org/principles-3-0/)** — the standard paper for financings and
+  for LP/GP terms
+- Primary sources cited on individual terms: Brad Feld on term sheets, Marc Andreessen on
+  product-market fit, Paul Graham on default alive, Clayton Christensen on jobs to be done,
+  Geoffrey Moore on beachheads, Ward Cunningham on technical debt.
 
-Definitions are written in my own words. Where a specific figure or case is cited, it comes from
-the source above.
+Definitions and deep dives are written in my own words. Where a specific figure or case is cited,
+it comes from the sources above.
