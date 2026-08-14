@@ -15,6 +15,7 @@ Look up a term or capture a thought without leaving the terminal.
 Practice:
 
     vc deal "Company"       start a deal file (screening)
+    vc screen list.csv      bulk-add companies from a CSV to screen
     vc pass "Company" why   log a pass with its reason
     vc memo "Company"       scaffold a full memo from the template
     vc deals                show the pipeline
@@ -271,6 +272,94 @@ def cmd_deal(name: str, status: str = "screening", full: bool = False,
         print(f"  {DIM}fill in one_liner, source, and fit — then: vc build{OFF}")
 
 
+def cmd_screen(args: list[str]):
+    """Bulk-create screening files from a company CSV.
+
+        vc screen list.csv --source "Plug and Play Seattle — Batch 1-3"
+
+    Fills only what the file actually says: name, url, stage, and where it came
+    from. `fit` and `reason` are left blank on purpose — those are the judgment,
+    and the judgment is the point of the pipeline.
+    """
+    import csv
+
+    if not args:
+        sys.exit('vc screen <file.csv> [--source "where these came from"]')
+    src = ""
+    if "--source" in args:
+        i = args.index("--source")
+        src = " ".join(args[i + 1:]).strip()
+        args = args[:i]
+    path = Path(args[0]).expanduser()
+    if not path.exists():
+        sys.exit(f"no such file: {path}")
+
+    def pick(row, *names):
+        for n in names:
+            for k, v in row.items():
+                if k and k.strip().lower() == n and (v or "").strip():
+                    return v.strip()
+        return ""
+
+    rows = list(csv.DictReader(path.open()))
+    made, skipped = 0, 0
+    DEALS.mkdir(exist_ok=True)
+    for row in rows:
+        name = pick(row, "company", "company name", "name")
+        if not name:
+            continue
+        dest = deal_path(name)
+        if dest.exists():
+            skipped += 1
+            continue
+        raised = pick(row, "funding raised", "money raised", "capital raised")
+        stage = pick(row, "stage") or _stage_from(raised)
+        batch = pick(row, "batch")
+        source = src + (f" · Batch {batch}" if batch and src else batch)
+        dest.write_text(
+            "---\n"
+            f"name: {_company_case(name)}\n"
+            "status: screening\n"
+            f"stage: {stage}\n"
+            f"source: {source}\n"
+            f"url: {pick(row, 'url', 'website')}\n"
+            "fit: /5\n"
+            "one_liner: \n"
+            "reason: \n"
+            f"raised: {raised}\n"
+            f"first_seen: {datetime.now():%Y-%m-%d}\n"
+            "---\n\n"
+        )
+        made += 1
+
+    print(f"{TEAL}screening{OFF} · {made} added"
+          + (f", {skipped} already tracked" if skipped else ""))
+    if made:
+        print(f"  {DIM}now fill one_liner, fit, and reason on each — "
+              f"then: vc build{OFF}")
+
+
+ACRONYMS = {"AI", "ML", "XR", "AR", "VR", "IO", "INC", "LLC", "HQ", "3D"}
+
+
+def _company_case(name: str) -> str:
+    """Title-case an ALL-CAPS company name without flattening its acronyms."""
+    if not name.isupper():
+        return name
+    return " ".join(w if w in ACRONYMS else w.title() for w in name.split())
+
+
+def _stage_from(raised: str) -> str:
+    """Best guess at stage from a funding string, left blank when unclear."""
+    t = (raised or "").lower()
+    for needle, stage in (("pre-seed", "pre-seed"), ("series a", "series-a"),
+                          ("seed", "seed"), ("grant", "pre-seed"),
+                          ("stealth", "pre-seed")):
+        if needle in t:
+            return stage
+    return ""
+
+
 def cmd_pass(args: list[str]):
     if len(args) < 2:
         sys.exit('vc pass "Company Name" the reason you passed')
@@ -379,6 +468,8 @@ def main() -> int:
         cmd_deal(" ".join(args[1:]))
     elif cmd == "memo":
         cmd_deal(" ".join(args[1:]), status="diligence", full=True)
+    elif cmd == "screen":
+        cmd_screen(args[1:])
     elif cmd == "pass":
         cmd_pass(args[1:])
     elif cmd == "deals":
