@@ -7,7 +7,7 @@ the Founder Institute portal.
 |---|---|---|
 | — | [Home](https://vc-lab.vercel.app) | Where everything is, and how far along it is |
 | **Thesis** | [Thesis](https://vc-lab.vercel.app/thesis.html) | What I invest in, the path, the edge |
-| **Learn** | [Glossary](https://vc-lab.vercel.app/glossary.html) | 152 terms, each with a worked example |
+| **Learn** | [Glossary](https://vc-lab.vercel.app/glossary.html) | 250 terms, each with a worked example and a deep dive |
 | | [Curriculum](https://vc-lab.vercel.app/notes.html) | Every VC Lab session, in my words |
 | | [How a fund works](https://vc-lab.vercel.app/structure.html) | ManCo/GP/LP and the capital flow |
 | | [Drills](https://vc-lab.vercel.app/drills.html) | Waterfall calculator, scenarios, flashcards |
@@ -43,6 +43,7 @@ See [thesis.md](thesis.md) and [background.md](background.md).
 | [`sprints/`](sprints/) | One note per VC Lab sprint, in my own words |
 | [`assignments/`](assignments/) | The exact text I submitted, dated |
 | [`glossary.md`](glossary.md) | VC vocabulary, defined plainly as I encounter it |
+| [`profiles/`](profiles/) | One deep dive per term — why it matters, what it looks like, where it goes wrong |
 | [`docs/`](docs/) | The published site |
 | [`nuggets.md`](nuggets.md) | Captured thoughts, append-only. Triaged weekly. |
 | [`script/`](script/) | The `vc` CLI and the glossary build |
@@ -85,6 +86,25 @@ Installed via a symlink: `ln -sf ~/Projects/active/vc-lab/script/vc ~/.local/bin
 On the site, press **`/`** to search from anywhere, arrows to move, Enter to jump. Every term has
 a deep link (`glossary.html#pari-passu`). The site works offline after one visit.
 
+Each term reads at two depths. The card is the quick answer — the definition and a **Picture this**
+example. **Go deeper** expands a drawer with why it matters, what it looks like in practice, where
+it goes wrong, where the term comes from, and links to related terms. **Read the full entry** opens
+the term's own page at `/g/<term>` for the version worth sitting with.
+
+### Studying it
+
+A **term of the day** sits at the top, the same one all day, cycling through all 250 before it
+repeats. Mark anything **Learned** and the tracker fills — with a streak for consecutive days,
+milestone marks at 10/25/50/100/250, and a nudge pointing at whichever section is thinnest.
+
+The **🎲 dice** opens a random deep dive. It prefers terms marked learned a week ago and not opened
+since — reading the entry resets that clock — then terms not yet learned, then anything. The badge
+on the dice is how many are due for review.
+
+Progress lives in `localStorage`, so it is per-browser. **Export progress** copies it as JSON and
+**Import** merges it in — earliest learned date, latest seen date — so a phone and a laptop can be
+reconciled without a backend.
+
 **The entire site is generated.** Markdown is the source of truth; everything in `docs/` is
 built from it. Never hand-edit HTML — edit the markdown and run:
 
@@ -95,6 +115,7 @@ vc build     # or: python3 script/build.py
 | Source | Becomes |
 |---|---|
 | `glossary.md` | glossary.html |
+| `profiles/*.md` | the deep-dive drawers, and `docs/g/<term>.html` |
 | `thesis.md`, `background.md` | thesis.html |
 | `sprints/*.md` | notes.html |
 | `assignments/*.md` | assignments.html |

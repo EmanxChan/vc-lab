@@ -19,9 +19,10 @@ import re
 import sys
 from datetime import date
 from pathlib import Path
+from typing import Dict, Optional, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lib_md import inline, render, slug, strip_md          # noqa: E402
+from lib_md import inline, render, set_page_map, slug, strip_md   # noqa: E402
 from lib_shell import hero, page                            # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -41,6 +42,11 @@ SHORT_LABELS = {
     "doing-the-work": "The work",
     "how-companies-are-judged": "Judging companies",
     "getting-out": "Exits",
+    "who-the-customer-is": "The customer",
+    "how-the-company-makes-money": "Business models",
+    "how-it-reaches-customers": "Go-to-market",
+    "what-makes-it-defensible": "Defensibility",
+    "building-the-thing": "Product",
 }
 
 STATUS_ORDER = ["invested", "diligence", "screening", "tracking", "passed"]
@@ -57,6 +63,30 @@ STATUS_LABEL = {
 
 def read(p: Path) -> str:
     return p.read_text() if p.exists() else ""
+
+
+def page_map() -> Dict[str, Tuple[str, Optional[str]]]:
+    """Where each markdown source lands, so .md links resolve to a real page.
+
+    Sprints and assignments collapse into one page each, anchored on the file
+    stem. thesis.md and background.md both render into thesis.html, which has
+    its own headings — no stem anchor to point at.
+    """
+    pages: Dict[str, Tuple[str, Optional[str]]] = {
+        "thesis": ("thesis.html", None),
+        "background": ("thesis.html", None),
+        "glossary": ("glossary.html", None),
+        "impact": ("impact.html", None),
+        "README": ("index.html", None),
+    }
+    for d, page in (("sprints", "notes.html"), ("assignments", "assignments.html")):
+        for p in (ROOT / d).glob("*.md"):
+            if not p.name.startswith("_"):
+                pages[p.stem] = (page, slug(p.stem))
+    for p in (ROOT / "deals").glob("*.md"):
+        if not p.name.startswith("_"):
+            pages[p.stem] = ("pipeline.html", None)
+    return pages
 
 
 def frontmatter(text: str) -> tuple[dict, str]:
@@ -103,6 +133,69 @@ def load_glossary() -> list[tuple[str, list[tuple[str, str]], str]]:
     return sections
 
 
+def load_profiles() -> dict[str, dict]:
+    """Deep-dive profiles from profiles/<slug>.md, keyed by term slug.
+
+    Each file is frontmatter (term, related, source lines) plus `## ` sections
+    — Why it matters / What it looks like in practice / Where it goes wrong /
+    Where the term comes from. The glossary entry stays the quick answer; the
+    profile is what you get when you click into it.
+    """
+    out = {}
+    for p in sorted((ROOT / "profiles").glob("*.md")):
+        meta, body = frontmatter(read(p))
+        secs = []
+        for chunk in re.split(r"^## ", body, flags=re.M)[1:]:
+            heading, _, rest = chunk.partition("\n")
+            secs.append((heading.strip(), rest.strip()))
+        if not secs:
+            continue
+        related = [s.strip() for s in meta.get("related", "").split(",") if s.strip()]
+        srcs = []
+        for line in meta.get("sources", "").split(";"):
+            label, _, url = line.partition("|")
+            if url.strip():
+                srcs.append((label.strip(), url.strip()))
+        out[p.stem] = {
+            "slug": p.stem,
+            "term": meta.get("term", p.stem),
+            "sections": secs,
+            "related": related,
+            "sources": srcs,
+        }
+    return out
+
+
+def render_profile(prof: dict, index: dict, base: str = "") -> str:
+    """The deep-dive body. Shared by the inline drawer and the term page."""
+    out = []
+    for heading, body in prof["sections"]:
+        out.append(f'<h4 class="profile-h">{inline(heading)}</h4>')
+        out.append(render(body, skip_h1=False))
+
+    if prof["sources"]:
+        links = "".join(
+            f'<li><a href="{url}" rel="noopener" target="_blank">{inline(label)}'
+            f'<span class="ext">↗</span></a></li>'
+            for label, url in prof["sources"]
+        )
+        out.append(f'<div class="profile-sources"><h4 class="profile-h">Read the original</h4>'
+                   f'<ul>{links}</ul></div>')
+
+    rel = [index[s] for s in prof["related"] if s in index]
+    if rel:
+        cards = "".join(
+            f'<a class="rel-card" href="{base}g/{r["slug"]}.html">'
+            f'<span class="rel-term">{inline(r["term"])}</span>'
+            f'<span class="rel-def">{inline(r["short"])}</span></a>'
+            for r in rel
+        )
+        out.append(f'<div class="profile-related"><h4 class="profile-h">Related terms</h4>'
+                   f'<div class="rel-grid">{cards}</div></div>')
+
+    return "".join(out)
+
+
 def render_term_body(body: str) -> str:
     """Term body with the 'Picture this' line lifted into a callout."""
     body = re.sub(r"\n(?=\*\*(?:Picture this|The tension))", "\n\n", body)
@@ -120,7 +213,24 @@ def render_term_body(body: str) -> str:
 
 # ---------------------------------------------------------------- pages
 
-def build_glossary(sections) -> int:
+def term_index(sections) -> dict[str, dict]:
+    """slug -> {term, section, short} for every glossary term.
+
+    `short` is the plain first sentence, used on the related-term cards.
+    """
+    idx = {}
+    for label, terms, _ in sections:
+        for name, body in terms:
+            lead = body.split("**Picture this")[0].strip()
+            short = strip_md(lead)
+            if len(short) > 150:
+                short = short[:147].rsplit(" ", 1)[0] + "…"
+            idx[slug(name)] = {"slug": slug(name), "term": name,
+                               "section": label, "short": short}
+    return idx
+
+
+def build_glossary(sections, profiles, index) -> int:
     chunks, count, secs = [], 0, []
     for label, terms, prose in sections:
         if not terms:
@@ -129,47 +239,103 @@ def build_glossary(sections) -> int:
             continue
         s = slug(label)
         secs.append((s, label, len(terms)))
-        chunks.append(f'    <div class="group-label" data-section="{s}">{inline(label)}</div>')
+        chunks.append(f'    <div class="group-label" id="{s}" data-section="{s}">'
+                      f'{inline(label)}</div>')
         if prose:
             chunks.append(f'    <p class="section-intro" data-section="{s}">{inline(prose)}</p>')
         for name, body in terms:
             count += 1
             a = slug(name)
+            prof = profiles.get(a)
+            more, drawer = "", ""
+            if prof:
+                more = (f'<button class="more" aria-expanded="false" '
+                        f'aria-controls="d-{a}">Go deeper<span class="caret">▾</span></button>')
+                drawer = (
+                    f'\n      <div class="drawer" id="d-{a}" hidden>\n'
+                    f'        {render_profile(prof, index)}\n'
+                    f'        <a class="full-entry" href="g/{a}.html">'
+                    f'Read the full entry<span class="ext">→</span></a>\n'
+                    f'      </div>'
+                )
+            learn = (f'<button class="learn" data-slug="{a}" aria-pressed="false">'
+                     f'<span class="tick">✓</span><span class="learn-label">Learned</span></button>')
             chunks.append(
-                f'    <div class="term" id="{a}" data-section="{s}" data-order="{count}">\n'
+                f'    <div class="term{" has-profile" if prof else ""}" id="{a}" '
+                f'data-section="{s}" data-order="{count}">\n'
                 f'      <div class="term-section">{inline(label)}</div>\n'
                 f'      <h3>{inline(name)}<a class="anchor" href="#{a}">#</a></h3>\n'
                 f'      {render_term_body(body)}\n'
+                f'      <div class="term-actions">{more}{learn}</div>{drawer}\n'
                 f'    </div>'
             )
 
-    filters = "\n".join(
-        f'      <button class="chip" data-section="{s}" aria-pressed="false">'
-        f'{SHORT_LABELS.get(s, lbl)}<span class="n">{n}</span></button>'
+    opts = "\n".join(
+        f'        <option value="{s}" data-total="{n}">{SHORT_LABELS.get(s, lbl)}</option>'
         for s, lbl, n in secs
     )
 
     body = f"""
+  <section class="totd" id="totd" hidden>
+    <div class="totd-main">
+      <div class="totd-label">Term of the day</div>
+      <h2 id="totd-term"><a id="totd-link" href="#"></a></h2>
+      <p id="totd-def"></p>
+    </div>
+    <div class="totd-side">
+      <button class="learn big" id="totd-learn" data-slug="" aria-pressed="false">
+        <span class="tick">✓</span><span class="learn-label">Learned</span></button>
+      <a class="totd-read" id="totd-read" href="#">Read the deep dive →</a>
+    </div>
+  </section>
+
+  <section class="tracker" id="tracker">
+    <div class="tracker-head">
+      <span class="tracker-count"><strong id="learned-n">0</strong> of {count} learned</span>
+      <span class="tracker-streak" id="streak" hidden></span>
+    </div>
+    <div class="tracker-bar"><div class="tracker-fill" id="tracker-fill"></div></div>
+    <div class="tracker-foot">
+      <span class="milestones" id="milestones"></span>
+      <span class="tracker-tools">
+        <button type="button" id="export">Export progress</button>
+        <span class="dot">·</span>
+        <button type="button" id="import">Import</button>
+      </span>
+    </div>
+    <p class="nudge" id="nudge" hidden>
+      <span id="nudge-text"></span>
+      <button type="button" id="nudge-go">Study it →</button>
+    </p>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
   <div class="search-wrap">
     <div class="search-row">
       <input type="text" id="search" placeholder="Search {count} terms…" autocomplete="off">
+      <select id="filter" aria-label="Filter terms">
+        <option value="">All {count} terms</option>
+        <optgroup label="Section">
+{opts}
+        </optgroup>
+        <optgroup label="Progress">
+          <option value="@unlearned">Still to learn</option>
+          <option value="@learned">Already learned</option>
+        </optgroup>
+      </select>
+      <select id="sort" aria-label="Sort terms">
+        <option value="curriculum">Curriculum order</option>
+        <option value="az">A–Z</option>
+        <option value="za">Z–A</option>
+        <option value="shuffle">Shuffle</option>
+      </select>
+      <button id="lucky" title="I'm feeling lucky — open a random deep dive"
+              aria-label="Open a random deep dive">🎲</button>
       <span class="hint"><span class="kbd">/</span> search &nbsp;
       <span class="kbd">↑↓</span> move &nbsp;
       <span class="kbd">enter</span> open &nbsp;
       <span class="kbd">esc</span> clear</span>
-    </div>
-    <div class="controls">
-      <span class="controls-label">Filter</span>
-      <button class="chip" data-section="" aria-pressed="true">All<span class="n">{count}</span></button>
-{filters}
-    </div>
-    <div class="controls">
-      <span class="controls-label">Sort</span>
-      <button class="chip" data-sort="curriculum" aria-pressed="true">Curriculum order</button>
-      <button class="chip" data-sort="az" aria-pressed="false">A–Z</button>
-      <button class="chip" data-sort="za" aria-pressed="false">Z–A</button>
-      <span class="controls-divider"></span>
-      <button class="chip" id="shuffle" aria-pressed="false">Shuffle</button>
     </div>
   </div>
 
@@ -190,9 +356,73 @@ def build_glossary(sections) -> int:
                   f"Venture capital in plain English — <strong>{count} terms</strong>, each with a "
                   "concrete example. No jargon defined using more jargon.",
                   eyebrow="Learn"),
-        body=body, extra_css=GLOSSARY_CSS, extra_js=GLOSSARY_JS,
+        body=body, extra_css=GLOSSARY_CSS, extra_js=STORE_JS + GLOSSARY_JS,
     ))
     return count
+
+
+def build_term_pages(sections, profiles, index) -> int:
+    """One page per term that has a profile, at docs/g/<slug>.html."""
+    out = DOCS / "g"
+    out.mkdir(exist_ok=True)
+    for f in out.glob("*.html"):
+        f.unlink()
+
+    # Neighbours within a section, for prev/next at the foot of the page.
+    order, by_slug = [], {}
+    for label, terms, _ in sections:
+        for name, body in terms:
+            a = slug(name)
+            if a in profiles:
+                order.append(a)
+                by_slug[a] = (label, name, body)
+
+    n = 0
+    for i, a in enumerate(order):
+        label, name, body = by_slug[a]
+        prof = profiles[a]
+        lead = render_term_body(body)
+
+        nav = []
+        if i:
+            p = index[order[i - 1]]
+            nav.append(f'<a class="pn prev" href="{order[i-1]}.html">'
+                       f'<span class="pn-dir">← Previous</span>'
+                       f'<span class="pn-term">{inline(p["term"])}</span></a>')
+        if i + 1 < len(order):
+            q = index[order[i + 1]]
+            nav.append(f'<a class="pn next" href="{order[i+1]}.html">'
+                       f'<span class="pn-dir">Next →</span>'
+                       f'<span class="pn-term">{inline(q["term"])}</span></a>')
+
+        page_body = f"""
+  <nav class="crumbs">
+    <a href="../glossary.html">← Glossary</a>
+    <span class="crumb-sep">/</span>
+    <a href="../glossary.html#{slug(label)}">{inline(label)}</a>
+  </nav>
+
+  <article class="entry">
+    <h1 class="entry-title">{inline(name)}</h1>
+    <div class="entry-lead">{lead}</div>
+    <div class="term-actions entry-actions">
+      <button class="learn big" id="entry-learn" data-slug="{a}" aria-pressed="false">
+        <span class="tick">✓</span><span class="learn-label">Learned</span></button>
+    </div>
+    <div class="entry-body">{render_profile(prof, index, base="../")}</div>
+  </article>
+
+  <div class="prevnext">{''.join(nav)}</div>
+"""
+        (out / f"{a}.html").write_text(page(
+            title=f"{strip_md(name)} — vc companion",
+            description=index[a]["short"],
+            section="learn", current="glossary.html", base="../",
+            body=page_body, extra_css=GLOSSARY_CSS + ENTRY_CSS,
+            extra_js=STORE_JS + ENTRY_JS,
+        ))
+        n += 1
+    return n
 
 
 def build_thesis() -> None:
@@ -486,8 +716,12 @@ def build_proof(deals, term_count) -> None:
          "Named founders, what I did, what came of it. Shows the support edge is real."),
         ("VC Lab record", assignments, 5, "assignments.html",
          "Public, dated assignments. Shows how the thinking developed."),
-        ("Glossary", term_count, 100, "glossary.html",
-         "Vocabulary built from the work, each term with a worked example."),
+        # The 100-term target was set when the glossary was aspirational. It is
+        # now a finished reference, so the bar tracks coverage of itself rather
+        # than a stale number it passed 2.5x ago.
+        ("Glossary", term_count, term_count, "glossary.html",
+         "Vocabulary built from the work — every term with a worked example, and a deep dive "
+         "on why it matters and where it goes wrong."),
     ]
 
     cards = []
@@ -518,6 +752,7 @@ def build_proof(deals, term_count) -> None:
 <section>
   <h2 class="section-title"><span>The package</span><span class="dim">{ready} of {len(items)} ready</span></h2>
   <div class="grid grid-3">{''.join(cards)}</div>
+  <p class="study-stat" id="study-stat" hidden></p>
 </section>
 
 <section>
@@ -545,6 +780,9 @@ def build_proof(deals, term_count) -> None:
                   "The evidence a fund can read. Built in public, dated, and updated as the work "
                   "happens.", eyebrow="Proof"),
         body=body,
+        extra_css=(".study-stat { font-size: 0.82rem; color: var(--muted); margin-top: 1.1rem; }"
+                   ".study-stat strong { color: var(--gold); }"),
+        extra_js=STORE_JS + PROOF_JS,
     ))
 
 
@@ -823,13 +1061,15 @@ GLOSSARY_CSS = """
 .term li { font-size: 0.93rem; color: var(--muted); margin-bottom: 0.3rem; }
 .term { background: var(--card); border: 1px solid var(--line);
         border-left: 3px solid var(--accent); border-radius: 0 5px 5px 0;
-        padding: 1.4rem 1.6rem; margin-bottom: 1rem; scroll-margin-top: 5rem; }
+        padding: 1.4rem 1.6rem; margin-bottom: 1rem;
+        scroll-margin-top: calc(var(--sticky-h, 5rem) + 1rem); }
 .term h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
 .term p { font-size: 0.93rem; color: var(--muted); }
 .term p + p { margin-top: 0.6rem; }
 .term.hidden { display: none; }
 .group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em;
-               color: var(--accent); font-weight: 700; margin: 2.5rem 0 1rem; }
+               color: var(--accent); font-weight: 700; margin: 2.5rem 0 1rem;
+               scroll-margin-top: calc(var(--sticky-h, 11rem) + 1rem); }
 .section-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 1.25rem; max-width: 720px; }
 .sources p, .sources li { font-size: 0.9rem; color: var(--muted); }
 .sources ul { margin: 0.5rem 0 0 1.2rem; }
@@ -856,6 +1096,311 @@ GLOSSARY_CSS = """
 body.flat .term-section { display: block; }
 body.flat .group-label, body.flat .section-intro { display: none !important; }
 @media (max-width: 768px) { .hint { display: none; } }
+
+/* --- deep dive: the drawer on the index, and the profile body itself --- */
+.more { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.9rem;
+        padding: 0.3rem 0.7rem; font-family: inherit; font-size: 0.76rem; font-weight: 600;
+        letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted);
+        background: none; border: 1px solid var(--line); border-radius: 50px;
+        cursor: pointer; transition: color .15s ease, border-color .15s ease; }
+.more:hover { color: var(--accent); border-color: var(--accent); }
+.more .caret { font-size: 0.7rem; transition: transform .18s ease; }
+.more[aria-expanded="true"] .caret { transform: rotate(180deg); }
+.drawer { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+.drawer[hidden] { display: none; }
+.profile-h { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em;
+             color: var(--accent); font-weight: 700; margin: 1.4rem 0 0.5rem; }
+.profile-h:first-child { margin-top: 0; }
+.drawer p, .entry-body p { font-size: 0.93rem; color: var(--muted); }
+.drawer p + p, .entry-body p + p { margin-top: 0.6rem; }
+.drawer ul, .drawer ol, .entry-body ul, .entry-body ol { margin: 0.5rem 0 0 1.2rem; }
+.drawer li, .entry-body li { font-size: 0.92rem; color: var(--muted); margin-bottom: 0.35rem; }
+.profile-sources, .profile-related { margin-top: 2rem; padding-top: 1.2rem;
+                                     border-top: 1px solid var(--line); }
+.profile-sources ul { list-style: none; margin-left: 0; }
+.profile-sources a { color: var(--accent); text-decoration: none; }
+.profile-sources a:hover { text-decoration: underline; }
+.ext { font-size: 0.75em; margin-left: 0.25em; opacity: 0.7; }
+.rel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.6rem; margin-top: 0.6rem; }
+.rel-card { display: block; padding: 0.7rem 0.85rem; background: var(--tint);
+            border: 1px solid var(--line); border-radius: 5px; text-decoration: none;
+            transition: border-color .15s ease, transform .15s ease; }
+.rel-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.rel-term { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text); }
+.rel-def { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem;
+           line-height: 1.45; }
+.full-entry { display: inline-block; margin-top: 1.4rem; font-size: 0.8rem; font-weight: 600;
+              letter-spacing: 0.03em; color: var(--accent); text-decoration: none; }
+.full-entry:hover { text-decoration: underline; }
+
+/* --- controls: one row, dropdowns beside the search box ---------------- */
+#filter, #sort { font-family: inherit; font-size: 0.85rem; padding: 0.55rem 2rem 0.55rem 0.9rem;
+                 background: var(--card); color: var(--text); border: 1px solid var(--line);
+                 border-radius: 50px; outline: none; cursor: pointer; appearance: none;
+                 background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+                                   linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+                 background-position: right 1.05rem center, right 0.8rem center;
+                 background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+#filter:focus, #sort:focus { border-color: var(--accent); }
+#filter, #sort, #lucky { min-height: 44px; }
+#lucky { display: inline-flex; align-items: center; justify-content: center; min-width: 44px;
+         font-size: 1.05rem; line-height: 1; padding: 0 0.7rem; background: var(--card);
+         border: 1px solid var(--line); border-radius: 50px; cursor: pointer;
+         transition: transform .15s ease, border-color .15s ease; }
+#lucky:hover { border-color: var(--gold); transform: rotate(-12deg) scale(1.1); }
+#lucky:active { transform: rotate(8deg) scale(0.95); }
+
+/* --- learned toggle ---------------------------------------------------- */
+.term-actions { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.9rem;
+                flex-wrap: wrap; }
+.term-actions .more { margin-top: 0; }
+.learn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.7rem;
+         font-family: inherit; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em;
+         text-transform: uppercase; color: var(--muted); background: none;
+         border: 1px solid var(--line); border-radius: 50px; cursor: pointer;
+         transition: color .15s ease, border-color .15s ease, background .15s ease; }
+.learn:hover { color: var(--gold); border-color: var(--gold); }
+.learn .tick { font-size: 0.85em; opacity: 0.45; transition: opacity .15s ease; }
+.learn[aria-pressed="true"] { color: #121212; background: var(--gold); border-color: var(--gold); }
+.learn[aria-pressed="true"] .tick { opacity: 1; }
+.term.done { border-left-color: var(--gold); }
+
+/* --- term of the day --------------------------------------------------- */
+.totd { display: flex; gap: 1.5rem; align-items: flex-start; justify-content: space-between;
+        background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--gold);
+        border-radius: 0 6px 6px 0; padding: 1.4rem 1.6rem; margin-bottom: 1rem; }
+.totd[hidden] { display: none; }
+.totd-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.16em;
+              color: var(--gold); font-weight: 700; margin-bottom: 0.4rem; }
+.totd h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; }
+.totd h2 a { color: var(--text); text-decoration: none; }
+.totd h2 a:hover { color: var(--accent); }
+.totd p { font-size: 0.9rem; color: var(--muted); max-width: 60ch; }
+.totd-side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem;
+             flex-shrink: 0; }
+.totd-read { font-size: 0.78rem; font-weight: 600; color: var(--accent); text-decoration: none;
+             white-space: nowrap; }
+.totd-read:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .totd { flex-direction: column; gap: 1rem; }
+  .totd-side { align-items: flex-start; }
+}
+
+/* --- progress tracker -------------------------------------------------- */
+.tracker { margin-bottom: 1.25rem; }
+.tracker-head { display: flex; align-items: baseline; justify-content: space-between;
+                gap: 1rem; margin-bottom: 0.4rem; }
+.tracker-count { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tracker-count strong { color: var(--text); font-size: 0.95rem; }
+.tracker-streak { font-size: 0.78rem; color: var(--gold); font-weight: 600; }
+.tracker-streak[hidden] { display: none; }
+.tracker-bar { height: 5px; background: var(--tint); border: 1px solid var(--line);
+               border-radius: 50px; overflow: hidden; }
+.tracker-fill { height: 100%; width: 0; background: var(--gold);
+                transition: width .35s cubic-bezier(.2,.8,.3,1); }
+.tracker-foot { display: flex; align-items: center; justify-content: space-between;
+                gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+.milestones { display: flex; gap: 0.4rem; align-items: center; }
+.ms { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.06em; color: var(--muted);
+      border: 1px solid var(--line); border-radius: 50px; padding: 0.1rem 0.5rem;
+      opacity: 0.55; transition: opacity .2s ease; }
+.ms.hit { color: var(--gold); border-color: var(--gold); opacity: 1; }
+.tracker-tools { font-size: 0.72rem; color: var(--muted); }
+.tracker-tools button { font-family: inherit; font-size: 0.72rem; color: var(--muted);
+                        background: none; border: 0; padding: 0; cursor: pointer;
+                        text-decoration: underline; text-underline-offset: 2px; }
+.tracker-tools button:hover { color: var(--accent); }
+.tracker-tools .dot { margin: 0 0.4rem; opacity: 0.5; }
+.nudge { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+         font-size: 0.8rem; color: var(--muted); margin-top: 0.7rem; }
+.nudge[hidden] { display: none; }
+.nudge button { font-family: inherit; font-size: 0.72rem; font-weight: 700;
+                text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent);
+                background: none; border: 1px solid var(--line); border-radius: 50px;
+                padding: 0.25rem 0.7rem; cursor: pointer; }
+.nudge button:hover { border-color: var(--accent); }
+
+/* --- dice: a quiet badge when reviews are waiting ---------------------- */
+#lucky { position: relative; }
+#lucky[data-due]::after { content: attr(data-due); position: absolute; top: -3px; right: -3px;
+                          min-width: 15px; height: 15px; padding: 0 3px; border-radius: 50px;
+                          background: var(--gold); color: #121212; font-size: 0.6rem;
+                          font-weight: 700; line-height: 15px; text-align: center; }
+
+/* --- toast ------------------------------------------------------------- */
+.toast { position: fixed; left: 50%; bottom: 2rem; transform: translate(-50%, 1rem);
+         z-index: 1000; background: var(--gold); color: #121212; font-size: 0.85rem;
+         font-weight: 700; padding: 0.7rem 1.2rem; border-radius: 50px;
+         box-shadow: 0 6px 24px rgba(0,0,0,0.25); opacity: 0; pointer-events: none;
+         transition: opacity .25s ease, transform .25s ease; }
+.toast[hidden] { display: none; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) {
+  .toast, .tracker-fill, #lucky { transition: none; }
+}
+"""
+
+ENTRY_CSS = """
+.crumbs { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.crumb-sep { margin: 0 0.5rem; opacity: 0.5; }
+.entry { max-width: 720px; }
+.entry-title { font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.15;
+               margin-bottom: 1.1rem; }
+.entry-lead { padding-bottom: 1.5rem; margin-bottom: 0.5rem;
+              border-bottom: 1px solid var(--line); }
+.entry-lead > p:first-child { font-size: 1.08rem; color: var(--text); line-height: 1.6; }
+.entry-lead .example { margin-top: 1rem; }
+.prevnext { display: flex; gap: 1rem; margin: 3.5rem 0 1rem; max-width: 720px; }
+.pn { flex: 1; padding: 0.9rem 1.1rem; background: var(--card); border: 1px solid var(--line);
+      border-radius: 5px; text-decoration: none; transition: border-color .15s ease; }
+.pn:hover { border-color: var(--accent); }
+.pn.next { text-align: right; }
+.pn-dir { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em;
+          color: var(--muted); margin-bottom: 0.25rem; }
+.pn-term { display: block; font-size: 0.9rem; font-weight: 700; color: var(--text); }
+@media (max-width: 600px) { .prevnext { flex-direction: column; } }
+.entry-actions { margin: 1.25rem 0 0.5rem; }
+.learn.big { font-size: 0.8rem; padding: 0.45rem 1rem; }
+.review-note { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+               font-weight: 700; color: var(--gold); }
+"""
+
+PROOF_JS = """
+// The study habit is real evidence, but it only lives in this browser — so it
+// is rendered client-side and stays hidden until there is something to show.
+(function () {
+  var el = document.getElementById('study-stat');
+  if (!el) return;
+  var n = VCL.count();
+  if (!n) return;
+  var bits = ['<strong>' + n + '</strong> glossary terms marked learned'];
+  var s = VCL.streak();
+  if (s >= 2) bits.push('<strong>' + s + '</strong>-day study streak');
+  var due = VCL.due().length;
+  if (due) bits.push(due + ' due for review');
+  el.innerHTML = bits.join(' &middot; ');
+  el.hidden = false;
+})();
+"""
+
+ENTRY_JS = """
+(function () {
+  var btn = document.getElementById('entry-learn');
+  if (!btn) return;
+  var slug = btn.dataset.slug;
+  var wasDue = VCL.due().indexOf(slug) !== -1;
+  function paint(on) {
+    btn.setAttribute('aria-pressed', String(on));
+    btn.querySelector('.learn-label').textContent = on ? 'Learned' : 'Mark learned';
+  }
+  paint(VCL.has(slug));
+  btn.addEventListener('click', function () { paint(VCL.toggle(slug)); });
+
+  // Opening the page is the revision, so the review clock resets here.
+  if (wasDue) {
+    var note = document.createElement('span');
+    note.className = 'review-note';
+    note.textContent = 'Due for review';
+    btn.parentNode.appendChild(note);
+  }
+  VCL.touch(slug);
+})();
+"""
+
+STORE_JS = """
+// Shared progress state, used by the glossary index, the term pages, and the
+// proof page. One log keyed by term slug:
+//
+//     { "liquidation-preference": { l: <day marked learned>, s: <day last opened> } }
+//
+// Days are whole days since the epoch in local time, so "7 days ago" is a
+// calendar comparison rather than a 168-hour one.
+var VCL = (function () {
+  var KEY = 'vclab-log', SKEY = 'vclab-streak', OLD = 'vclab-learned';
+  var REVIEW_AFTER = 7;
+
+  function read(k, fallback) {
+    try { var v = JSON.parse(localStorage.getItem(k)); return v === null ? fallback : v; }
+    catch (e) { return fallback; }
+  }
+  function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function today() {
+    var d = new Date();
+    return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5;
+  }
+
+  var log = read(KEY, null);
+  if (!log) {                       // migrate the flat array this replaced
+    log = {};
+    read(OLD, []).forEach(function (s) { log[s] = { l: today(), s: today() }; });
+    write(KEY, log);
+  }
+  function save() { write(KEY, log); }
+
+  function entry(slug) { return log[slug] || (log[slug] = {}); }
+  function has(slug) { return !!(log[slug] && log[slug].l != null); }
+  function toggle(slug) {
+    var e = entry(slug), on = e.l == null;
+    if (on) { e.l = today(); e.s = today(); bumpStreak(); } else { delete e.l; }
+    save();
+    return on;
+  }
+  // Opening a deep dive counts as revision and resets the review clock.
+  function touch(slug) { entry(slug).s = today(); save(); }
+  function count() {
+    return Object.keys(log).filter(function (s) { return log[s].l != null; }).length;
+  }
+  // Learned, and not looked at for a week — the ones worth resurfacing.
+  function due() {
+    var t = today();
+    return Object.keys(log).filter(function (s) {
+      var e = log[s];
+      if (e.l == null) return false;
+      return t - Math.max(e.l, e.s == null ? e.l : e.s) >= REVIEW_AFTER;
+    });
+  }
+
+  // A streak is consecutive days on which at least one term was marked.
+  function bumpStreak() {
+    var s = read(SKEY, { last: null, days: 0 }), t = today();
+    if (s.last === t) return;
+    s.days = (s.last === t - 1) ? s.days + 1 : 1;
+    s.last = t;
+    write(SKEY, s);
+  }
+  function streak() {
+    var s = read(SKEY, { last: null, days: 0 }), t = today();
+    return (s.last === t || s.last === t - 1) ? s.days : 0;
+  }
+
+  // localStorage is per-browser, so progress needs a way to travel.
+  function exportData() {
+    return JSON.stringify({ v: 1, log: log, streak: read(SKEY, { last: null, days: 0 }) });
+  }
+  function importData(text) {
+    var data = JSON.parse(text);
+    if (!data || typeof data.log !== 'object' || data.log === null) {
+      throw new Error('not a progress export');
+    }
+    Object.keys(data.log).forEach(function (slug) {
+      var incoming = data.log[slug], mine = log[slug];
+      if (!mine) { log[slug] = incoming; return; }
+      // Merge rather than overwrite: keep the earliest learned, latest seen.
+      if (incoming.l != null) mine.l = mine.l == null ? incoming.l : Math.min(mine.l, incoming.l);
+      if (incoming.s != null) mine.s = mine.s == null ? incoming.s : Math.max(mine.s, incoming.s);
+    });
+    save();
+    if (data.streak && data.streak.days > streak()) write(SKEY, data.streak);
+    return count();
+  }
+
+  return { has: has, toggle: toggle, touch: touch, count: count, due: due,
+           streak: streak, dayIndex: today,
+           exportData: exportData, importData: importData };
+})();
 """
 
 GLOSSARY_JS = """
@@ -870,13 +1415,22 @@ GLOSSARY_JS = """
   var sourceBlocks = [].slice.call(
     container.querySelectorAll('.sources, .group-label:not([data-section])'));
   labels = labels.filter(function (l) { return l.hasAttribute('data-section'); });
-  var section = '', sortMode = 'curriculum', cursor = -1;
+  var filterVal = '', sortMode = 'curriculum', cursor = -1;
+  var filterSel = document.getElementById('filter');
+  var sortSel = document.getElementById('sort');
 
   terms.forEach(function (t) {
     var h = t.querySelector('h3');
     t.dataset.title = h ? h.textContent.replace('#', '').toLowerCase().trim() : '';
-    t.dataset.all = t.textContent.toLowerCase();
+    // Button labels ("Go deeper", "Learned") are chrome, not content — strip
+    // them so searching for them doesn't match every card on the page.
+    var copy = t.cloneNode(true);
+    [].slice.call(copy.querySelectorAll('button')).forEach(function (b) { b.remove(); });
+    t.dataset.all = copy.textContent.toLowerCase();
   });
+
+  function sectionFilter() { return filterVal.charAt(0) === '@' ? '' : filterVal; }
+  function progressFilter() { return filterVal.charAt(0) === '@' ? filterVal.slice(1) : ''; }
 
   function matches(el, q) {
     if (!q) return true;
@@ -887,7 +1441,7 @@ GLOSSARY_JS = """
       return tw.some(function (x) { return x.indexOf(w) === 0; });
     });
   }
-  function flat() { return sortMode !== 'curriculum' || section !== ''; }
+  function flat() { return sortMode !== 'curriculum' || filterVal !== ''; }
   function visibleTerms() {
     return terms.filter(function (t) { return !t.classList.contains('hidden'); });
   }
@@ -928,9 +1482,14 @@ GLOSSARY_JS = """
   }
   function filter() {
     var q = search.value.toLowerCase().trim();
+    var sec = sectionFilter(), prog = progressFilter();
     var visible = 0; cursor = -1;
     terms.forEach(function (t) {
-      var ok = matches(t, q) && (!section || t.dataset.section === section);
+      var ok = matches(t, q) && (!sec || t.dataset.section === sec);
+      if (ok && prog) {
+        var done = t.classList.contains('done');
+        ok = (prog === 'learned') ? done : !done;
+      }
       t.classList.toggle('hidden', !ok);
       t.classList.remove('active');
       if (ok) visible++;
@@ -943,45 +1502,26 @@ GLOSSARY_JS = """
       label.style.display = any ? '' : 'none';
     });
     intros.forEach(function (i) { i.style.display = (q || flat()) ? 'none' : ''; });
-    var narrowed = !!(q || section);
+    var narrowed = !!(q || filterVal);
     sourceBlocks.forEach(function (el) { el.style.display = narrowed ? 'none' : ''; });
     noResults.style.display = visible ? 'none' : 'block';
     var bits = [];
     if (q) bits.push('matching "' + search.value.trim() + '"');
-    if (section) {
-      var chip = document.querySelector('.chip[data-section="' + section + '"]');
-      if (chip) bits.push('in ' + chip.childNodes[0].textContent.trim());
+    if (filterVal) {
+      var opt = filterSel.options[filterSel.selectedIndex];
+      bits.push((filterVal.charAt(0) === '@' ? '' : 'in ') + opt.textContent.trim().toLowerCase());
     }
     countEl.textContent = narrowed
       ? visible + (visible === 1 ? ' term ' : ' terms ') + bits.join(' ') : '';
   }
 
   search.addEventListener('input', filter);
-  document.querySelectorAll('.chip[data-section]').forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      section = chip.dataset.section;
-      document.querySelectorAll('.chip[data-section]').forEach(function (c) {
-        c.setAttribute('aria-pressed', String(c === chip));
-      });
-      reorder(); filter(); window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+  filterSel.addEventListener('change', function () {
+    filterVal = filterSel.value;
+    reorder(); filter(); window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-  document.querySelectorAll('.chip[data-sort]').forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      sortMode = chip.dataset.sort;
-      document.querySelectorAll('.chip[data-sort]').forEach(function (c) {
-        c.setAttribute('aria-pressed', String(c === chip));
-      });
-      document.getElementById('shuffle').setAttribute('aria-pressed', 'false');
-      reorder(); filter();
-    });
-  });
-  document.getElementById('shuffle').addEventListener('click', function () {
-    sortMode = 'shuffle';
-    document.querySelectorAll('.chip[data-sort]').forEach(function (c) {
-      c.setAttribute('aria-pressed', 'false');
-    });
-    this.setAttribute('aria-pressed', 'true');
+  sortSel.addEventListener('change', function () {
+    sortMode = sortSel.value;
     reorder(); filter(); window.scrollTo({ top: 0, behavior: 'smooth' });
   });
   document.addEventListener('keydown', function (e) {
@@ -1001,6 +1541,238 @@ GLOSSARY_JS = """
       search.blur();
     }
   });
+
+  // The search and filter bar is sticky and its height changes as the chips
+  // wrap, so anchors have to clear whatever it actually measures right now.
+  var stickyBar = document.querySelector('.search-wrap');
+  function measureSticky() {
+    if (!stickyBar) return;
+    document.documentElement.style.setProperty(
+      '--sticky-h', stickyBar.offsetHeight + 'px');
+  }
+  measureSticky();
+  window.addEventListener('resize', measureSticky);
+
+  // --- deep dive drawers -------------------------------------------------
+  document.querySelectorAll('.more').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var drawer = document.getElementById(btn.getAttribute('aria-controls'));
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      drawer.hidden = open;
+      btn.childNodes[0].nodeValue = open ? 'Go deeper' : 'Close';
+      if (!open) {                 // reading it counts as revision
+        VCL.touch(btn.closest('.term').id);
+        refresh();
+      }
+    });
+  });
+
+  // --- learned tracking --------------------------------------------------
+  var total = terms.length;
+  var fill = document.getElementById('tracker-fill');
+  var learnedN = document.getElementById('learned-n');
+  var streakEl = document.getElementById('streak');
+
+  function paint(btn, on) {
+    btn.setAttribute('aria-pressed', String(on));
+    var label = btn.querySelector('.learn-label');
+    if (label) label.textContent = on ? 'Learned' : 'Mark learned';
+  }
+  var MILESTONES = [10, 25, 50, 100, total];
+  var msEl = document.getElementById('milestones');
+  var nudge = document.getElementById('nudge');
+  var nudgeText = document.getElementById('nudge-text');
+  var toastEl = document.getElementById('toast');
+  var lucky = document.getElementById('lucky');
+  var lastCount = -1;
+
+  var toastTimer;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.hidden = false;
+    requestAnimationFrame(function () { toastEl.classList.add('show'); });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastEl.classList.remove('show');
+      setTimeout(function () { toastEl.hidden = true; }, 300);
+    }, 2600);
+  }
+
+  msEl.innerHTML = MILESTONES.map(function (m) {
+    return '<span class="ms" data-at="' + m + '">' + m + '</span>';
+  }).join('');
+
+  function refresh() {
+    var n = VCL.count();
+    learnedN.textContent = n;
+    fill.style.width = (total ? (n / total) * 100 : 0) + '%';
+    var s = VCL.streak();
+    streakEl.hidden = s < 2;
+    streakEl.textContent = '🔥 ' + s + ' day streak';
+
+    // Section counts show progress, so the dropdown doubles as a scoreboard.
+    var worst = null;
+    [].slice.call(filterSel.querySelectorAll('option[data-total]')).forEach(function (o) {
+      var all = terms.filter(function (t) { return t.dataset.section === o.value; });
+      var done = all.filter(function (t) { return t.classList.contains('done'); }).length;
+      var of = +o.dataset.total;
+      if (!o.dataset.name) o.dataset.name = o.textContent;
+      o.textContent = o.dataset.name + ' (' + done + '/' + of + ')' + (done === of ? ' ✓' : '');
+      var ratio = done / of;
+      if (done < of && (!worst || ratio < worst.ratio ||
+                        (ratio === worst.ratio && of - done > worst.left))) {
+        worst = { name: o.dataset.name, done: done, of: of, left: of - done,
+                  ratio: ratio, value: o.value };
+      }
+    });
+
+    // Point at the thinnest section, but only once there is a shape to compare.
+    if (n >= 5 && worst) {
+      nudgeText.textContent = worst.name + ' is your thinnest — ' +
+        worst.done + ' of ' + worst.of + '.';
+      nudge.dataset.section = worst.value;
+      nudge.hidden = false;
+    } else {
+      nudge.hidden = true;
+    }
+
+    [].slice.call(msEl.children).forEach(function (el) {
+      el.classList.toggle('hit', n >= +el.dataset.at);
+    });
+
+    // Celebrate crossing a milestone, but never on first paint.
+    if (lastCount >= 0 && n > lastCount) {
+      MILESTONES.forEach(function (m) {
+        if (lastCount < m && n >= m) {
+          toast(m === total ? '🏆 All ' + total + ' terms learned' : '🎉 ' + m + ' terms learned');
+        }
+      });
+    }
+    lastCount = n;
+
+    var dueN = VCL.due().length;
+    if (dueN) {
+      lucky.dataset.due = dueN;
+      lucky.title = dueN + ' term' + (dueN === 1 ? '' : 's') + ' due for review — roll to revise';
+    } else {
+      delete lucky.dataset.due;
+      lucky.title = "I'm feeling lucky — open a random deep dive";
+    }
+  }
+
+  document.getElementById('nudge-go').addEventListener('click', function () {
+    filterSel.value = nudge.dataset.section;
+    filterVal = filterSel.value;
+    reorder(); filter();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.getElementById('export').addEventListener('click', function () {
+    var data = VCL.exportData();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(data)
+        .then(function () { toast('Progress copied to clipboard'); })
+        .catch(function () { window.prompt('Copy your progress:', data); });
+    } else {
+      window.prompt('Copy your progress:', data);
+    }
+  });
+
+  document.getElementById('import').addEventListener('click', function () {
+    var text = window.prompt('Paste progress exported from another browser:');
+    if (!text) return;
+    try {
+      VCL.importData(text);
+    } catch (e) {
+      toast("That doesn't look like a progress export");
+      return;
+    }
+    terms.forEach(function (t) {
+      var on = VCL.has(t.id);
+      t.classList.toggle('done', on);
+      paint(t.querySelector('.learn'), on);
+    });
+    if (totdSlug) paint(totdLearn, VCL.has(totdSlug));
+    lastCount = -1;
+    refresh();
+    filter();
+    toast('Progress merged — ' + VCL.count() + ' learned');
+  });
+
+  [].slice.call(document.querySelectorAll('.term .learn')).forEach(function (btn) {
+    var slug = btn.dataset.slug;
+    var term = document.getElementById(slug);
+    var on = VCL.has(slug);
+    paint(btn, on);
+    term.classList.toggle('done', on);
+    btn.addEventListener('click', function () {
+      var now = VCL.toggle(slug);
+      paint(btn, now);
+      term.classList.toggle('done', now);
+      if (slug === totdSlug) paint(totdLearn, now);
+      refresh();
+      if (progressFilter()) filter();
+    });
+  });
+
+  // --- term of the day ---------------------------------------------------
+  // Deterministic per calendar day, scattered by a prime so consecutive days
+  // are not neighbours, and cycling through every term before repeating.
+  var totdSlug = '';
+  var totdLearn = document.getElementById('totd-learn');
+  var withProfile = terms.filter(function (t) { return t.classList.contains('has-profile'); });
+  if (withProfile.length) {
+    var pick = withProfile[(VCL.dayIndex() * 7919) % withProfile.length];
+    totdSlug = pick.id;
+    var name = pick.querySelector('h3').textContent.replace('#', '').trim();
+    var def = pick.querySelector('p');
+    var link = 'g/' + totdSlug + '.html';
+    document.getElementById('totd-link').textContent = name;
+    document.getElementById('totd-link').href = link;
+    document.getElementById('totd-read').href = link;
+    document.getElementById('totd-def').textContent = def ? def.textContent : '';
+    totdLearn.dataset.slug = totdSlug;
+    paint(totdLearn, VCL.has(totdSlug));
+    document.getElementById('totd').hidden = false;
+    totdLearn.addEventListener('click', function () {
+      var now = VCL.toggle(totdSlug);
+      paint(totdLearn, now);
+      var card = document.getElementById(totdSlug);
+      card.classList.toggle('done', now);
+      paint(card.querySelector('.learn'), now);
+      refresh();
+      if (progressFilter()) filter();
+    });
+  }
+
+  refresh();
+
+  // --- I'm feeling lucky -------------------------------------------------
+  if (lucky && withProfile.length) lucky.addEventListener('click', function () {
+    var ids = {};
+    withProfile.forEach(function (t) { ids[t.id] = true; });
+    // Reviews first — a term learned a week ago and not opened since is worth
+    // more than a new one. Then unlearned ground. Then anything.
+    var pool = VCL.due().filter(function (s) { return ids[s]; });
+    if (!pool.length) {
+      pool = withProfile.filter(function (t) { return !t.classList.contains('done'); })
+                        .map(function (t) { return t.id; });
+    }
+    if (!pool.length) pool = withProfile.map(function (t) { return t.id; });
+    location.href = 'g/' + pool[Math.floor(Math.random() * pool.length)] + '.html';
+  });
+
+  // Landing on #term with a profile opens it, so a shared link lands deep.
+  function openHash() {
+    if (!location.hash) return;
+    var el = document.querySelector(location.hash);
+    if (!el || !el.classList.contains('has-profile')) return;
+    var btn = el.querySelector('.more');
+    if (btn && btn.getAttribute('aria-expanded') !== 'true') btn.click();
+  }
+  window.addEventListener('hashchange', openHash);
+  openHash();
 })();
 """
 
@@ -1185,11 +1957,15 @@ def build_favicon() -> None:
 
 def main() -> int:
     DOCS.mkdir(exist_ok=True)
+    set_page_map(page_map())
     sections = load_glossary()
     deals = load_deals()
+    profiles = load_profiles()
+    index = term_index(sections)
     build_favicon()
 
-    n = build_glossary(sections)
+    n = build_glossary(sections, profiles, index)
+    entries = build_term_pages(sections, profiles, index)
     build_thesis()
     build_notes()
     build_assignments()
@@ -1202,8 +1978,19 @@ def main() -> int:
     build_index(deals, n)
 
     pages = sorted(p.name for p in DOCS.glob("*.html"))
-    print(f"built {len(pages)} pages · {n} glossary terms · {len(deals)} deals")
+    print(f"built {len(pages)} pages · {n} glossary terms · "
+          f"{entries} deep-dive entries · {len(deals)} deals")
     print("  " + "  ".join(pages))
+    missing = sorted(set(index) - set(profiles))
+    if missing:
+        print(f"  no profile yet ({len(missing)}): " + ", ".join(missing[:12])
+              + (" …" if len(missing) > 12 else ""))
+    orphan = sorted(set(profiles) - set(index))
+    if orphan:
+        print(f"  ⚠ profile with no glossary term ({len(orphan)}): " + ", ".join(orphan))
+    dangling = sorted({r for p in profiles.values() for r in p["related"]} - set(index))
+    if dangling:
+        print(f"  ⚠ related link to unknown term ({len(dangling)}): " + ", ".join(dangling))
     return 0
 
 

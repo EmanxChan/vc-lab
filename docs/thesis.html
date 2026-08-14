@@ -78,7 +78,7 @@
 <h2 id="to-pressure-test">To pressure-test</h2>
 <ul class="tasks"><li><span class="tick">○</span>Name 10 US companies from the last 5 years that fit the thesis and reached $1B+</li><li><span class="tick">○</span>Write the anti-thesis: what looks like a fit but isn't</li><li><span class="tick">○</span>Define what "rebuilding trust" excludes, so the thesis can actually say no</li><li><span class="tick">○</span>Map which alumni relationships across the three ecosystems are live vs. dormant</li><li><span class="tick">○</span>Decide the check size and cadence for the first 10 angel investments</li></ul>
 <h2 id="related">Related</h2>
-<ul><li><a href="background.html">background.md</a> — who I am and how I work</li><li><a href="sprint-5-venture-deals.html">sprints/sprint-5-venture-deals.md</a> — the agent-assisted sourcing, diligence, and support motion</li></ul></div>
+<ul><li><a href="thesis.html">background.md</a> — who I am and how I work</li><li><a href="notes.html#sprint-5-venture-deals">sprints/sprint-5-venture-deals.md</a> — the agent-assisted sourcing, diligence, and support motion</li></ul></div>
 </section>
 
 <section>
@@ -103,7 +103,7 @@
 <p>AI is for enhancing thinking, not replacing it. I use it to research and draft, then edit — and unedited AI output isn't a submission, it's a draft I haven't done my part on yet.</p>
 <h2 id="ecosystems-i-come-from">Ecosystems I come from</h2>
 <ul><li><strong>Plug and Play</strong></li><li><strong>Grid110</strong></li><li><strong>Material Change</strong></li></ul>
-<p>These are the source of my dealflow edge — see <a href="thesis.md#my-edge">thesis.md</a>.</p></div>
+<p>These are the source of my dealflow edge — see <a href="thesis.html#my-edge">thesis.md</a>.</p></div>
 </section>
 
 </main>
@@ -114,7 +114,8 @@
   <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
 </footer>
 
-<script>
+<script>var BASE = '';
+
 (function () {
   var key = 'vclab-theme';
   var stored = localStorage.getItem(key);
@@ -130,7 +131,7 @@
       document.body.classList.contains('dark-mode') ? 'dark' : 'light');
   });
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(function () {});
+    navigator.serviceWorker.register(BASE + 'sw.js').catch(function () {});
   }
 })();
 </script>

@@ -91,7 +91,7 @@
 <ol><li><strong>Close a deal</strong> — source to thesis, build conviction, IC, diligence, negotiate, sign, wire, set up updates</li></ol>
 <p><strong>Return the money</strong></p>
 <ol><li><strong>Distribute proceeds</strong> — collect exit proceeds, determine carry status, calculate per partner accounts, net fees, check side letters, communicate, distribute on schedule</li></ol>
-<p>→ Assignment written on step 6: <a href="sprint-2-3-vc-processes.html"><code>assignments/sprint-2-3-vc-processes.md</code></a></p></div></section><section id="sprint-3-performance"><h2 class="section-title"><span>Sprint 3 — Venture Capital Performance</span><span class="dim">covered</span></h2><div class="prose"><p><strong>Sessions:</strong> 3.1 The Power Law in VC · 3.2 Venture Fund Economics · 3.3 Venture Fund Metrics · 3.4 Venture Allocation Strategies</p>
+<p>→ Assignment written on step 6: <a href="assignments.html#sprint-2-3-vc-processes"><code>assignments/sprint-2-3-vc-processes.md</code></a></p></div></section><section id="sprint-3-performance"><h2 class="section-title"><span>Sprint 3 — Venture Capital Performance</span><span class="dim">covered</span></h2><div class="prose"><p><strong>Sessions:</strong> 3.1 The Power Law in VC · 3.2 Venture Fund Economics · 3.3 Venture Fund Metrics · 3.4 Venture Allocation Strategies</p>
 <hr>
 <h2 id="31-the-power-law">3.1 — The Power Law</h2>
 <p>Source: https://govclab.com/2023/08/09/the-power-law-in-vc/ (<code>vcl.to/VI3-1</code>)</p>
@@ -106,7 +106,7 @@
 <p>Source: https://govclab.com/2023/08/09/venture-fund-metrics (<code>vcl.to/VI3-3</code>)</p>
 <div class="table-wrap"><table><thead><tr><th>Metric</th><th>What it answers</th><th>Watch out for</th></tr></thead><tbody><tr><td><strong>MOIC</strong></td><td>What multiple on money in?</td><td>Ignores time entirely</td></tr><tr><td><strong>TVPI</strong></td><td>Total value (realized + paper) / paid in</td><td>Blends real and imaginary</td></tr><tr><td><strong>DPI</strong></td><td>How much cash actually came back?</td><td>The honest one</td></tr><tr><td><strong>RVPI</strong></td><td>How much is still in the ground?</td><td>Paper marks, self-reported</td></tr><tr><td><strong>IRR</strong></td><td>Annualized, time-weighted return</td><td>Flattered by early markups; gameable by timing</td></tr></tbody></table></div>
 <p><strong>Rule of thumb:</strong> TVPI shows the size of the outcome, DPI shows how much of it is real, IRR shows how fast you got there. Never read IRR alone.</p>
-<p>→ Assignment: <a href="sprint-3-fund-performance.html"><code>assignments/sprint-3-fund-performance.md</code></a></p></div></section><section id="sprint-4-limited-partners"><h2 class="section-title"><span>Sprint 4 — Finding and Closing Limited Partners</span><span class="dim">covered</span></h2><div class="prose"><p><strong>Sessions:</strong> 4.1 The Importance of Limited Partners · 4.2 Limited Partner Archetypes · 4.3 Sourcing and Closing Limited Partners · 4.4 Maintaining Relationships with LPs</p>
+<p>→ Assignment: <a href="assignments.html#sprint-3-fund-performance"><code>assignments/sprint-3-fund-performance.md</code></a></p></div></section><section id="sprint-4-limited-partners"><h2 class="section-title"><span>Sprint 4 — Finding and Closing Limited Partners</span><span class="dim">covered</span></h2><div class="prose"><p><strong>Sessions:</strong> 4.1 The Importance of Limited Partners · 4.2 Limited Partner Archetypes · 4.3 Sourcing and Closing Limited Partners · 4.4 Maintaining Relationships with LPs</p>
 <blockquote><p>Read ahead — notes below are from the public source, to be updated after the live sessions.</p></blockquote>
 <hr>
 <h2 id="43-sourcing-and-closing-lps">4.3 — Sourcing and Closing LPs</h2>
@@ -145,7 +145,7 @@
 <h2 id="what-this-sprint-should-answer">What this sprint should answer</h2>
 <ul><li>How the <strong>fund model</strong> actually works: commitments → capital calls → deployment → reserves → distributions</li><li>Reading and building a <strong>cap table</strong>, including how each round dilutes</li><li>Where fees, expenses, and carry land in the accounts</li></ul>
 <h2 id="connects-back-to">Connects back to</h2>
-<ul><li><a href="sprint-3-performance.html">Sprint 3</a> — DPI/RVPI/TVPI come straight out of these books</li><li>Distribution waterfall mechanics in <a href="../glossary.md#distribution-waterfall">glossary</a></li></ul>
+<ul><li><a href="notes.html#sprint-3-performance">Sprint 3</a> — DPI/RVPI/TVPI come straight out of these books</li><li>Distribution waterfall mechanics in <a href="glossary.html#distribution-waterfall">glossary</a></li></ul>
 <h2 id="open-questions">Open questions</h2>
 <ul class="tasks"><li><span class="tick">○</span>Reserve ratio for a pre-seed fund — how much held back for follow-ons?</li><li><span class="tick">○</span>How does a SAFE convert on the cap table, and what does that do to my ownership?</li></ul></div></section><section id="sprint-8-venture-careers"><h2 class="section-title"><span>Sprint 8 — Venture Careers</span><span class="dim">prep only</span></h2><div class="prose"><p><strong>Sessions:</strong> Decile Hub Capstone · Developing your personal brand in VC · Top performers invited to apply to the Residency Program</p>
 <blockquote><p>Not yet covered. Prep notes below.</p></blockquote>
@@ -164,7 +164,8 @@
   <a href="https://github.com/EmanxChan/vc-lab">source</a></p>
 </footer>
 
-<script>
+<script>var BASE = '';
+
 (function () {
   var key = 'vclab-theme';
   var stored = localStorage.getItem(key);
@@ -180,7 +181,7 @@
       document.body.classList.contains('dark-mode') ? 'dark' : 'light');
   });
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(function () {});
+    navigator.serviceWorker.register(BASE + 'sw.js').catch(function () {});
   }
 })();
 </script>
