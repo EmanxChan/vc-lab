@@ -1,6 +1,6 @@
 // Offline cache for the VC Lab companion.
 // Bump CACHE when the site content changes so clients refetch.
-const CACHE = 'vc-lab-v9';
+const CACHE = 'vc-lab-v10';
 const ASSETS = [
   './',
   'index.html',
