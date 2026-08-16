@@ -882,6 +882,15 @@ Actively finding companies rather than waiting.
 my alumni relationships across Plug and Play, Grid110, and Material Change are the asset, not a
 line on a bio.
 
+### Form D
+The short filing a company sends the SEC within 15 days of its first sale of securities in a
+private round. It names the company, its officers and directors, the total amount being offered,
+and how much has sold so far. Free and public on EDGAR, which makes it the one sourcing signal
+that doesn't depend on anyone telling you anything.
+**Picture this:** a Seattle company files a Form D showing a **$1.5M offering with $900,000 sold.**
+That says two things at once — the round opened in the last couple of weeks, and roughly $600,000
+is still open. That gap is the window an angel check can still fit through, and it closes fast.
+
 ### Due diligence
 Investigating before investing — team, market, product, numbers, references.
 **Picture this:** at pre-seed there's often no revenue to diligence. So you're mostly diligencing

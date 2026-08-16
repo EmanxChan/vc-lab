@@ -7,7 +7,7 @@ the Founder Institute portal.
 |---|---|---|
 | — | [Home](https://vc-lab.vercel.app) | Where everything is, and how far along it is |
 | **Thesis** | [Thesis](https://vc-lab.vercel.app/thesis.html) | What I invest in, the path, the edge |
-| **Learn** | [Glossary](https://vc-lab.vercel.app/glossary.html) | 249 terms, each with a worked example and a deep dive |
+| **Learn** | [Glossary](https://vc-lab.vercel.app/glossary.html) | 250 terms, each with a worked example and a deep dive |
 | | [Curriculum](https://vc-lab.vercel.app/notes.html) | Every VC Lab session, in my words |
 | | [How a fund works](https://vc-lab.vercel.app/structure.html) | ManCo/GP/LP and the capital flow |
 | | [Drills](https://vc-lab.vercel.app/drills.html) | Waterfall calculator, scenarios, flashcards |
@@ -93,9 +93,9 @@ the term's own page at `/g/<term>` for the version worth sitting with.
 
 ### Studying it
 
-A **term of the day** sits at the top, the same one all day, cycling through all 249 before it
+A **term of the day** sits at the top, the same one all day, cycling through all 250 before it
 repeats. Mark anything **Learned** and the tracker fills — with a streak for consecutive days,
-milestone marks at 10/25/50/100/249, and a nudge pointing at whichever section is thinnest.
+milestone marks at 10/25/50/100/250, and a nudge pointing at whichever section is thinnest.
 
 The **🎲 dice** opens a random deep dive. It prefers terms marked learned a week ago and not opened
 since — reading the entry resets that clock — then terms not yet learned, then anything. The badge
@@ -150,9 +150,14 @@ No login needed.
 **WebFetch returns the redirect rather than following it cross-host** — fetch the `vcl.to` URL
 first, then fetch the govclab.com target it reports.
 
-Currently live: **Sprints 1–3, plus 4.3.** Everything else (`VI2-4`, `VI3-4`, `VI4-1/2/4`, and
-most of Sprints 5–8) returns a Rebrandly broken-link page. Sprints 5–8 run inside Decile Hub and
-may never have public articles.
+Currently live: **`VI1-1` through `VI1-4`, `VI2-1` through `VI2-3`, and `VI3-1` through `VI3-3`** —
+ten articles, all summarized in `sprints/`. Everything else returns a Rebrandly broken-link page:
+all of Sprint 0, `VI2-4`, `VI3-4`, all of Sprint 4, all of Sprints 5, 6 and 8, and `VI7-1`,
+`VI7-3`, `VI7-4`. Sprints 5–8 run inside Decile Hub and may never have public articles.
+
+`VI4-3` **used to be live and went dark on 2026-07-29.** The 4.3 notes in
+`sprints/sprint-4-limited-partners.md` were written from the article while it was up; the source
+link in that file no longer resolves.
 
 **Exception:** `vcl.to/VI7-2` does **not** point to a govclab article — it redirects to a Google
 Doc *worksheet* (`docs.google.com/.../copy`) containing the Sprint 2 assignment sets. Not every
