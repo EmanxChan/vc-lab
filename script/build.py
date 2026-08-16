@@ -698,10 +698,26 @@ def build_memo() -> None:
     ))
 
 
+def _has_anti_memo(body: str) -> bool:
+    """A memo counts once the case against it is written, not once it is long.
+
+    Length was the old test, which meant research alone could flip the card.
+    The anti-memo is the section that separates conviction from enthusiasm, so
+    it is the one that decides.
+    """
+    m = re.search(r"^##\s*\d*\.?\s*The anti-memo\s*$(.*?)(?=^## |\Z)",
+                  body, re.S | re.M | re.I)
+    if not m:
+        return False
+    text = m.group(1).split("\n---")[0]        # drop any trailing sources footer
+    text = re.sub(r"_[^_]+_", "", text, flags=re.S)   # italics are the prompts
+    return len(strip_md(text)) > 200
+
+
 def build_proof(deals, term_count) -> None:
     passed = [d for d in deals if d.get("status") == "passed"]
     impact = len(re.findall(r"^### ", read(ROOT / "impact.md"), flags=re.M))
-    memos = len([d for d in deals if len(d.get("body", "")) > 400])
+    memos = len([d for d in deals if _has_anti_memo(d.get("body", ""))])
     assignments = len([p for p in (ROOT / "assignments").glob("*.md")
                        if p.name != "INBOX.md"])
 
