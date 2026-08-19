@@ -859,6 +859,17 @@ The deals you passed on that went on to win. Kept deliberately by good investors
 passes are data about your filter, and reviewing them is the only way to find out your filter is
 miscalibrated.
 
+### Anti-thesis
+The written list of what looks like a fit and isn't. A thesis says what you invest in; an
+anti-thesis says what you refuse. Without the second half a thesis is a preference, because it
+has never cost you anything.
+**Picture this:** mine came out of 29 companies I actually screened, not out of a planning
+session, and it rejects four kinds — trust in machines rather than between people, AI as method
+rather than substance, efficiency dressed as connection, and AI that spends trust rather than
+builds it. The last one is the real test. InfinityLoop negotiates harder against your suppliers;
+Vicino generates on-brand enterprise content at scale. Both are competent, both are AI, US, and
+pre-seed, and if I can't say no to them the thesis means nothing.
+
 ### Inbound vs. outbound
 Inbound arrives because someone sent it to you. Outbound is what you went and found.
 **Picture this:** tracking the split is the honest measure of whether your network is real. An
