@@ -150,13 +150,18 @@ No login needed.
 **WebFetch returns the redirect rather than following it cross-host** — fetch the `vcl.to` URL
 first, then fetch the govclab.com target it reports.
 
-Currently live: **Sprints 1–3, plus 4.3.** Everything else (`VI2-4`, `VI3-4`, `VI4-1/2/4`, and
-most of Sprints 5–8) returns a Rebrandly broken-link page. Sprints 5–8 run inside Decile Hub and
-may never have public articles.
+Currently live: **Sprints 1–3** (ten articles), **plus `VI7-2`**. Everything else — all of
+Sprint 0, `VI2-4`, `VI3-4`, all of Sprint 4, and all of Sprints 5, 6 and 8 plus `VI7-1/3/4` —
+returns a Rebrandly broken-link page. Sprints 5–8 run inside Decile Hub and may never have
+public articles.
+
+`VI4-3` **used to be live and went dark in late July 2026.** Its govclab target
+(`/2023/08/16/sourcing-and-closing-limited-partners/`) still resolves directly, so
+`sprints/sprint-4-limited-partners.md` is fine — only the short link is dead.
 
 **Exception:** `vcl.to/VI7-2` does **not** point to a govclab article — it redirects to a Google
-Doc *worksheet* (`docs.google.com/.../copy`) containing the Sprint 2 assignment sets. Not every
-working short link is an article; check where it actually lands.
+Doc *worksheet* (`docs.google.com/.../copy`) containing the Sprint 2 assignment sets. It is the
+one live short link that is not an article; check where each actually lands.
 
 ## VC Lab curriculum map
 
