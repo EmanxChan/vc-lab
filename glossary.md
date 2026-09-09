@@ -1684,7 +1684,7 @@ of outcomes.
   the other side of the table. The deep dives on this site are my own writing, not theirs — read
   their pages for their version.
 - **[NVCA model documents](https://nvca.org/model-legal-documents/)** and
-  **[ILPA principles](https://ilpa.org/principles-3-0/)** — the standard paper for financings and
+  **[ILPA principles](https://ilpa.org/industry-guidance/principles-best-practices/)** — the standard paper for financings and
   for LP/GP terms
 - Primary sources cited on individual terms: Brad Feld on term sheets, Marc Andreessen on
   product-market fit, Paul Graham on default alive, Clayton Christensen on jobs to be done,
