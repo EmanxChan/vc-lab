@@ -1,7 +1,7 @@
 ---
 term: LPA (Limited Partnership Agreement)
 related: the-fund, limited-partner-lp, distribution-waterfall, key-person-clause, management-fee, lpac-advisory-committee
-sources: Institutional Limited Partners Association — principles | https://ilpa.org/principles-3-0/
+sources: Institutional Limited Partners Association — principles | https://ilpa.org/industry-guidance/principles-best-practices/
 ---
 
 ## Why it matters

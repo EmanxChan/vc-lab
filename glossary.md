@@ -859,6 +859,17 @@ The deals you passed on that went on to win. Kept deliberately by good investors
 passes are data about your filter, and reviewing them is the only way to find out your filter is
 miscalibrated.
 
+### Anti-thesis
+The written list of what looks like a fit and isn't. A thesis says what you invest in; an
+anti-thesis says what you refuse. Without the second half a thesis is a preference, because it
+has never cost you anything.
+**Picture this:** mine came out of 29 companies I actually screened, not out of a planning
+session, and it rejects four kinds — trust in machines rather than between people, AI as method
+rather than substance, efficiency dressed as connection, and AI that spends trust rather than
+builds it. The last one is the real test. InfinityLoop negotiates harder against your suppliers;
+Vicino generates on-brand enterprise content at scale. Both are competent, both are AI, US, and
+pre-seed, and if I can't say no to them the thesis means nothing.
+
 ### Inbound vs. outbound
 Inbound arrives because someone sent it to you. Outbound is what you went and found.
 **Picture this:** tracking the split is the honest measure of whether your network is real. An
@@ -881,6 +892,15 @@ Actively finding companies rather than waiting.
 **Picture this:** roughly **60%** of venture deals come through networks. Which is precisely why
 my alumni relationships across Plug and Play, Grid110, and Material Change are the asset, not a
 line on a bio.
+
+### Form D
+The short filing a company sends the SEC within 15 days of its first sale of securities in a
+private round. It names the company, its officers and directors, the total amount being offered,
+and how much has sold so far. Free and public on EDGAR, which makes it the one sourcing signal
+that doesn't depend on anyone telling you anything.
+**Picture this:** a Seattle company files a Form D showing a **$1.5M offering with $900,000 sold.**
+That says two things at once — the round opened in the last couple of weeks, and roughly $600,000
+is still open. That gap is the window an angel check can still fit through, and it closes fast.
 
 ### Due diligence
 Investigating before investing — team, market, product, numbers, references.
@@ -1664,7 +1684,7 @@ of outcomes.
   the other side of the table. The deep dives on this site are my own writing, not theirs — read
   their pages for their version.
 - **[NVCA model documents](https://nvca.org/model-legal-documents/)** and
-  **[ILPA principles](https://ilpa.org/principles-3-0/)** — the standard paper for financings and
+  **[ILPA principles](https://ilpa.org/industry-guidance/principles-best-practices/)** — the standard paper for financings and
   for LP/GP terms
 - Primary sources cited on individual terms: Brad Feld on term sheets, Marc Andreessen on
   product-market fit, Paul Graham on default alive, Clayton Christensen on jobs to be done,
