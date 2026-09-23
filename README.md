@@ -150,16 +150,17 @@ No login needed.
 **WebFetch returns the redirect rather than following it cross-host** — fetch the `vcl.to` URL
 first, then fetch the govclab.com target it reports.
 
-Currently live: **Sprints 1–3** — ten articles, `VI1-1` through `VI1-4`, `VI2-1` through `VI2-3`,
-and `VI3-1` through `VI3-3` — **plus `VI7-2`**. All ten articles are summarized in `sprints/`.
-Everything else returns a Rebrandly broken-link page: all of Sprint 0, `VI2-4`, `VI3-4`, all of
-Sprint 4, all of Sprints 5, 6 and 8, and `VI7-1` / `VI7-3` / `VI7-4`. Sprints 5–8 run inside
-Decile Hub and may never have public articles.
+Currently live (checked 2026-09-23): **`VI1-1` through `VI1-4`, `VI2-1` through `VI2-3`, `VI3-1`
+through `VI3-3`**, plus the `VI7-2` exception below. Everything else — all of Sprint 0, `VI2-4`,
+`VI3-4`, all of Sprint 4, all of Sprints 5, 6 and 8, and `VI7-1/3/4` — returns a Rebrandly
+broken-link page. Sprints 5–8 run inside Decile Hub and may never have public articles.
 
-`VI4-3` **used to be live and went dark on 2026-07-29.** The 4.3 notes in
-`sprints/sprint-4-limited-partners.md` were written from the article while the short link was up.
-The govclab target itself — `/2023/08/16/sourcing-and-closing-limited-partners/` — still resolves
-directly, so link that rather than `vcl.to/VI4-3`.
+**`VI4-3` is a dead shortlink, not a dead article.** The short link has returned the Rebrandly
+broken-links page since 2026-07-29, but the article itself is still up and public at
+https://govclab.com/2023/08/16/sourcing-and-closing-limited-partners/ — which is the URL
+`sprints/sprint-4-limited-partners.md` already cites. Nothing was lost; only the redirect entry
+was removed. Note that govclab.com **soft-404s**: a missing slug returns HTTP 200 with the site's
+generic homepage, so check the page title, not the status code.
 
 **Exception:** `vcl.to/VI7-2` does **not** point to a govclab article — it redirects to a Google
 Doc *worksheet* (`docs.google.com/.../copy`) containing the Sprint 2 assignment sets. It is the
