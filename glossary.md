@@ -859,6 +859,15 @@ The deals you passed on that went on to win. Kept deliberately by good investors
 passes are data about your filter, and reviewing them is the only way to find out your filter is
 miscalibrated.
 
+### Investment thesis
+The written statement of what you invest in, at what stage, and where — specific enough that
+someone else could apply it without you in the room. A thesis is not a description of what you
+find interesting; it's a rule you've agreed to be bound by.
+**Picture this:** mine is AI rebuilding human trust, pre-seed, United States, personal angel
+checks today. Four decisions, each of which closes a door. The sector line took longest, because
+"AI and humanity" sounds like a thesis and isn't — it excludes nothing, so it can't route a deal
+to me and it can't tell me to pass.
+
 ### Anti-thesis
 The written list of what looks like a fit and isn't. A thesis says what you invest in; an
 anti-thesis says what you refuse. Without the second half a thesis is a preference, because it

@@ -7,7 +7,7 @@ the Founder Institute portal.
 |---|---|---|
 | — | [Home](https://vc-lab.vercel.app) | Where everything is, and how far along it is |
 | **Thesis** | [Thesis](https://vc-lab.vercel.app/thesis.html) | What I invest in, the path, the edge |
-| **Learn** | [Glossary](https://vc-lab.vercel.app/glossary.html) | 251 terms, each with a worked example and a deep dive |
+| **Learn** | [Glossary](https://vc-lab.vercel.app/glossary.html) | 252 terms, each with a definition and a deep dive |
 | | [Curriculum](https://vc-lab.vercel.app/notes.html) | Every VC Lab session, in my words |
 | | [How a fund works](https://vc-lab.vercel.app/structure.html) | ManCo/GP/LP and the capital flow |
 | | [Drills](https://vc-lab.vercel.app/drills.html) | Waterfall calculator, scenarios, flashcards |
@@ -93,9 +93,9 @@ the term's own page at `/g/<term>` for the version worth sitting with.
 
 ### Studying it
 
-A **term of the day** sits at the top, the same one all day, cycling through all 251 before it
+A **term of the day** sits at the top, the same one all day, cycling through all 252 before it
 repeats. Mark anything **Learned** and the tracker fills — with a streak for consecutive days,
-milestone marks at 10/25/50/100/251, and a nudge pointing at whichever section is thinnest.
+milestone marks at 10/25/50/100/252, and a nudge pointing at whichever section is thinnest.
 
 The **🎲 dice** opens a random deep dive. It prefers terms marked learned a week ago and not opened
 since — reading the entry resets that clock — then terms not yet learned, then anything. The badge
