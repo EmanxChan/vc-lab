@@ -150,7 +150,7 @@ No login needed.
 **WebFetch returns the redirect rather than following it cross-host** — fetch the `vcl.to` URL
 first, then fetch the govclab.com target it reports.
 
-Currently live (checked 2026-09-23): **`VI1-1` through `VI1-4`, `VI2-1` through `VI2-3`, `VI3-1`
+Currently live (checked 2026-09-30): **`VI1-1` through `VI1-4`, `VI2-1` through `VI2-3`, `VI3-1`
 through `VI3-3`**, plus the `VI7-2` exception below. Everything else — all of Sprint 0, `VI2-4`,
 `VI3-4`, all of Sprint 4, all of Sprints 5, 6 and 8, and `VI7-1/3/4` — returns a Rebrandly
 broken-link page. Sprints 5–8 run inside Decile Hub and may never have public articles.
