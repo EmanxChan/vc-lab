@@ -1,7 +1,7 @@
 ---
 term: Management fee
 related: management-company-manco, committed-capital, 2-and-20, contributed-capital-paid-in, carried-interest-carry
-sources: Institutional Limited Partners Association — principles | https://ilpa.org/principles-3-0/
+sources: Institutional Limited Partners Association — principles | https://ilpa.org/industry-guidance/principles-best-practices/
 ---
 
 ## Why it matters
