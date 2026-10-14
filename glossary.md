@@ -169,6 +169,9 @@ in full.
 
 ### Pre-money valuation
 What the company is worth *before* the new money goes in.
+**Picture this:** a founder raises $500K on a $4.5M pre-money. Post-money is $5M, so the new
+money owns 10%. Say "pre" or "post" out loud every time — the same $500K buys 10% or 11.1%
+depending on which one the founder meant.
 
 ### Post-money valuation
 Pre-money plus the new money.
@@ -191,6 +194,9 @@ diluted to 8%. Your 8% is worth $4M. You own less of something much bigger.
 ### Fully diluted shares
 The total share count if every option, warrant, and SAFE converted today. The honest
 denominator — always ask for percentages on a fully diluted basis.
+**Picture this:** a founder tells you your $100K bought 5%. The cap table shows 8,000,000 common
+shares — but there is also a 1,500,000-share option pool and $600K of SAFEs still unconverted.
+Fully diluted you own closer to 4%. The 5% was true on the wrong denominator.
 
 ### Option pool
 Shares set aside for future employees. Usually 10–20%.
@@ -269,14 +275,23 @@ Weighted average is normal; full ratchet is a red flag worth pushing back on.
 ### Board seat
 A formal seat on the board of directors, with a vote on major decisions. Usually goes to the
 lead investor.
+**Picture this:** in a $2M pre-seed, the lead writes $1.5M and takes the one investor seat, so the
+board is two founders plus them. My $50K angel check gets none of that — which is why at pre-seed
+my influence is whether the founder picks up the phone, not a vote in a room.
 
 ### Drag-along rights
 If enough shareholders agree to sell, they can force the rest to sell too. Stops one small
 holder from blocking an acquisition.
+**Picture this:** an acquirer offers $40M and holders of 92% of the company want to take it. One
+early angel with 0.5% refuses, hoping to be bought out separately. Drag-along means they are
+coming along at the same price per share whether they sign or not.
 
 ### Tag-along rights
 If big shareholders sell, small ones can join on the same terms. The mirror image of
 drag-along, protecting the little guy.
+**Picture this:** the founders quietly sell $5M of their own shares to a growth fund at $12 a
+share. Tag-along lets the smaller holders sell a proportional slice into that same deal at that
+same $12, instead of watching the insiders find liquidity nobody else was offered.
 
 ### Pay-to-play
 If you don't participate in the next round, you lose your preferred protections and get converted
@@ -300,10 +315,16 @@ investor's side is a founder agreeing to stop fundraising while someone decides 
 ### Right of First Refusal (ROFR)
 If a shareholder wants to sell, the company or its investors get first option to buy at that price.
 It controls who ends up on the cap table.
+**Picture this:** an early angel wants out and finds a buyer at $8 a share. ROFR lets the company
+or its existing investors step in and buy at that same $8 first. The angel still gets their price;
+the company still gets to decide who ends up on its cap table.
 
 ### Redemption rights
 The right to force the company to buy back shares after some period. Rare and aggressive at
 pre-seed — it converts equity into something closer to debt.
+**Picture this:** an investor puts in $2M on terms that let them demand it back after five years if
+there is no exit. Year five arrives, the company has $900K in the bank and is growing slowly — and
+a term sheet has quietly turned into a bill. If I see this at pre-seed, I want to know why.
 
 ### Side letter
 A separate agreement giving one investor terms the others don't have — extra reporting, fee
@@ -314,6 +335,9 @@ fund has to check what it privately promised each LP.
 ### Information rights
 The right to get regular financials and updates. Sounds procedural, but it's the difference
 between knowing a company is in trouble and finding out at the wake.
+**Picture this:** a founder you backed goes quiet for two quarters. With information rights you
+would have had the monthlies showing revenue flat and cash down to four months. Without them, your
+first signal is the email that opens "I wanted to let you know...".
 
 ### Protective provisions
 A list of things the company cannot do without preferred shareholder approval, regardless of who
@@ -375,6 +399,9 @@ This is the part almost nobody explains, and it's where founder outcomes are dec
 ### Common stock
 Plain ownership. Every share gets an equal slice. Founders and employees hold this. It gets paid
 **last**.
+**Picture this:** the company sells for $30M. Investors hold $25M of preferred at a 1x preference,
+so $25M comes off the top. The remaining $5M splits across common — the founders and everyone who
+took options instead of salary. Same sale, very different day.
 
 ### Convertible preferred stock
 What investors actually buy. It gives the holder a *choice* at exit: take the liquidation
@@ -385,14 +412,23 @@ unicorn financings use it. It's not an exotic instrument; it's the default.
 ### Series preferred
 Each round issues its own named class — Series A, Series B, Series C. They are *not*
 interchangeable. Each can carry different rights, and that's what determines the payout order.
+**Picture this:** when Kabbage sold, the proceeds ran newest-first — Series F took $161M, then E
+$166M, then D $50M, then C $31M, leaving $22M for Series A and B, while common still held about
+28% of the company. "Preferred" was never one block. It was a queue, and early was the back of it.
 
 ### Original Issue Price (OIP)
 The per-share price an investor actually paid. Investment amount ÷ shares received. This is the
 number liquidation preferences are calculated from.
+**Picture this:** an investor puts in $1M and receives 500,000 shares, so the OIP is $2.00 a
+share. At a 1x liquidation preference that is the $1M they take back first — and every preference
+calculation afterwards runs off that $2.00, not off whatever the stock is said to be worth later.
 
 ### Par value
 A nominal legal value in the corporate charter, usually $0.001. Economically meaningless — don't
 confuse it with OIP.
+**Picture this:** the charter says par value $0.001 and the investor just paid $2.00 a share for
+the same stock. The $0.001 exists so the shares can legally be issued. Nobody has ever been paid
+on the basis of it.
 
 ### Seniority
 Later rounds usually get paid **before** earlier ones. Being first in is not being first paid.
@@ -498,6 +534,9 @@ capital per company.** Going past it needs the LPAC's consent — which is also 
 
 ### LPAC (Advisory Committee)
 A small group of LPs who advise the GP and vote on conflicts of interest.
+**Picture this:** a GP wants to invest in a company founded by their own brother. That is the
+conflict the LPAC exists for — three or four of the fund's larger LPs look at it and vote. On a
+$10M fund the LPAC might be two people and a scheduled call.
 
 ### Capital call
 The fund asking LPs to actually send money they've already committed. Capital is drawn down over
@@ -527,6 +566,9 @@ committed, whichever comes first.
 ### PACT
 A non-binding commitment letter used in VC Lab methodology. Signing it "hard circles" an LP as
 serious and moves them out of polite conversation.
+**Picture this:** an LP has taken three calls and keeps saying "keep me posted." You send the PACT.
+They either sign it — soft-circling $250K, non-binding, but written down — or they do not, and one
+email has told you what six more coffees would not have.
 
 ### GP commit
 The GP's own money in the fund — usually about 1%. Skin in the game.
@@ -536,6 +578,9 @@ ask about this early.
 ### Key person clause
 If named individuals leave, the fund stops making new investments until LPs agree otherwise.
 LPs invested in *those people*.
+**Picture this:** two GPs raise a $20M fund and one of them leaves eighteen months in. The key
+person clause stops new investments cold until the LPs vote on whether to carry on. They did not
+buy a strategy. They bought those two people.
 
 ### Dry powder
 Committed money not yet invested.
@@ -546,6 +591,9 @@ yet. Dry powder is not idle money. It is the ability to keep showing up.
 ### Fund duration / investment period
 A fund typically lives **10 years**, with new investments made only in the first **3–5**. The
 rest of the life is spent supporting companies and waiting for exits.
+**Picture this:** a fund that closes in 2026 writes its first check that year and its last *new*
+check around 2030. The six years after that are follow-ons, support, and waiting. An LP who
+commits is agreeing not to see that money again for about a decade.
 
 ### SPV (Special Purpose Vehicle)
 A one-deal fund. Pools money from several people into a single investment.
@@ -816,6 +864,9 @@ harder than it bites us.
 ### Recycling
 Reinvesting early returns instead of distributing them, so more than 100% of the fund gets
 deployed. Usually capped, and often zero for new managers.
+**Picture this:** a $10M fund exits a position early for $3M. Without recycling that goes straight
+back to LPs and the fund has deployed $10M in total. With it, the $3M goes back into new deals and
+the fund puts $13M to work on $10M of commitments. First-time managers are usually capped at zero.
 
 ---
 
@@ -970,6 +1021,9 @@ Conviction isn't the bottleneck. Volume at the top is.
 ### Term sheet conversion
 The fact that issuing a term sheet isn't winning the deal. At the term sheet, leverage flips to
 the founder.
+**Picture this:** you send a term sheet and the founder goes quiet for four days — because they are
+taking it to the two firms that were slower than you. It takes about 1.7 term sheets to produce 1
+investment. The moment you commit in writing is the moment you stop being the one deciding.
 
 ### Elimination by aspects
 How investors actually read pitches: hunting for a fatal flaw so they can stop reading. Not
@@ -1000,6 +1054,9 @@ written down the pitch.
 ### Investment committee (IC)
 The group that approves investments. For a solo angel, the IC is you — which makes writing the
 memo the only check on your own enthusiasm.
+**Picture this:** a firm's IC meets Monday and three partners have to agree before money moves.
+Writing my own angel checks, nobody meets — so the memo is the committee. If I cannot write the
+anti-memo section honestly, I do not have an approval. I have a mood.
 
 ### Follow-on
 Investing again in a company you already own.
@@ -1017,6 +1074,9 @@ itself.
 ### Unicorn
 A company valued at $1B or more. The unit of measurement for whether an early investor got it
 right.
+**Picture this:** a seed investor puts $500K in at a $5M post-money for 10%. The company reaches
+$1B. Even diluted to 4% on the way there, that stake is worth about $40M — one position returning
+a whole small fund. This is the shape the power law actually pays for.
 
 ### Operator-angel
 An angel who built or ran something before writing checks. The dominant profile at the top.
@@ -1148,6 +1208,9 @@ company gets a pass, and saying it plainly is kinder than inventing a flaw.
 ### Product-market fit
 The point where the market pulls the product out of the company instead of the company pushing
 it out.
+**Picture this:** before — you send 40 outbound emails and get two demos. After — three people
+email you because a friend told them to, and your bottleneck is support tickets instead of lead
+generation. Nothing about the product changed that week.
 
 ### TAM
 *Total Addressable Market.* The whole revenue opportunity if you won everything.
@@ -1156,6 +1219,9 @@ least informative number in the deck.
 
 ### KPI
 The handful of metrics a company actually steers by.
+**Picture this:** a pre-seed trust product has no revenue to steer by, so the KPIs are the two
+numbers the founder checks on a Monday — weekly active conversations, and the share of users who
+come back after a bad interaction. Ask which two they look at first; the answer is the thesis.
 
 ### Retention / churn
 Whether people who started using it are still using it. The least gameable number a young company
@@ -1307,12 +1373,21 @@ every number in the portfolio is a mark rather than a result.
 
 ### Liquidity event
 Any moment shareholders can convert equity to cash.
+**Picture this:** an acquisition, an IPO, or a secondary where a growth fund buys your shares off
+you. Until one of those happens, a 10x on paper buys nothing. It is a mark — and marks are what
+RVPI is made of.
 
 ### M&A
 Another company buys this one. The most common exit by far.
+**Picture this:** a 40-person company is bought for $120M by a public competitor that wanted the
+team and the customer list. No bell, no roadshow, closed in four months. Most exits look like
+this. Almost none look like an IPO.
 
 ### IPO
 The company lists publicly. Rare, slow, and the outcome everyone talks about.
+**Picture this:** Nextdoor listed in November 2021 at a $4.3B mark. Four years on it trades in the
+mid-$2s against a $10 offer price. An IPO is a liquidity event, not a verdict — the verdict arrives
+after the lock-up.
 
 ### Secondary sale
 Selling your existing shares to another investor without the company raising anything.
@@ -1321,6 +1396,9 @@ near an IPO. You sell part of your stake to a growth fund and take real money of
 
 ### Lock-up period
 After an IPO, insiders can't sell for a set window — typically 90–180 days.
+**Picture this:** the IPO prices, your shares are finally public, and you cannot sell one of them
+for 180 days. Then the lock-up expires, everybody becomes a seller in the same week, and the price
+you read on listing day was never the price you were going to get.
 
 ### Acqui-hire
 An acquisition made mostly for the team, where the product is usually shut down.
