@@ -505,6 +505,16 @@ liability, not their influence.
 the $120M — their capital, plus 80% of the $20M profit. They picked the manager. They never
 picked company A or company J.
 
+### LP archetype
+A category of fund investor grouped by where the money came from and what they want for it —
+exited founders, family offices, alumni networks, tech executives, corporates, funds of funds.
+Naming them matters because the pitch changes per archetype, not per person.
+**Picture this:** VC Lab's rule is to target the archetypes where you already have *dozens* of
+first- and second-degree connections, and to treat sovereign wealth funds, endowments, insurance
+companies and pension funds as out of reach for a Fund I. My live archetype is alumni networks —
+Plug and Play, Grid110, Material Change — which is also where my dealflow comes from. One list,
+two uses, and an order worth keeping straight: deals first, money later.
+
 ### General Partner (GP)
 The entity that makes the investment decisions and carries unlimited liability for them. Earns
 carry.
@@ -538,6 +548,15 @@ A small group of LPs who advise the GP and vote on conflicts of interest.
 conflict the LPAC exists for — three or four of the fund's larger LPs look at it and vote. On a
 $10M fund the LPAC might be two people and a scheduled call.
 
+### Fiduciary duty
+The legal and ethical duty to put someone else's interests ahead of your own while managing
+their money. A GP owes it to the LPs. It is what makes a fund a stewardship business rather
+than an investing hobby.
+**Picture this:** in the ten-check fund the GP alone decides which companies get the LPs' $100M.
+Nothing mechanical stops them backing a friend — except this duty and the LPAC vote the LPA
+requires for a conflict. Writing my own angel checks I owe this duty to nobody, which is the
+cleanest statement of what changes the day I take outside money.
+
 ### Capital call
 The fund asking LPs to actually send money they've already committed. Capital is drawn down over
 years, not paid upfront.
@@ -569,6 +588,13 @@ serious and moves them out of polite conversation.
 **Picture this:** an LP has taken three calls and keeps saying "keep me posted." You send the PACT.
 They either sign it — soft-circling $250K, non-binding, but written down — or they do not, and one
 email has told you what six more coffees would not have.
+
+### Re-up
+An LP committing to the manager's *next* fund. The thing a first fund is really selling.
+**Picture this:** a $10M Fund I closed from 20 LPs at $100K–$500K each. If 15 of them re-up into
+Fund II, half the next raise is done before a single new name is approached. Which is why the LP
+sessions treat slow capital calls and back-channeling as warnings rather than irritations — they
+predict a lost re-up years before anyone says no.
 
 ### GP commit
 The GP's own money in the fund — usually about 1%. Skin in the game.
@@ -1064,6 +1090,16 @@ Investing again in a company you already own.
 seed at four times the price and offers you your pro-rata. The second check buys far less per
 dollar and is usually the better decision, because the first one was a read on a founder and this
 one is a read on eighteen months of evidence.
+
+### Portfolio construction
+How many companies a fund backs, how hard it diligences each one, and how much of the money is
+held back for the winners. Three standard shapes: **focused**, **dispersed**, **hybrid**.
+**Picture this:** focused is a handful of high-conviction checks, deep diligence, usually a board
+seat, and about **50% of the fund reserved** for follow-ons. Dispersed is many companies in one
+sector, light diligence, support by template, **10% or less** reserved. Hybrid sits between them.
+New managers with small funds routinely reserve nothing at all — the 50% figure is a large-fund
+habit, not a law. And the choice is partly a time budget, not a money one: dispersed means
+accepting that you cannot be useful to most of them.
 
 ### Reserves
 Money held back from the start for follow-ons.
