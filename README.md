@@ -7,7 +7,7 @@ the Founder Institute portal.
 |---|---|---|
 | — | [Home](https://vc-lab.vercel.app) | Where everything is, and how far along it is |
 | **Thesis** | [Thesis](https://vc-lab.vercel.app/thesis.html) | What I invest in, the path, the edge |
-| **Learn** | [Glossary](https://vc-lab.vercel.app/glossary.html) | 249 terms, each with a worked example and a deep dive |
+| **Learn** | [Glossary](https://vc-lab.vercel.app/glossary.html) | 256 terms, each with a worked example and a deep dive |
 | | [Curriculum](https://vc-lab.vercel.app/notes.html) | Every VC Lab session, in my words |
 | | [How a fund works](https://vc-lab.vercel.app/structure.html) | ManCo/GP/LP and the capital flow |
 | | [Drills](https://vc-lab.vercel.app/drills.html) | Waterfall calculator, scenarios, flashcards |
@@ -93,9 +93,9 @@ the term's own page at `/g/<term>` for the version worth sitting with.
 
 ### Studying it
 
-A **term of the day** sits at the top, the same one all day, cycling through all 249 before it
+A **term of the day** sits at the top, the same one all day, cycling through all 256 before it
 repeats. Mark anything **Learned** and the tracker fills — with a streak for consecutive days,
-milestone marks at 10/25/50/100/249, and a nudge pointing at whichever section is thinnest.
+milestone marks at 10/25/50/100/256, and a nudge pointing at whichever section is thinnest.
 
 The **🎲 dice** opens a random deep dive. It prefers terms marked learned a week ago and not opened
 since — reading the entry resets that clock — then terms not yet learned, then anything. The badge
@@ -150,13 +150,40 @@ No login needed.
 **WebFetch returns the redirect rather than following it cross-host** — fetch the `vcl.to` URL
 first, then fetch the govclab.com target it reports.
 
-Currently live: **Sprints 1–3, plus 4.3.** Everything else (`VI2-4`, `VI3-4`, `VI4-1/2/4`, and
-most of Sprints 5–8) returns a Rebrandly broken-link page. Sprints 5–8 run inside Decile Hub and
-may never have public articles.
+Currently live (checked 2026-09-30): **`VI1-1` through `VI1-4`, `VI2-1` through `VI2-3`, `VI3-1`
+through `VI3-3`**, plus the `VI7-2` exception below. Everything else — all of Sprint 0, `VI2-4`,
+`VI3-4`, all of Sprint 4, all of Sprints 5, 6 and 8, and `VI7-1/3/4` — returns a Rebrandly
+broken-link page. **The dead shortlink does not mean the article is gone** — see the table
+below.
+
+**A dead shortlink is not a dead article — check the sitemap before writing a session off.**
+`https://govclab.com/sitemap_index.xml` → `post-sitemap.xml` lists every published article (447 as
+of 2026-10-21), and the session articles carry their session number in the `<title>`, so a match is
+verifiable rather than guessed. Found that way, four sessions whose shortlinks are dead are fully
+public:
+
+| Session | Article | Shortlink |
+|---|---|---|
+| 3.4 Venture Allocation Strategies | `/2023/08/09/vc-models-focused-dispersed-and-hybrid/` | `VI3-4` dead |
+| 4.1 The Importance of Limited Partners | `/2023/08/16/the-importance-of-limited-partners/` | `VI4-1` dead |
+| 4.2 Limited Partner Archetypes | `/2023/08/16/lp-archetypes/` | `VI4-2` dead |
+| 4.3 Sourcing and Closing LPs | `/2023/08/16/sourcing-and-closing-limited-partners/` | `VI4-3` dead |
+| 4.4 Maintaining LP Relationships | `/2023/08/16/maintaining-lp-relationships/` | `VI4-4` dead |
+
+All five are summarized in `sprints/`. Only the Rebrandly redirect entries were removed; nothing
+was lost. Note that govclab.com **soft-404s**: a missing slug returns HTTP 200 with the site's
+generic homepage, so check the page title, not the status code.
+
+Still unresolved: **`VI2-4` (2.4 Venture Capital Roles)**. Two unnumbered Roles articles exist —
+`/2023/12/01/venture-capital-roles/` and `/2026/07/21/venture-roles/` (the latter is
+`vcl.to/roles`, already cited in `assignments/sprint-3-venture-careers.md`) — but neither carries a
+`2.4` title prefix, so neither can be confirmed as the session article. Sprints 5–8 have no
+session-numbered articles in the sitemap at all, consistent with those sprints running inside
+Decile Hub.
 
 **Exception:** `vcl.to/VI7-2` does **not** point to a govclab article — it redirects to a Google
-Doc *worksheet* (`docs.google.com/.../copy`) containing the Sprint 2 assignment sets. Not every
-working short link is an article; check where it actually lands.
+Doc *worksheet* (`docs.google.com/.../copy`) containing the Sprint 2 assignment sets. It is the
+one live short link that is not an article; check where each actually lands.
 
 ## VC Lab curriculum map
 
@@ -166,7 +193,7 @@ working short link is an article; check where it actually lands.
 | 1 | Introduction to VC Basics | ☑ |
 | 2 | Venture Capital Firm Structures | ☑ |
 | 3 | Venture Capital Performance | ☑ |
-| 4 | Finding and Closing Limited Partners | ☑ read-ahead |
+| 4 | Finding and Closing Limited Partners | ☑ read-ahead, all 4 sessions |
 | 5 | Venture Deals | ☐ prep only |
 | 6 | Venture Operations | ☐ prep only |
 | 7 | Venture Accounting | ☐ prep only |
