@@ -882,6 +882,15 @@ Actively finding companies rather than waiting.
 my alumni relationships across Plug and Play, Grid110, and Material Change are the asset, not a
 line on a bio.
 
+### Form D
+The short notice a company files with the SEC within 15 days of taking its first money in
+a private round. It is public, searchable, and free — so it is the one sourcing signal that tells
+you someone just raised without anyone telling you.
+**Picture this:** you filter EDGAR for Form D filings with a Washington State address from the last
+90 days. Three companies you have never heard of appear, one of them two blocks from CoMotion
+Labs. The filing gives you the amount sold, the date of first sale, and the names of the executive
+officers — and nothing about the product, so it is a lead, not a read.
+
 ### Due diligence
 Investigating before investing — team, market, product, numbers, references.
 **Picture this:** at pre-seed there's often no revenue to diligence. So you're mostly diligencing
@@ -1664,7 +1673,7 @@ of outcomes.
   the other side of the table. The deep dives on this site are my own writing, not theirs — read
   their pages for their version.
 - **[NVCA model documents](https://nvca.org/model-legal-documents/)** and
-  **[ILPA principles](https://ilpa.org/principles-3-0/)** — the standard paper for financings and
+  **[ILPA principles](https://ilpa.org/industry-guidance/principles-best-practices/)** — the standard paper for financings and
   for LP/GP terms
 - Primary sources cited on individual terms: Brad Feld on term sheets, Marc Andreessen on
   product-market fit, Paul Graham on default alive, Clayton Christensen on jobs to be done,
