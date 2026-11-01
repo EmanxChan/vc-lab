@@ -736,8 +736,9 @@ def build_proof(deals, term_count) -> None:
         # now a finished reference, so the bar tracks coverage of itself rather
         # than a stale number it passed 2.5x ago.
         ("Glossary", term_count, term_count, "glossary.html",
-         "Vocabulary built from the work — every term with a worked example, and a deep dive "
-         "on why it matters and where it goes wrong."),
+         "Vocabulary built from the work — each term with a plain-language definition and its "
+         "own deep dive on why it matters and where it goes wrong, and most with a worked "
+         "example using real numbers."),
     ]
 
     cards = []
