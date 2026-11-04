@@ -1,7 +1,7 @@
 ---
 term: European waterfall (whole-of-fund)
 related: american-waterfall-deal-by-deal, distribution-waterfall, clawback, the-same-fund-both-ways, carried-interest-carry
-sources: Institutional Limited Partners Association — principles | https://ilpa.org/principles-3-0/
+sources: Institutional Limited Partners Association — principles | https://ilpa.org/industry-guidance/principles-best-practices/
 ---
 
 ## Why it matters
