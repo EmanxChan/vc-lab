@@ -64,6 +64,47 @@ ask for, the category forms around them.
 Raised **$575K** from Geoff Ralston's Safe Artificial Intelligence Fund, Mighty Capital, Sourdough
 Ventures, Lionheart Ventures, AI House, and AI2 Incubator. Seed planned for later in 2026.
 
+## Update — 2026-10-28
+
+Three things moved between 2026-08-14 and today, and all three land on open questions in
+sections 5 and 8 below. Facts only; the judgement calls are still his.
+
+**A state regulator now requires OVERT receipts.** Glacis signed a memorandum of understanding
+with Utah's Office of Artificial Intelligence Policy on 2026-08-10, announced 2026-10-05. Signed
+receipts are a condition of initial and continued participation in Utah's AI Learning Laboratory
+for vendors and systems OAIP designates, with a receipt required for each covered inference or
+safety-control evaluation. Twelve-month term. Glacis is also one of six outside evaluators Utah
+named for its health-AI sandbox. Caveat: nearly all of the detail comes from the company's own
+release, and OAIP's evaluator page confirms the MOU and its term but not the terms themselves.
+
+**OVERT is moving out of Glacis's control, on purpose.** Announced 2026-09-21: CHAI (the Coalition
+for Health AI, 3,000+ members) and the Seattle nonprofit AIGovOps Foundation will jointly steward
+the standard, with Glacis as a **non-voting editor** still maintaining the spec and running the
+registry. Not yet in effect — it starts on a commencement certificate signed by all three.
+Braidwood: "We built it for everyone to use, our competitors included." The spec is at OVERT 1.1,
+published June 2026.
+
+**Lloyd's Lab.** Glacis was selected as one of ten companies in the latest Lloyd's Lab accelerator
+cohort — insurance-side validation of one of the four buyers named in section 4.
+
+Two open items from this check:
+
+- **No seed announced.** Section 4 said "seed planned for later in 2026." Still the case as of
+  today; no round has been made public. The site lists Plug and Play itself among the backers now,
+  which was not in the August read.
+- **Rohit Tatachar is not on the team page.** glacis.io/about currently lists two founders —
+  Braidwood and Shannon — plus six advisors, and no CTO. That may be a stale page rather than a
+  departure, and it is not something to infer from a website. Ask directly; section 8's last
+  bullet is exactly this question.
+
+**Name collision to avoid.** "Glacis Labs" is an unrelated New York crypto company that raised a
+$6.8M seed led by Lightspeed Faction in July 2026. Any search for Glacis funding will surface it.
+
+Sources: [Utah MOU release](https://www.prnewswire.com/news-releases/glacis-announces-utah-agreement-to-require-verifiable-ai-receipts-for-designated-sandbox-systems-302898065.html)
+· [OVERT stewardship release](https://www.prnewswire.com/news-releases/glacis-to-place-overt-its-open-standard-for-verifying-ai-safeguards-under-chai-and-aigovops-foundation-stewardship-302884276.html)
+· [glacis.io/about](https://www.glacis.io/about) · [unite.ai on the Utah requirement](https://www.unite.ai/utah-ai-office-requires-signed-receipts-for-designated-sandbox-systems/)
+
+
 ## 5. Thesis fit
 
 _Mine to write. The case to test: the thesis is AI that rebuilds human trust. Glacis does not
