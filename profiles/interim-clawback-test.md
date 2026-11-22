@@ -1,7 +1,7 @@
 ---
 term: Interim clawback test
 related: clawback, american-waterfall-deal-by-deal, escrow-carry-holdback, distribution-waterfall
-sources: Institutional Limited Partners Association — principles | https://ilpa.org/principles-3-0/
+sources: Institutional Limited Partners Association — principles | https://ilpa.org/industry-guidance/principles-best-practices/
 ---
 
 ## Why it matters

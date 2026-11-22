@@ -1,7 +1,7 @@
 ---
 term: Capital call
 related: committed-capital, contributed-capital-paid-in, dry-powder, limited-partner-lp, the-fund
-sources: Institutional Limited Partners Association — principles | https://ilpa.org/principles-3-0/
+sources: Institutional Limited Partners Association — principles | https://ilpa.org/industry-guidance/principles-best-practices/
 ---
 
 ## Why it matters

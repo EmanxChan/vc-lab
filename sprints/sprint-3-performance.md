@@ -45,4 +45,45 @@ Source: https://govclab.com/2023/08/09/venture-fund-metrics (`vcl.to/VI3-3`)
 **Rule of thumb:** TVPI shows the size of the outcome, DPI shows how much of it is real, IRR
 shows how fast you got there. Never read IRR alone.
 
+## 3.4 — Venture Allocation Strategies
+Source: https://govclab.com/2023/08/09/vc-models-focused-dispersed-and-hybrid/
+(`vcl.to/VI3-4` is a dead shortlink; the article itself is live)
+
+Three ways to build a portfolio out of the same pool of money.
+
+| Model | How many companies | Diligence per company | Support | Follow-on reserve |
+|---|---|---|---|---|
+| **Focused** | A few, high conviction | Deep | Board seat, hands on | ~50% of the fund |
+| **Dispersed** | Many, one sector | Light | Templates, mostly automated | 10% or less |
+| **Hybrid** | A medium number | Moderate | Advisory board, ad hoc | In between |
+
+**Focused** trades diversification for conviction — the upside is that the manager's expertise
+actually gets used, the downside is that the manager is also the single point of failure.
+**Dispersed** buys the sector rather than the company, and accepts that it cannot help any of
+them much. **Hybrid** is the balance, at the cost of having to stay expert in more than one thing.
+
+The article also says plainly that new managers with small funds often cannot reserve for
+follow-on at all. That is worth writing down because the 50% figure gets quoted as if it were a
+law.
+
+### Note to self
+I am not choosing a model yet — I write personal checks and have no reserves to allocate. But
+the question underneath it is live right now: **how many companies can I actually be useful to?**
+That is a number about my time, not my capital, and it is the honest constraint on an angel.
+
+The answer my own data suggests is Focused, and not because I picked it. I screened 29 companies
+from the three Seattle batches and one survived to diligence. A filter that narrow cannot produce
+a dispersed portfolio — there is not enough that passes. So I get the Focused model's upside
+(every company is one I have a point of view about) and its risk (low diversification) whether or
+not I ever write it down as a strategy.
+
+Which is the same open question already sitting at the bottom of `thesis.md`: does a
+trust-and-belonging filter select for or against outlier outcomes? This session names the cost of
+being concentrated. It does not tell me whether my particular concentration is the good kind.
+
+## Questions to bring to the live sessions
+- [ ] For an angel writing ten checks, is "model" even the right frame, or is it just thesis
+      plus how much time I have?
+- [ ] Focused managers take board seats. What is the pre-seed angel equivalent of that leverage?
+
 → Assignment: [`assignments/sprint-3-fund-performance.md`](../assignments/sprint-3-fund-performance.md)

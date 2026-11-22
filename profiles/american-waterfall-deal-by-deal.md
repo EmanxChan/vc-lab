@@ -1,7 +1,7 @@
 ---
 term: American waterfall (deal-by-deal)
 related: european-waterfall-whole-of-fund, clawback, interim-clawback-test, escrow-carry-holdback, the-same-fund-both-ways
-sources: Institutional Limited Partners Association — principles | https://ilpa.org/principles-3-0/
+sources: Institutional Limited Partners Association — principles | https://ilpa.org/industry-guidance/principles-best-practices/
 ---
 
 ## Why it matters
